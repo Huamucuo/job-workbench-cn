@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{const status=document.querySelector('#copy-status');try{await navigator.clipboard.writeText(button.dataset.copy);status.textContent='已复制：'+button.dataset.copy;}catch{status.textContent='浏览器未允许复制，请选中上方地址后手工复制。';}}));

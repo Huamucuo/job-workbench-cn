@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="description" content="中文优先的开源求职工作台。搜索真实官方招聘信息，组合筛选薪资，在本机记录求职进度。">
+ <meta name="referrer" content="no-referrer">
+ <title>职有引力 · 求职工作台</title>
+ <link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css">
+ <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+ <a class="skip" href="#results">跳到职位列表</a>
+ <aside class="sidebar">
+  <a class="brand" href="./"><span class="brand-symbol">↗</span><span>职有引力<small>开源求职工作台</small></span></a>
+  <div class="nav-label">我的求职空间</div>
+  <nav aria-label="主导航">
+   <a class="nav-item" href="./autofill-start.html"><span>➜</span>开始自动填写 / 安装扩展</a>
+   <a class="nav-item" href="./profile.html"><span>◈</span>统一求职档案</a>
+   <a class="nav-item" href="./autofill/lab/index.html"><span>↗</span>自动填写验收</a>
+   <button class="nav-item active" data-view="jobs"><span>⌕</span>发现机会</button>
+   <button class="nav-item" data-view="saved"><span>☆</span>我的收藏 <b id="saved-count">0</b></button>
+   <button class="nav-item" data-view="tracked"><span>▤</span>投递进度 <b id="tracked-count">0</b></button>
+   <button class="nav-item" data-view="sources"><span>◎</span>数据来源</button>
+  </nav>
+  <div class="nav-label saved-title">已保存的筛选</div>
+  <div id="saved-searches" class="saved-searches"><p class="muted small">把常用条件存下来，<br>下次不用重新选。</p></div>
+  <div class="sidebar-bottom">
+   <div class="privacy-card"><span class="privacy-icon">◈</span><strong>你的记录，留在本机</strong><p>收藏、标签与投递进度<br>无需注册，不上传服务器。</p></div>
+   <button class="nav-item" data-view="local"><span>⇅</span>本机数据与备份</button>
+   <button class="nav-item" data-view="help"><span>?</span>使用说明</button>
+   <div class="version">免费 · 开源 · v0.2.1 填写原型</div>
+  </div>
+ </aside>
+ <main>
+  <header class="topbar"><span>求职工作台 <span class="crumb">/</span> <span id="view-title">发现机会</span></span><span class="local-badge"><i></i> 本机优先 · 无需登录</span></header>
+  <section id="workspace">
+   <section class="hero">
+    <div><span class="eyebrow">下一程，认真选。</span><h1>好机会，值得有据可查<span>。</span></h1><p>统一维护求职档案，核对后自动填写；继续搜索真实岗位、筛选薪资与记录进度。</p></div>
+    <div class="hero-mark" aria-hidden="true"><span>CAREER<br>COMPASS</span><b>↗</b><small>让方向更清晰</small></div>
+   </section>
+   <section class="autofill-entry" aria-label="开始自动填写"><div><strong>重复的资料，只整理一次。</strong><p>扩展需要安装到你日常使用的 Edge。跟着指引找到真正的填写按钮。</p></div><div><a class="primary" href="./autofill-start.html#install">安装扩展</a><a class="secondary" href="./autofill-start.html#fill">开始自动填写 →</a></div></section>
+   <div class="stats" id="stats" aria-label="数据概览"></div>
+   <section class="search-section" aria-label="搜索职位">
+    <form id="search-form"><span class="search-icon" aria-hidden="true">⌕</span><input id="search" type="search" maxlength="300" placeholder="搜索岗位、公司或城市，例如：工程师 北京" aria-label="搜索岗位、公司或城市"><button class="primary" type="submit">搜索机会 <span>↗</span></button></form>
+    <div class="quick-filters"><span>快捷发现</span><button data-quick="mainland">中国大陆</button><button data-quick="salary">薪资已披露</button><button data-quick="deadline">7 日内截止</button><button data-quick="unknown">含待核验公告</button><span class="update-stamp" id="updated-at">正在载入真实数据…</span></div>
+   </section>
+   <div id="load-error" class="notice error" hidden></div>
+   <div class="board">
+    <aside class="filters-shell">
+     <button id="mobile-filters" class="mobile-filter-toggle" aria-expanded="false">组合筛选 <span>展开 ↓</span></button>
+     <form id="filters" class="filters">
+      <div class="filter-head"><h2>组合筛选</h2><button type="button" class="text-button" id="reset-filters">重置</button></div>
+      <div class="filter-scroll">
+       <section><h3>企业类型</h3><div id="company-options" class="check-chips"></div></section>
+       <section><h3>工作地区</h3><div id="region-options" class="check-chips"></div><label class="field">城市 / 地区<input name="location" placeholder="例如：北京、新加坡" maxlength="100"></label></section>
+       <section class="salary-section"><div class="section-label"><h3>薪资待遇</h3><span>原币种 · 原周期</span></div>
+        <label class="field">披露情况<select name="salaryDisclosure"><option value="">全部薪资</option><option value="disclosed">已披露数字</option><option value="negotiable">面议</option><option value="undisclosed">未披露</option></select></label>
+        <div class="field-pair"><label class="field">币种<select name="currency"><option value="">全部币种</option><option value="CNY">CNY 人民币</option><option value="USD">USD 美元</option><option value="EUR">EUR 欧元</option><option value="GBP">GBP 英镑</option><option value="CAD">CAD 加元</option><option value="AUD">AUD 澳元</option><option value="SGD">SGD 新元</option><option value="HKD">HKD 港币</option><option value="INR">INR 卢比</option><option value="JPY">JPY 日元</option><option value="CHF">CHF 瑞郎</option></select></label>
+         <label class="field">计薪周期<select name="period"><option value="">全部周期</option><option value="month">月薪</option><option value="year">年薪</option><option value="hour">时薪</option><option value="day">日薪</option><option value="unknown">未披露周期</option></select></label></div>
+        <label class="field">薪资区间（元，按所选币种）</label><div class="range-fields"><input type="number" min="0" step="any" name="salaryMin" placeholder="最低金额" aria-label="薪资最低金额"><span>—</span><input type="number" min="0" step="any" name="salaryMax" placeholder="最高金额" aria-label="薪资最高金额"></div>
+        <label class="field">匹配方式<select name="salaryMode"><option value="overlap">区间有交集</option><option value="floor">岗位薪资下限达标</option></select></label>
+        <div class="field-pair"><label class="field">薪酬构成<select name="salaryKind"><option value="">默认 Salary</option><option value="salary">来源 Salary</option><option value="ote">OTE 目标收入</option></select></label><label class="field">每年发薪月数<select name="payMonths"><option value="">全部 / 未披露</option><option value="12">12 薪</option><option value="13">13 薪</option><option value="14">14 薪</option><option value="15">15 薪</option><option value="16">16 薪</option></select></label></div>
+        <p class="hint">金额须选明确币种和周期。多地点岗位同时筛选城市与薪资时，仅匹配明确命名该地点的薪档；无对应依据会被排除。不换汇、不推算月薪。</p>
+       </section>
+       <details class="advanced" open><summary>学历与求职条件</summary>
+        <label class="field">学历要求<select name="education"><option value="">全部学历</option><option>高中及以下</option><option>中专</option><option>大专</option><option>本科</option><option>硕士</option><option>博士</option><option>学历不限</option><option>未披露</option></select></label>
+        <label class="field">专业<input name="major" placeholder="按来源披露的专业匹配" maxlength="100"></label>
+        <div class="field-pair"><label class="field">毕业届别<input type="number" name="graduationYear" min="1980" max="2100" placeholder="例如 2027"></label><label class="field">工作经验<select name="experience"><option value="">全部经验</option><option>无经验</option><option>1-3年</option><option>3-5年</option><option>5-10年</option><option>10年以上</option><option>经验不限</option><option>未披露</option></select></label></div>
+        <label class="field">招聘类型<select name="recruitmentTypes"><option value="">全部类型</option><option>校招</option><option>社招</option><option>实习</option><option>未披露</option></select></label>
+        <div class="field-pair"><label class="field">工作制度<select name="workSchedules"><option value="">全部制度</option><option>双休</option><option>单休</option><option>大小周</option><option>轮班</option><option>弹性</option><option>未披露</option></select></label><label class="field">办公方式<select name="workplaceTypes"><option value="">全部方式</option><option>现场办公</option><option>混合办公</option><option>远程</option><option>分布式（原文）</option><option>未披露</option></select></label></div>
+        <p class="hint">未披露 ≠ 不限；远程 ≠ 可在中国办公。</p>
+       </details>
+       <details class="advanced"><summary>时间与报名状态</summary>
+        <label class="field">招聘状态<select name="status"><option value="active">核验时在招 / 公告期内</option><option value="">全部状态（含待核验）</option><option value="unknown">待核验</option><option value="stale">核验已过期</option><option value="not_started">尚未开始</option><option value="expired">已截止</option><option value="removed">来源已下架</option></select></label>
+        <label class="field">发布于（北京时间）<input type="date" name="publishedAfter" aria-label="发布时间开始"></label><label class="field">发布至<input type="date" name="publishedBefore" aria-label="发布时间结束"></label>
+        <label class="field">截止于（北京时间）<input type="date" name="deadlineAfter" aria-label="截止时间开始"></label><label class="field">截止至<input type="date" name="deadlineBefore" aria-label="截止时间结束"></label>
+        <label class="field">即将截止<select name="deadlineDays"><option value="">不限制</option><option value="7">未来 7 天</option><option value="30">未来 30 天</option></select></label>
+       </details>
+       <details class="advanced"><summary>我的标签与进度</summary><label class="field">标签<input name="tag" placeholder="系统或自定义标签" maxlength="80"></label><label class="field">投递进度<select name="stage" id="stage-filter"><option value="">全部进度</option></select></label></details>
+      </div>
+      <div class="filter-actions"><p id="filter-error" role="alert" hidden></p><button type="submit" class="primary">应用筛选</button><button type="button" id="save-search" class="secondary">＋ 保存条件</button></div>
+     </form>
+    </aside>
+    <section id="results" class="results" tabindex="-1">
+     <div class="results-toolbar"><h2 id="result-count" aria-live="polite">正在载入…</h2><label class="sort-label">排序 <select id="sort"><option value="recommended">国内优先 · 最新发布</option><option value="newest">最新发布</option><option value="deadline">即将截止</option><option value="verified">最近核验</option></select></label></div>
+     <div id="active-filters" class="active-filters"></div>
+     <div class="coverage-note" id="coverage-note"></div>
+     <div id="job-list" class="job-list"></div>
+     <div id="pagination" class="pagination"></div>
+     <p class="results-foot">每个机会都有出处。信息以官方最新公告为准，跳转不会自动投递。</p>
+    </section>
+   </div>
+  </section>
+  <section id="other-view" class="other-view" hidden></section>
+  <footer class="page-footer">职有引力 · 源码 MIT 开源 <span>中文优先 / 个人记录仅保存在当前浏览器</span></footer>
+ </main>
+ <dialog id="detail-dialog" class="detail-dialog"><div id="detail-content"></div></dialog>
+ <dialog id="action-dialog" class="action-dialog"><form method="dialog"><h2 id="action-title"></h2><p id="action-message"></p><label id="action-input-label" class="field" hidden>名称<input id="action-input" maxlength="80"></label><div class="dialog-actions"><button class="secondary" value="cancel">取消</button><button class="primary" id="action-confirm" value="confirm">确认</button></div></form></dialog>
+ <input type="file" id="import-file" accept="application/json,.json" hidden>
+ <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+ <noscript><div class="notice error">请启用浏览器 JavaScript，以使用本机搜索与筛选。所有职位数据在 data/jobs.json 中。</div></noscript>
+</body></html>

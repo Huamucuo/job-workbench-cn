@@ -1,0 +1,10 @@
+{
+  "publicReleaseApproved": false,
+  "operatorAndJurisdictionReviewed": false,
+  "telecomAndRecruitmentRequirementsReviewed": false,
+  "privacyAndLogsReviewed": false,
+  "mainlandAccessTested": false,
+  "complaintsContact": null,
+  "evidenceDocument": "docs/DEPLOYMENT-GATE.md",
+  "notes": "技术交付为本机研究版。取得并记录来源使用依据、实际运营适用结论及真实网络验收后，负责人按文档修改，不能仅为绕过门禁设为 true。"
+}

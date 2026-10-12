@@ -1,0 +1,24 @@
+{
+  "name": "job-workbench-cn",
+  "version": "0.3.0",
+  "private": true,
+  "description": "中文优先、本机保存个人记录的开源求职工作台",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/build.mjs",
+    "build:extension": "node scripts/build-extension.mjs",
+    "check": "node scripts/check.mjs",
+    "build:public": "node scripts/build.mjs --public",
+    "update": "node scripts/update-jobs.mjs",
+    "update:research": "node scripts/update-jobs.mjs --research",
+    "package:extension": "node scripts/package-extension.mjs",
+    "prepare:local": "node scripts/prepare-local.mjs"
+  }
+}

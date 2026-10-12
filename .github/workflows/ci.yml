@@ -1,0 +1,32 @@
+name: Offline tests and source build
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+      - run: npm run prepare:local
+      - run: node scripts/syntax-check.mjs
+      - run: npm test
+      - run: npm run validate
+      - run: npm run build:extension
+      - run: npm run package:extension
+      - run: npm run build
+      - name: Public deployment gate must remain closed
+        run: |
+          node --input-type=module -e "import {spawnSync} from 'node:child_process'; const r=spawnSync(process.execPath,['scripts/build.mjs','--public'],{encoding:'utf8'}); if(r.status!==2)process.exit(1); console.log('Deployment gate remains closed');"

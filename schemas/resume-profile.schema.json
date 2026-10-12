@@ -1,0 +1,523 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:job-workbench:resume-profile:v2",
+  "title": "统一求职档案 v2（仅本机，禁止提交真实数据到仓库）",
+  "description": "统一档案 v2 的 v0.3.0 扩展：可选出生日期、日期精度和加密来源记录。运行时额外验证真实日历、起止顺序、ID唯一性、来源关联、整体大小与联系方式。旧 v2 可读；旧程序不保证读取含新字段的文件。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileId",
+    "updatedAt",
+    "isFictional",
+    "contact",
+    "education",
+    "internships",
+    "work",
+    "projects",
+    "skills",
+    "certificates"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "profileId": {
+      "type": "string",
+      "pattern": "^[\\w-]{1,80}$"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "isFictional": {
+      "type": "boolean"
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "givenName",
+        "familyName",
+        "email",
+        "phone",
+        "city",
+        "website"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "givenName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "familyName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "website": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "gender": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "可选，旧 v2 缺失时迁移为空；不从其他资料推测"
+        },
+        "politicalStatus": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "可选，旧 v2 缺失时迁移为空；不从其他资料推测"
+        },
+        "province": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "可选，旧 v2 缺失时迁移为空；不从其他资料推测"
+        },
+        "district": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "可选，旧 v2 缺失时迁移为空；不从其他资料推测"
+        },
+        "birthDate": {
+          "type": "string",
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$",
+          "description": "只保存明确提供的信息，保持年份/年月/完整日期精度"
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "$ref": "#/$defs/education"
+      }
+    },
+    "internships": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "$ref": "#/$defs/internships"
+      }
+    },
+    "work": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "$ref": "#/$defs/work"
+      }
+    },
+    "projects": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "$ref": "#/$defs/projects"
+      }
+    },
+    "skills": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "$ref": "#/$defs/skills"
+      }
+    },
+    "certificates": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "$ref": "#/$defs/certificates"
+      }
+    },
+    "importData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "sources",
+        "fields",
+        "unresolved"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "sources": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "type",
+              "text",
+              "warnings",
+              "importedAt"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "name": {
+                "type": "string",
+                "maxLength": 240
+              },
+              "type": {
+                "enum": [
+                  "docx",
+                  "pdf"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "maxLength": 60000
+              },
+              "warnings": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "importedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sourceId",
+              "line",
+              "page",
+              "quote",
+              "confidence",
+              "reason",
+              "reviewed",
+              "edited"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(contact\\.[a-zA-Z]+|(?:education|internships|work|projects|skills|certificates)\\.[\\w-]{1,80}\\.[a-zA-Z]+)$"
+              },
+              "sourceId": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "line": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 60000
+              },
+              "page": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 60000
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 300
+              },
+              "confidence": {
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 200
+              },
+              "reviewed": {
+                "type": "boolean"
+              },
+              "edited": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "unresolved": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sourceId",
+              "line",
+              "page",
+              "text",
+              "reason"
+            ],
+            "properties": {
+              "sourceId": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "line": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 60000
+              },
+              "page": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 60000
+              },
+              "text": {
+                "type": "string",
+                "maxLength": 3000
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 200
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "education": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "school",
+        "degree",
+        "major",
+        "startDate",
+        "endDate"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "school": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "degree": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "major": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "startDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "endDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        }
+      }
+    },
+    "internships": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "organization",
+        "title",
+        "startDate",
+        "endDate",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "organization": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "startDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "endDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 6000
+        }
+      }
+    },
+    "work": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "organization",
+        "title",
+        "startDate",
+        "endDate",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "organization": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "startDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "endDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 6000
+        }
+      }
+    },
+    "projects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "role",
+        "startDate",
+        "endDate",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "startDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "endDate": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 6000
+        }
+      }
+    },
+    "skills": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "level"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "level": {
+          "type": "string",
+          "maxLength": 200
+        }
+      }
+    },
+    "certificates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "issuer",
+        "date"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "issuer": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "date": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        }
+      }
+    }
+  }
+}
