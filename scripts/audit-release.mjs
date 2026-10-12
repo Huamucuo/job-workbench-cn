@@ -32,7 +32,7 @@ for(const a of assets)for(const location of ['public/'+a.path,'extension/'+a.pat
 }
 const manifest=JSON.parse(await readFile(resolve(root,'extension/manifest.json'),'utf8'));
 report.permissions={actual:manifest.permissions,hostPermissions:manifest.host_permissions||[],externallyConnectable:manifest.externally_connectable||null,contentScripts:manifest.content_scripts};
-if(JSON.stringify(manifest.permissions)!==JSON.stringify(['activeTab','scripting','storage'])||manifest.host_permissions?.length||manifest.externally_connectable)report.findings.push({where:'extension/manifest.json',rule:'unexpected-permission'});
+if(JSON.stringify(manifest.permissions)!==JSON.stringify(['activeTab','scripting','storage','sidePanel'])||manifest.side_panel?.default_path!=='sidepanel.html'||manifest.host_permissions?.length||manifest.externally_connectable)report.findings.push({where:'extension/manifest.json',rule:'unexpected-permission'});
 const gates=JSON.parse(await readFile(resolve(root,'config/release.json'),'utf8'));report.publicReleaseGate=gates.publicReleaseApproved;
 if(gates.publicReleaseApproved!==false)report.findings.push({where:'config/release.json',rule:'public-release-gate-open'});
 const registry=JSON.parse(await readFile(resolve(root,'sources/registry.json'),'utf8'));report.sources=registry.map(s=>({id:s.id,automatedAllowed:s.automatedAllowed,redistributionAllowed:s.redistributionAllowed,permissionEvidence:s.permissionEvidence}));

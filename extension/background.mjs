@@ -1,10 +1,13 @@
 import {GrantRegistry,CanonicalStore,isTrustedWorkbenchSender,assertKey,WORKBENCH_ORIGIN} from './bridge-policy.mjs';
+import {handleSessionMessage} from './session-controller.mjs';
 const grants=new GrantRegistry(),local={get:async key=>(await chrome.storage.local.get(key))[key]??null,setMany:patch=>chrome.storage.local.set(patch)},canonical=new CanonicalStore(local);
 const ready=(async()=>{await chrome.storage.local.setAccessLevel({accessLevel:'TRUSTED_CONTEXTS'});await chrome.storage.session.setAccessLevel({accessLevel:'TRUSTED_CONTEXTS'});grants.restore((await chrome.storage.session.get('workbenchGrants')).workbenchGrants);})();
 const persist=()=>chrome.storage.session.set({workbenchGrants:grants.snapshot()});
 function trustedExtension(sender){return sender.id===chrome.runtime.id&&typeof sender.url==='string'&&sender.url.startsWith(chrome.runtime.getURL(''));}
 async function handle(m,sender){
- await ready;if(!m||m.protocol!=='job-beta-v1'||typeof m.type!=='string'||JSON.stringify(m).length>5700000)throw new Error('连接请求格式错误或过大');
+ await ready;
+ if(m?.protocol==='job-session-v1')return handleSessionMessage(m,sender);
+ if(!m||m.protocol!=='job-beta-v1'||typeof m.type!=='string'||JSON.stringify(m).length>5700000)throw new Error('连接请求格式错误或过大');
  const control=trustedExtension(sender);if(!control&&!isTrustedWorkbenchSender(sender))throw new Error('只允许已核对的本机工作台连接');
  if(m.type==='control:status'&&control){const [tab]=await chrome.tabs.query({active:true,currentWindow:true});if(!tab)return {pending:null};const r=grants.records.get(tab.id);return {pending:r&&{...r,origin:WORKBENCH_ORIGIN},connectedTabs:grants.snapshot().filter(r=>r.expiresAt>Date.now()).map(r=>r.tabId)};}
  if(m.type==='control:grant'&&control){const tab=await chrome.tabs.get(m.tabId);if(!isTrustedWorkbenchSender({url:tab.url,tab,frameId:0}))throw new Error('目标标签页已经改变，未批准连接');const granted=grants.approve(m.tabId,m.nonce);await persist();return {connected:true,expiresAt:granted.expiresAt};}

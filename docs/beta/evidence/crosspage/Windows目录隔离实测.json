@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-13T03:11:34.5018344+08:00",
+  "bundle": "C:\\Users\\ASUS\\.codex\\.chatgpt-projects\\g-p-6ac9ec510b5881919595552d528cc3bd\\job-beta\\release\\求职工作台-Beta-0.4.1-rc.1",
+  "checks": [
+    {
+      "name": "owned release starts",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "same directory safely reuses the same service",
+      "passed": true,
+      "details": 53136
+    },
+    {
+      "name": "another directory cannot silently open the wrong Beta copy",
+      "passed": true,
+      "details": {
+        "exitCode": 1,
+        "message": "另一份Beta工作台正在运行。请用它自己的停止工作台.exe关闭，再打开当前目录，避免用错安装文件夹。"
+      }
+    },
+    {
+      "name": "copied PID record cannot stop a service from another directory",
+      "passed": true,
+      "details": 53136
+    }
+  ],
+  "passed": true
+}

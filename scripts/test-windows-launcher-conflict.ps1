@@ -1,7 +1,7 @@
 ﻿param([string]$Bundle = '')
 $ErrorActionPreference = 'Stop'
 $launcherProjectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-if (-not $Bundle) { $Bundle = Join-Path $launcherProjectRoot 'release\求职工作台-Beta-0.4.0-rc.1' }
+if (-not $Bundle) { $Bundle = Join-Path $launcherProjectRoot 'release\求职工作台-Beta-0.4.1-rc.1' }
 $launcherBundleRoot = [IO.Path]::GetFullPath($Bundle)
 $conflictRoot = Join-Path $launcherProjectRoot ('.local\launcher-conflict-' + [Guid]::NewGuid().ToString('N'))
 $launcherUrl = 'http://127.0.0.1:47841'

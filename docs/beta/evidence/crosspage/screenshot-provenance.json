@@ -1,0 +1,32 @@
+{
+  "crosspage-start.png": {
+    "original": "DS01-real-popup-enabled.png",
+    "sha256": "9babdf10b49d44e68e2f785ae646926f3dfa77b9c2c9e968e35995ff37461d20",
+    "unaltered": true
+  },
+  "crosspage-preview.png": {
+    "original": "CP03-contact-protected-prefill-preview.png",
+    "sha256": "948d20d935b0aecb5eaeca142a5b7ac7281eacd96dbd2cbe880f4525cf17708f",
+    "unaltered": true
+  },
+  "crosspage-education.png": {
+    "original": "CP06-education-two-records.png",
+    "sha256": "e777ff28fbad902aa846c31913bab8bcf93fe37ffbb079ceb83042885750436a",
+    "unaltered": true
+  },
+  "crosspage-work.png": {
+    "original": "CP10-work-internships-projects-two-each.png",
+    "sha256": "20c7b578862dd6990de19b3e67173f04087c1bef508930f55a5e145b855480c7",
+    "unaltered": true
+  },
+  "crosspage-paused.png": {
+    "original": "CX07-B-refused.png",
+    "sha256": "f257de92a12a801a7ae1f30969d637932e5ff5d8cea7edc69bffdac8e8e32d52",
+    "unaltered": true
+  },
+  "crosspage-edit.png": {
+    "original": "delivery-screens-1791832098758/DS02-options-contact-card.png",
+    "sha256": "ed9a4740934967093d15a97295c271431111f063d957048d54ab3e58f93e1630",
+    "unaltered": true
+  }
+}

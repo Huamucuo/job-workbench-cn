@@ -1,9 +1,71 @@
 (()=>{
 'use strict';
-if(globalThis.JobAutofillEngine?.version==='0.4.0')return;
+if(globalThis.JobAutofillEngine?.version==='0.4.1')return;
 const R=globalThis.JobAutofillRules;
 let session=null,preparing=false;
 const pendingAdds=new Map();
+const cancelledOperations=new Map(),operationTTL=120000,operationLimit=512;
+let cancellationSaturatedUntil=0;
+const operationIdPattern=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+function pruneCancelled(now){for(const [id,until]of cancelledOperations)if(until<=now)cancelledOperations.delete(id);}
+function cancelOperation(operationId){
+ if(typeof operationId!=='string'||!operationIdPattern.test(operationId))return false;
+ const now=Date.now();pruneCancelled(now);
+ // Never evict an unexpired cancellation. A flood fails closed for its bounded
+ // lifetime instead of allowing a previously cancelled operation to revive.
+ if(cancelledOperations.size>=operationLimit&&!cancelledOperations.has(operationId))cancellationSaturatedUntil=Math.max(cancellationSaturatedUntil,now+operationTTL);
+ else cancelledOperations.set(operationId,now+operationTTL);
+ return true;
+}
+function createOperation(guard){
+ if(guard===undefined)return null;
+ const now=Date.now(),keys=guard&&typeof guard==='object'&&!Array.isArray(guard)?Object.keys(guard):[];
+ if(keys.length!==3||!['operationId','contextKey','expiresAt'].every(k=>keys.includes(k))||
+    typeof guard.operationId!=='string'||!operationIdPattern.test(guard.operationId)||
+    typeof guard.contextKey!=='string'||guard.contextKey!==''&&!/^sha256:[a-f0-9]{64}$/.test(guard.contextKey)||
+    !Number.isFinite(guard.expiresAt)||guard.expiresAt<=now||guard.expiresAt>now+operationTTL)throw new Error('操作守卫无效或过期，已拒绝填写');
+ if(typeof globalThis.JobAutofillPageWatcher?.read!=='function'||typeof globalThis.JobAutofillPageWatcher?.matchesContext!=='function')throw new Error('页面观察器不可用，已拒绝本次操作');
+ return {operationId:guard.operationId,contextKey:guard.contextKey,expiresAt:guard.expiresAt,href:location.href,currentWrote:false};
+}
+function immediateStop(operation){
+ const now=Date.now();pruneCancelled(now);
+ if(cancelledOperations.has(operation.operationId)||now<cancellationSaturatedUntil)return '本次操作已取消，已停止后续操作；此前内容请人工核对';
+ if(now>=operation.expiresAt)return '本次操作已过期，已停止后续操作；此前内容请人工核对';
+ if(location.href!==operation.href)return '页面已导航，已停止后续操作；此前内容请人工核对';
+ return '';
+}
+async function operationReason(operation){
+ if(!operation)return '';
+ if(operation.stopReason)return operation.stopReason;
+ const stop=reason=>operation.stopReason=reason;
+ const stopped=immediateStop(operation);if(stopped)return stop(stopped);
+ try{
+  const current=await globalThis.JobAutofillPageWatcher.read();
+  const after=immediateStop(operation);if(after)return stop(after);
+  if(current?.url!==operation.href)return stop('页面已导航，已停止后续操作；此前内容请人工核对');
+  if(!current||current.contextKey!==operation.contextKey||globalThis.JobAutofillPageWatcher.matchesContext(operation.contextKey)!==true)return stop('申请标识已变化，已停止后续操作；此前内容请人工核对');
+ }catch{return stop('页面观察器检查失败，已停止后续操作；此前内容请人工核对');}
+ return '';
+}
+async function requireOperation(operation){
+ const reason=await operationReason(operation);
+ if(reason){const error=new Error(reason);error.operationStop=true;throw error;}
+}
+function stopOperation(operation,reason){
+ operation.stopReason ||= reason;
+ const error=new Error(operation.stopReason);error.operationStop=true;throw error;
+}
+function synchronousOperation(operation){
+ if(!operation)return;
+ const reason=operation.stopReason||immediateStop(operation);if(reason)stopOperation(operation,reason);
+ let matches=false;try{matches=globalThis.JobAutofillPageWatcher.matchesContext(operation.contextKey)===true;}catch{}
+ if(!matches)stopOperation(operation,'申请标识在等待期间变化，已停止后续操作；此前内容请人工核对');
+}
+function guardedTarget(operation,entry,expected,allowOptionChanges=false,extra){
+ if(!operation)return;
+ synchronousOperation(operation);
+ if(!validTarget(entry,allowOptionChanges)||!equalValue(readValue(entry),expected)||extra&&!extra())stopOperation(operation,'控件或已有内容在等待期间变化，已停止后续操作；此前内容请人工核对');
+}
 const clean=s=>String(s||'').replace(/\s+/g,' ').trim().slice(0,300);
 const visible=e=>e.isConnected&&!e.closest('[hidden],[inert],[data-autofill-ui]')&&getComputedStyle(e).visibility!=='hidden'&&e.getClientRects().length>0;
 const heading=e=>clean(e.querySelector(':scope > legend,:scope > h1,:scope > h2,:scope > h3,:scope > h4,:scope > caption')?.textContent||e.getAttribute('aria-label')||(e.getAttribute('aria-labelledby')||'').split(/\s+/).map(id=>document.getElementById(id)?.textContent||'').join(' '));
@@ -169,19 +231,23 @@ function setNative(e,key,value){
  if(!setter)throw new Error('控件不支持安全赋值');
  setter.call(e,value);
 }
-function assign(entry,value){
+async function assign(entry,value,operation,{allowOptionChanges=false,extra}={}){
  const {elements:es,descriptor:f}=entry;
+ let expected=entry.initial;
+ const recheck=()=>guardedTarget(operation,entry,expected,allowOptionChanges,extra);
  if(f.type==='custom-radio-group'){
   const adapter=choiceAdapter(es[0]),choices=adapter?.members.filter(e=>optionValue(e)===value&&!disabled(e));
   if(adapter?.type!=='custom-radio-group'||choices?.length!==1||!visible(choices[0]))throw new Error('自定义单选选项已变化');
   const target=choices[0].closest('label')?.control||choices[0];
   if(disabled(target)||!visible(target))throw new Error('自定义单选目标已变化');
-  target.click();return;
+  await requireOperation(operation);recheck();
+  if(operation){const live=choiceAdapter(es[0]);if(live?.type!=='custom-radio-group'||!live.members.includes(choices[0])||!safeChoiceMember(choices[0],live.root,true)||optionValue(choices[0])!==value||disabled(target)||!visible(target))stopOperation(operation,'自定义单选目标在等待期间变化，已停止操作');operation.currentWrote=true;}
+  target.click();expected=value;await requireOperation(operation);recheck();return;
  }
- if(['radio-group','checkbox-group'].includes(f.type))es.forEach(e=>{if(!visible(e)||disabled(e)||unsafeInteractiveAncestor(e)||!e.matches('input')||e.type!==f.type.replace('-group',''))throw new Error('单选或多选成员在网站事件中变化');const wanted=Array.isArray(value)?value.includes(e.value):e.value===value;if(e.checked!==wanted)e.click();});
- else if(f.type==='select-multiple')Array.from(es[0].options).forEach(o=>{o.selected=value.includes(o.value);});
- else setNative(es[0],'value',value);
- for(const e of es){e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}));}
+ if(['radio-group','checkbox-group'].includes(f.type))for(const e of es){await requireOperation(operation);recheck();if(!visible(e)||disabled(e)||unsafeInteractiveAncestor(e)||!e.matches('input')||e.type!==f.type.replace('-group',''))throw new Error('单选或多选成员在网站事件中变化');const wanted=Array.isArray(value)?value.includes(e.value):e.value===value;if(e.checked!==wanted&&(!operation||f.type!=='radio-group'||wanted)){if(operation)operation.currentWrote=true;e.click();expected=Array.isArray(expected)?wanted?[...expected,e.value]:expected.filter(v=>v!==e.value):wanted?e.value:'';await requireOperation(operation);recheck();}}
+ else if(f.type==='select-multiple')for(const o of Array.from(es[0].options)){await requireOperation(operation);recheck();const wanted=value.includes(o.value);if(operation&&wanted===o.selected)continue;if(operation&&(!es[0].contains(o)||!visible(es[0])||disabled(es[0])||disabled(o)))stopOperation(operation,'多选选项在等待期间变化，已停止操作');if(operation)operation.currentWrote=true;o.selected=wanted;expected=wanted?[...new Set([...expected,o.value])]:expected.filter(v=>v!==o.value);}
+ else {await requireOperation(operation);recheck();if(operation)operation.currentWrote=true;setNative(es[0],'value',value);expected=value;}
+ for(const e of es){await requireOperation(operation);recheck();e.dispatchEvent(new Event('input',{bubbles:true}));await requireOperation(operation);recheck();e.dispatchEvent(new Event('change',{bubbles:true}));await requireOperation(operation);recheck();}
 }
 function validTarget(entry,allowOptionChanges=false){
  if(entry.elements.some(e=>!visible(e)))return false;
@@ -194,12 +260,12 @@ function validTarget(entry,allowOptionChanges=false){
  if(allowOptionChanges||entry.descriptor.type==='custom-select')current.options=prior.options;
  return same(current,prior)&&!R.blocked(current)&&current.type!=='custom';
 }
-async function selectCustom(entry,item,href){
+async function selectCustom(entry,item,href,operation){
  const path=item.choice?.path,inferred=R.inferField(entry.descriptor);
  if(!R.validPath.test(path||'')||typeof item.value!=='string'||!item.value.trim()||item.value.length>500||inferred.status==='choice'&&!new RegExp('^education\\.\\d+\\.'+inferred.choiceKey+'$').test(path))return {status:'skipped',reason:'自定义选择请求缺少已核对的档案来源'};
  let adapter=choiceAdapter(entry.elements[0]);
  if(adapter?.type!=='custom-select'||!visible(adapter.trigger)||disabled(adapter.trigger))return {status:'skipped',reason:'选择器结构或状态已变化'};
- if(!adapter.list||!visible(adapter.list))adapter.trigger.click();
+ if(!adapter.list||!visible(adapter.list)){await requireOperation(operation);guardedTarget(operation,entry,entry.initial,true);if(operation){const live=choiceAdapter(entry.elements[0]);if(live?.type!=='custom-select'||live.trigger!==adapter.trigger||live.binding!==adapter.binding||!visible(live.trigger)||disabled(live.trigger))stopOperation(operation,'自定义选择按钮在等待期间变化，已停止操作');}adapter.trigger.click();await requireOperation(operation);guardedTarget(operation,entry,entry.initial,true);}
  const observation=await observeStable(()=>{
   if(location.href!==href||!validTarget(entry,true)||!same(readValue(entry),entry.initial))return {status:'stop',reason:'等待选项时页面或已有内容改变，已跳过'};
   adapter=choiceAdapter(entry.elements[0]);
@@ -208,17 +274,22 @@ async function selectCustom(entry,item,href){
   const options=adapterOptions(adapter).filter(o=>o.value!==''),converted=R.convertValue(item.value,{...entry.descriptor,options},path);
   if(!options.length)return {status:'waiting'};
   return {status:'ready',stamp:JSON.stringify(options),converted,options};
- },{stableMs:250});
+ },{stableMs:250,operation});
  if(!observation.ok)return {status:observation.status==='stop'?'skipped':'pending',reason:observation.reason};
  if(!observation.converted.ok)return {status:'skipped',reason:'选项缺失或不唯一，已保留人工选择'};
  adapter=choiceAdapter(entry.elements[0]);
  const expected=observation.converted.value,options=adapterOptions(adapter),matches=adapter?.members.filter((e,i)=>options[i]?.value===expected&&!options[i].disabled&&visible(e));
  if(!validTarget(entry,true)||!same(readValue(entry),entry.initial)||!same(options.filter(o=>o.value!==''),observation.options)||matches?.length!==1)return {status:'skipped',reason:'选项或页面在选择前变化，已跳过'};
- const chosen=options.find(o=>o.value===expected);entry.appliedChoice=chosen;matches[0].click();
+ await requireOperation(operation);
+ guardedTarget(operation,entry,entry.initial,true);
+ if(operation){const live=choiceAdapter(entry.elements[0]),liveOptions=adapterOptions(live),liveMatches=live?.members.filter((e,i)=>liveOptions[i]?.value===expected&&!liveOptions[i].disabled&&visible(e));if(live?.type!=='custom-select'||live.binding!==adapter.binding||liveMatches?.length!==1||liveMatches[0]!==matches[0]||!same(liveOptions.filter(o=>o.value!==''),observation.options)||!safeChoiceMember(matches[0],live.root))stopOperation(operation,'自定义选项在等待期间变化，已停止操作');}
+ const chosen=options.find(o=>o.value===expected);entry.appliedChoice=chosen;if(operation)operation.currentWrote=true;matches[0].click();await requireOperation(operation);
+ guardedTarget(operation,entry,expected,true);
  return {status:'written',value:expected};
 }
-async function apply(scanId,items){
+async function apply(scanId,items,guard){
  const begin=performance.now(),s=session;
+ const operation=createOperation(guard);
  if(!s||s.id!==scanId||s.used||Date.now()>s.expiresAt||location.href!==s.href)throw new Error('页面或预览已变化/过期，请重新识别');
  if(!Array.isArray(items)||items.length>300)throw new Error('填写请求无效');
  s.used=true;const seen=new Set(),results=[],written=new Map(),watches=new Map();
@@ -259,13 +330,15 @@ async function apply(scanId,items){
   if(!item||typeof item!=='object'){results.push({fieldId:null,label:'未知字段',status:'skipped',reason:'填写请求无效'});continue;}
   const entry=s.entries.find(e=>e.descriptor.id===item.fieldId);
   const result={fieldId:item.fieldId,label:entry?.descriptor.label||'未知字段',status:'skipped',reason:''};results.push(result);
+  if(operation)operation.currentWrote=false;
+  const stopped=await operationReason(operation);if(stopped){result.reason=stopped;continue;}
   if(!entry||seen.has(item.fieldId)){result.reason='重复或未知字段';continue;}seen.add(item.fieldId);
   const cascade=entry.descriptor.cascade;
   if(location.href!==s.href||!validTarget(entry,!!item.deferred)||!same(readValue(entry),entry.initial)){result.reason='页面内容已变化，为防错填已跳过';continue;}
   if(entry.descriptor.hasValue&&item.overwrite!==true){result.reason='保留已有内容';continue;}
   let value=item.value;
   if(entry.descriptor.type==='custom-select'){
-   try{const custom=await selectCustom(entry,item,s.href);if(custom.status!=='written'){result.status=custom.status;result.reason=custom.reason;continue;}value=custom.value;}catch{result.status='failed';result.reason='网站拒绝自定义选项操作，请人工核对';continue;}
+   try{const custom=await selectCustom(entry,item,s.href,operation);if(custom.status!=='written'){result.status=custom.status;result.reason=custom.reason;continue;}value=custom.value;}catch(error){result.status=error.operationStop?(operation.currentWrote?'pending':'skipped'):'failed';result.reason=error.operationStop?error.message:'网站拒绝自定义选项操作，请人工核对';continue;}
   }else if(item.deferred){
    if(!cascade||cascade.path!==item.deferred.path||entry.descriptor.type!=='select-one'||entry.descriptor.hasValue||typeof item.value!=='string'||!item.value.trim()||item.value.length>120){result.reason='级联请求不符合原预览，已跳过';continue;}
    const parent=written.get(cascade.parentId),watch=watches.get(item.fieldId);
@@ -276,7 +349,7 @@ async function apply(scanId,items){
     const live=describe(entry.elements,entry.group,entry.descriptor.index),converted=R.convertValue(item.value,live,cascade.path);
     if(!converted.ok)return {status:'waiting'};
     return {status:'ready',stamp:JSON.stringify(live.options),value:converted.value};
-   });
+   },{operation});
    if(!observation.ok){result.reason=observation.reason==='等待超时，请核对页面并重新识别；仍未出现的部分请人工处理'?'地区选项缺失、重复或加载超时，请人工核对':observation.reason;continue;}
    value=observation.value;
   }else{
@@ -288,44 +361,55 @@ async function apply(scanId,items){
   try{
    // Require a child option mutation after its own parent was written; stale choices are never used.
    for(const [id,watch]of watches)if(entryFor(id)?.descriptor.cascade?.parentId===item.fieldId)watch.changed=false;
-   if(entry.descriptor.type!=='custom-select')assign(entry,value);
+   const assignmentOptions=operation&&item.deferred?describe(entry.elements,entry.group,entry.descriptor.index).options:null;
+   const assignmentExtra=()=>{
+    if(item.deferred)return same(describe(entry.elements,entry.group,entry.descriptor.index).options,assignmentOptions)&&parentValid(written.get(cascade.parentId));
+    return !cascade||verifyAnchors(entry,item.anchors);
+   };
+   if(entry.descriptor.type!=='custom-select')await assign(entry,value,operation,{allowOptionChanges:!!item.deferred,extra:assignmentExtra});
    await new Promise(resolve=>setTimeout(resolve,40));
+   await requireOperation(operation);
+   guardedTarget(operation,entry,value,!!item.deferred,assignmentExtra);
    if(location.href!==s.href||!entry.elements.every(visible)){result.status='failed';result.reason='填写后页面变化，请重新识别核对';continue;}
    if(!equalValue(readValue(entry),value)){result.status='failed';result.reason='页面未保留填写值，请重新识别核对';continue;}
    written.set(item.fieldId,{entry,value,options:describe(entry.elements,entry.group,entry.descriptor.index).options,didWrite:true,...(entry.descriptor.type==='custom-select'?{choiceRaw:item.value,choicePath:item.choice.path}:{})});
    result.status='pending';result.reason='正在等待网站保留填写结果';
-  }catch{result.status='failed';result.reason='网站拒绝写入，请重新识别核对';}
+  }catch(error){result.status=error.operationStop?(operation.currentWrote?'pending':'skipped'):'failed';result.reason=error.operationStop?error.message:'网站拒绝写入，请重新识别核对';}
  }
  // A delayed framework render may undo a DOM write. Keep every attempted write provisional
  // through a final settling window, and revalidate the record, labels and cascade ancestors.
  if(written.size)await observeStable(()=>{
   for(const result of results){const record=written.get(result.fieldId);if(record?.didWrite&&result.status==='pending'&&(location.href!==s.href||!parentValid(record))){result.status='failed';result.reason='网站延迟更新或框架回滚了填写内容，请重新识别后重试';}}
   return {status:'ready',stamp:JSON.stringify(results.map(r=>[r.fieldId,r.status]))};
- },{timeoutMs:2200,stableMs:750});
- for(const result of results){const record=written.get(result.fieldId);if(record?.didWrite&&result.status==='pending'){if(parentValid(record)){result.status='filled';result.reason='已触发网站事件并稳定回读';}else{result.status='failed';result.reason='网站未稳定保留填写内容，请重新识别后重试';}}}
+ },{timeoutMs:2200,stableMs:750,operation});
+ const finalStop=await operationReason(operation);
+ for(const result of results){const record=written.get(result.fieldId);if(record?.didWrite&&result.status==='pending'){if(finalStop){result.reason=finalStop;}else if(parentValid(record)){result.status='filled';result.reason='已触发网站事件并稳定回读';}else{result.status='failed';result.reason='网站未稳定保留填写内容，请重新识别后重试';}}}
  return {results,durationMs:Math.round(performance.now()-begin),filled:results.filter(r=>r.status==='filled').length,failed:results.filter(r=>r.status==='failed').length,skipped:results.filter(r=>r.status==='skipped').length,pending:results.filter(r=>r.status==='pending').length,attempted:items.length,automaticSubmitRequested:false};
  }finally{for(const watch of watches.values())watch.observer.disconnect();}
 }
-async function observeStable(inspect,{timeoutMs=3500,stableMs=200}={}){
+async function observeStable(inspect,{timeoutMs=3500,stableMs=200,operation}={}){
  const start=performance.now();let stamp=null,since=start;
  while(performance.now()-start<timeoutMs){
+  const stopped=await operationReason(operation);if(stopped)return {status:'stop',reason:stopped,operationStop:true,ok:false};
   const state=inspect(),now=performance.now();
   if(state.status==='stop')return {...state,ok:false};
   if(state.status==='ready'){
    if(stamp!==state.stamp){stamp=state.stamp;since=now;}
-   if(now-since>=stableMs)return {...state,ok:true};
+   if(now-since>=stableMs){const stopped=await operationReason(operation);return stopped?{status:'stop',reason:stopped,operationStop:true,ok:false}:{...state,ok:true};}
   }else{stamp=null;since=now;}
   await new Promise(resolve=>setTimeout(resolve,50));
  }
  return {ok:false,reason:'等待超时，请核对页面并重新识别；仍未出现的部分请人工处理'};
 }
-async function prepareGroups(counts){
+async function prepareGroups(counts,guard){
+ const operation=createOperation(guard);
  if(preparing)throw new Error('正在等待经历新增，请勿重复操作');
  preparing=true;session=null;const result=[],href=location.href;
  try{
  const wanted=Object.fromEntries(Object.entries(counts||{}).filter(([k,v])=>['education','internships','work','projects','skills','certificates','languages'].includes(k)&&Number.isInteger(v)&&v>=0&&v<=30));
  let clicks=0;
  for(const [group,count]of Object.entries(wanted)){
+  const stopped=await operationReason(operation);if(stopped){result.push({group,status:'pending',reason:stopped});break;}
   if(location.href!==href){result.push({group,reason:'页面已导航，整个新增操作已停止'});break;}
   let before=collect().counts[group]||0;
   const pending=pendingAdds.get(group);
@@ -334,11 +418,20 @@ async function prepareGroups(counts){
    else{result.push({group,count:before,wanted:count,status:'pending',reason:'上次新增尚未确认，未重复点击；请等待或手工检查新增结果'});continue;}
   }
   while(before<count&&clicks<5){
+   const stopped=await operationReason(operation);if(stopped){result.push({group,status:'pending',reason:stopped});return {clicks,groups:result};}
    if(location.href!==href){result.push({group,reason:'页面已导航，整个新增操作已停止'});return {clicks,groups:result};}
    if(collect().entries.some(e=>e.descriptor.group===group&&e.descriptor.ambiguousGroup)){result.push({group,reason:'记录边界或顺序不明确，请先手工整理经历'});break;}
    const candidates=Array.from(document.querySelectorAll('button[type="button"]')).filter(b=>visible(b)&&!b.disabled&&!unsafeInteractiveAncestor(b)&&/^(新增|添加|增加|add)\s*/i.test(clean(b.textContent))&&R.groupFor(clean(b.textContent))===group&&!/提交|申请|确认|下一步|submit|apply|next|confirm/i.test(clean(b.textContent)));
    if(candidates.length!==1){result.push({group,reason:'没有唯一且安全的新增按钮；请手工添加'});break;}
    if(location.href!==href){result.push({group,reason:'页面已导航，整个新增操作已停止'});return {clicks,groups:result};}
+   const button=candidates[0],buttonText=clean(button.textContent),buttonForm=button.form;
+   const beforeEntries=operation?collect().entries.filter(e=>e.descriptor.group===group):null;
+   const stopBeforeClick=await operationReason(operation);if(stopBeforeClick){result.push({group,status:'pending',reason:stopBeforeClick});return {clicks,groups:result};}
+   if(operation){
+    try{synchronousOperation(operation);}catch(error){result.push({group,status:'pending',reason:error.message});return {clicks,groups:result};}
+    const liveCandidates=Array.from(document.querySelectorAll('button[type="button"]')).filter(b=>visible(b)&&!b.disabled&&!unsafeInteractiveAncestor(b)&&/^(新增|添加|增加|add)\s*/i.test(clean(b.textContent))&&R.groupFor(clean(b.textContent))===group&&!/提交|申请|确认|下一步|submit|apply|next|confirm/i.test(clean(b.textContent))),live=collect(),entries=live.entries.filter(e=>e.descriptor.group===group);
+    if(liveCandidates.length!==1||liveCandidates[0]!==button||button.form!==buttonForm||clean(button.textContent)!==buttonText||(live.counts[group]||0)!==before||entries.length!==beforeEntries.length||entries.some((e,i)=>e.elements.length!==beforeEntries[i].elements.length||e.elements.some((node,j)=>node!==beforeEntries[i].elements[j])||!same(e.descriptor,beforeEntries[i].descriptor)||!equalValue(e.initial,beforeEntries[i].initial))){result.push({group,status:'skipped',reason:'新增按钮或记录在等待期间变化，已停止；请人工核对'});return {clicks,groups:result};}
+   }
    pendingAdds.set(group,{before,href});candidates[0].click();clicks++;
    const observation=await observeStable(()=>{
     if(location.href!==href)return {status:'stop',reason:'页面已导航，已停止新增'};
@@ -346,8 +439,8 @@ async function prepareGroups(counts){
     if(after===before)return {status:'waiting'};
     if(after!==before+1)return {status:'stop',reason:'新增数量不符合预期，已停止；请人工核对记录顺序'};
     return {status:'ready',count:after,stamp:JSON.stringify(snapshot.entries.filter(e=>e.descriptor.group===group).map(e=>e.descriptor))};
-   });
-   if(!observation.ok){result.push({group,status:observation.status==='stop'?'failed':'pending',reason:observation.reason});break;}
+   },{operation});
+   if(!observation.ok){result.push({group,status:observation.operationStop?'pending':observation.status==='stop'?'failed':'pending',reason:observation.reason});if(observation.operationStop)return {clicks,groups:result};break;}
    pendingAdds.delete(group);before=observation.count;
   }
   result.push({group,count:before,wanted:count,...(before<count&&clicks>=5?{reason:'本次最多新增5组；请核对后再次准备或手工添加'}:{})});
@@ -355,5 +448,5 @@ async function prepareGroups(counts){
  return {clicks,groups:result};
  }finally{preparing=false;}
 }
-globalThis.JobAutofillEngine=Object.freeze({version:'0.4.0',scan,apply,prepareGroups});
+globalThis.JobAutofillEngine=Object.freeze({version:'0.4.1',scan,apply,prepareGroups,cancelOperation});
 })();

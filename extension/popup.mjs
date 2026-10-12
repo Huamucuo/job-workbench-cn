@@ -4,6 +4,19 @@ import {materializeProfile} from './autofill/profile.mjs';
 const $=s=>document.querySelector(s);
 let profile=null,panel=null,idle=null,target=null;
 $('#manage').addEventListener('click',()=>chrome.runtime.openOptionsPage());
+let sessionTab=null;
+$('#open-session').addEventListener('click',async()=>{
+ const button=$('#open-session');if(!sessionTab)return;button.disabled=true;
+ try{
+  // Both calls start directly inside the click; waiting can lose the gesture.
+  const request=chrome.runtime.sendMessage({protocol:'job-session-v1',type:'session:request',tabId:sessionTab.id});
+  const opening=chrome.sidePanel.open({tabId:sessionTab.id});
+  const [reply]=await Promise.all([request,opening]);
+  if(!reply?.ok)throw new Error(reply?.error||'请从招聘页面重新开始');
+  window.close();
+ }catch(e){$('#session-open-status').textContent='未打开跨页助手：'+e.message+'。请使用新版Edge或Chrome，重新点击扩展。';button.disabled=false;}
+});
+try{[sessionTab]=await chrome.tabs.query({active:true,currentWindow:true});if(sessionTab&&chrome.sidePanel?.open)$('#open-session').disabled=false;else $('#session-open-status').textContent='此浏览器暂不支持常驻侧栏，请更新Edge或Chrome；下方单页入口仍可用。';}catch{sessionTab=null;}
 async function destination(){
  if(!target)throw new Error('没有选中的网页');
  const tab=await chrome.tabs.get(target.id),u=new URL(tab.url||'about:blank');

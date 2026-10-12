@@ -1,6 +1,6 @@
 {
   "name": "job-workbench-cn",
-  "version": "0.4.0-beta.1",
+  "version": "0.4.1-beta.1",
   "private": true,
   "description": "中文优先、本机保存个人记录的开源求职工作台",
   "type": "module",

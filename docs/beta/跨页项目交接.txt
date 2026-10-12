@@ -1,0 +1,21 @@
+项目：职有引力 · 求职工作台0.4.1 Beta跨页候选
+优先级：用户明确要求先完成跨页，再制作抖音竖屏+B站横屏真实操作视频和可导入SRT。剪映已安装并登录、授权使用剪映AI配音，但没有自动发布许可。
+
+延续原项目与档案，不重新创建产品。feature/crosspage-0.4.1 分支从8386f32研究提交开始，before-crosspage-20261013标记回退点；0.4.0冻结发行不覆盖。旧单页入口、37项核心模拟断言、岗位搜索/薪资/收藏/标签/投递与备份保留。
+
+入口：popup #open-session → chrome.sidePanel.open，可信侧栏解锁。job-session-v1/session:request只能从准确popup.html由真实activeTab发起，只存requestId/tabId/windowId/origin/path/时间，查询参数不保存。sidepanel内存持有解锁档案，不通过worker、HTTP或session存储明文。
+边界：SessionScope限定开始的tab/origin/已识别申请key；5min助手用户闲置与30min从请求开始的总截止。仅可信用户事件touch。换站/换tab/换已识别申请/档案修订/锁定使旧预览失效。未知申请标识明确显示，逐页本人批准。未添加all_urls/host_permissions/webNavigation，仅新增sidePanel权限。
+检测：page-watch.js独立只读，文档盐+SHA256字段指纹，无值明文输出、storage/network/click/engine.scan。documentId限定脚本目标，同URL组件实例/分组/选项/占用/标签改变会重新预览。poll750ms+稳定确认，仅自动检测不自动写/添加记录/推进。
+填写：public/autofill/panel.mjs为 canonical，continuous可选默认false保留旧协议；continuous按每页“核对并填写本页”，已有值默认保护。原engine稳定回读/受控事件/级联/动态新增继续用，跨页调用另带操作guard并可撤销。build-extension生成extension/autofill镜像，不手改镜像。
+存档：原AES-GCM+PBKDF2加密主档案、canonical并发revision验证不变。解锁过程中锁定/换目标/关闭/修订旧档案不能异步复活旧资料；网页只收到本人同意的字段值。
+
+维护验证：node tests/crosspage-browser.mjs --headful --idle 实际MV3工具栏侧栏6真实URL+同地址换步；node tests/page-watch.browser.mjs；node tests/engine-operation-cancel.browser.mjs；node --test tests/*.test.mjs；node scripts/check.mjs；再执行beta-browser-original/workbench等原回归。
+所有BrowserHarness evidence含HAR/trace/环境与源文件hash、独立literal DOM/model/saved断言和操作计数。真实Edge闲置5min与策略30min测试必须区分；安装到日常Edge不能以隔离浏览器测试证明。原37权限断言适配只增加sidePanel，不放宽网页来源访问边界。虚构测试附件可随包分发，真实岗位快照/用户资料/浏览器profile/HAR不得进入公开源包。
+
+发行：新目录/新ZIP，Node24运行时和许可证、开始/停止EXE、准确extension目录、说明与验收与虚构表单；发布前核验所有ZIP回读hash。源码包和Git bundle排除.local、原个人信息/数据。原机既有岗位快照只放发行.local/jobs.json，ZIP不附。47841生产服务归本发行启动器所有；测试另用47960/47961，禁止测试误杀生产服务器。
+限制：iframe/Shadow、新标签/跨域、未支持自定义控件、未明确字段/证件/附件上传/验证码/声明人工处理；真实企业端到端、Chrome实机、其他Windows电脑和真人节时率未验收，不宣称通用兼容。不要为了数字自动猜答案或提交虚构申请。
+
+视频：跨页验收通过后以真实新候选录制；展示一次解锁和跨页面预览，不演示虚构自动提交。两版视频要有独立SRT、真实边界字幕和原始操作素材。用户无需再次同意继续，但不要公开发布或用真实简历录制。
+
+现行实测：原37核心、106单元、30写入守卫、20原引擎与10观察器通过；跨页41断言与独立真实闲置续测通过。idle预览150/270秒维持10条新代节点，5min锁定。正文报告明确保留计时前URL隐私断言超时、旧CX04不可观测FAIL和onClosed回调FAIL，不合并为通用全通过。
+关键修复：knownContextKey仅哈希，普通锁定/档案更新保留，结束/新请求重置；TTL候选待稳定时不再被未变化页面早退忽略；副本来源同SHA256。

@@ -1,5 +1,11 @@
 # 测试范围
 
+0.4.1跨页候选的现行验收见 `docs/beta/跨页验收报告.html`，下方有注明日期的记录属于历史版本。新浏览器运行必须记录所有sidepanel/controller/policy/watcher/manifest资产hash，不能复用旧Beta通过数。
+
+现行维护入口：`tests/crosspage-browser.mjs --headful --idle`（真实MV3工具栏侧栏、六URL及同地址步骤、独立DOM/model/saved、额外安全场景与真实5分钟闲置）；`tests/engine-operation-cancel.browser.mjs`（实际隔离世界等待/取消/变化回归）；`tests/page-watch.browser.mjs`（观察器只读与标识）；`tests/session-lifetime.test.mjs`（执行真实controller源码的可控异步API适配，不能冒充浏览器证据）。
+
+原核心回归仍执行 `tests/beta-browser-original.mjs` + `tests/beta-browser-workbench.mjs`。N03只增加固定sidepanel.html的sidePanel界面权限，保留来源/端口/顶层/不越权检查；参考fixtures/v021字节不变。WorkBench回归改用自己的47963端口，不测试仍运行的0.4.0旧服务。47943原故意网络风险接收端必须只监听127.0.0.1；环境权限阻止时先明确分类，不能把没跑当通过。
+
 ## Beta RC1 当前实际证据
 
 2026-10-12本机Node24.17/运行时24.19；隔离Edge155.0.4283.45、Playwright1.62.1。单元81/81通过。原37项独立验收重新执行37/37；新增实际MV3资料/复杂控件32/32、授权桥11/11，合计80/80。完整结果、初次失败与修复对应、截图和未达项见[Beta报告](beta/验收报告.html)。后文44/44是公开源码准备的历史基线，不能冒充当前结果。

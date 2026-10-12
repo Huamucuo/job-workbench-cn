@@ -1,8 +1,9 @@
 ﻿param([string]$Bundle = '', [switch]$ShowBrowser)
 $ErrorActionPreference = 'Stop'
 $launcherProjectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-if (-not $Bundle) { $Bundle = Join-Path $launcherProjectRoot 'release\求职工作台-Beta-0.4.0-rc.1' }
+if (-not $Bundle) { $Bundle = Join-Path $launcherProjectRoot 'release\求职工作台-Beta-0.4.1-rc.1' }
 $launcherBundleRoot = [IO.Path]::GetFullPath($Bundle)
+$launcherExpectedVersion = (Get-Content -Raw -LiteralPath (Join-Path $launcherBundleRoot 'package.json') | ConvertFrom-Json).version
 $launcherUrl = 'http://127.0.0.1:47841'
 $launcherReport = [ordered]@{ checkedAt=(Get-Date).ToString('o'); bundle=$launcherBundleRoot; checks=@(); startupMs=$null; browserOpeningRequested=[bool]$ShowBrowser; startupWasMeasuredHuman=$false }
 function Add-LauncherCheck([string]$Name, [bool]$Pass, $Details) {
@@ -22,7 +23,7 @@ try {
  $launcherTimer.Stop(); $launcherReport.startupMs = [math]::Round($launcherTimer.Elapsed.TotalMilliseconds,1)
  Add-LauncherCheck 'compiled executable exits successfully' ($launcherProcess.ExitCode -eq 0) $launcherProcess.ExitCode
  $launcherHealth = Read-LauncherHealth
- Add-LauncherCheck 'actual loopback service has expected Beta version' ($launcherHealth.app -eq 'job-workbench-cn' -and $launcherHealth.version -eq '0.4.0-beta.1') $launcherHealth
+ Add-LauncherCheck 'actual loopback service has expected Beta version' ($launcherHealth.app -eq 'job-workbench-cn' -and $launcherHealth.version -eq $launcherExpectedVersion) $launcherHealth
  $launcherRuntime = [Diagnostics.Process]::GetProcessById([int]$launcherHealth.pid)
  Add-LauncherCheck 'service uses the runtime bundled in this directory' ($launcherRuntime.MainModule.FileName -eq (Join-Path $launcherBundleRoot 'runtime\node.exe')) $launcherRuntime.MainModule.FileName
  $launcherListening = @(netstat.exe -ano -p TCP | Select-String ('^\s*TCP\s+\S+:47841\s+\S+\s+LISTENING\s+' + $launcherHealth.pid + '\s*$') | ForEach-Object { $_.Line.Trim() })
