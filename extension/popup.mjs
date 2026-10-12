@@ -1,5 +1,6 @@
 import {storage,VAULT_KEY,decryptProfile} from './autofill/vault.mjs';
 import {mountPanel} from './autofill/panel.mjs';
+import {materializeProfile} from './autofill/profile.mjs';
 const $=s=>document.querySelector(s);
 let profile=null,panel=null,idle=null,target=null;
 $('#manage').addEventListener('click',()=>chrome.runtime.openOptionsPage());
@@ -29,10 +30,16 @@ $('#unlock').addEventListener('click',async()=>{
   const tabs=await chrome.tabs.query({active:true,currentWindow:true});target=tabs[0];
   await destination();
   const password=$('#password').value;$('#password').value='';profile=await decryptProfile(envelope,password);
-  $('#unlock-box').hidden=true;$('#panel').hidden=false;
+  profile=materializeProfile(profile,profile.activeVariantId);$('#unlock-box').hidden=true;$('#panel').hidden=false;
   panel=await mountPanel($('#panel'),{transport:{scan:()=>invoke('scan'),apply:(id,items)=>invoke('apply',[id,items]),prepareGroups:counts=>invoke('prepareGroups',[counts])},getProfile:()=>profile});
   touch();
  }catch(e){profile=null;$('#unlock-status').textContent=e.message;}finally{button.disabled=false;}
 });
 document.addEventListener('keydown',touch);document.addEventListener('pointerdown',touch);
 window.addEventListener('pagehide',lock);
+let pendingWorkbench=null;
+async function control(type,params={}){const r=await chrome.runtime.sendMessage({protocol:'job-beta-v1',type,...params});if(!r?.ok)throw new Error(r?.error||'连接暂不可用，请重新打开扩展');return r.value;}
+$('#connection-consent').addEventListener('change',e=>{$('#approve-workbench').disabled=!e.target.checked;});
+$('#approve-workbench').addEventListener('click',async()=>{if(!pendingWorkbench||!$('#connection-consent').checked)return;const b=$('#approve-workbench');b.disabled=true;try{await control('control:grant',{tabId:pendingWorkbench.tabId,nonce:pendingWorkbench.nonce});$('#connection-result').textContent='连接已批准。回到工作台选择共用档案，然后导入简历。';}catch(e){$('#connection-result').textContent=e.message;}finally{b.disabled=!$('#connection-consent').checked;}});
+$('#revoke-workbench').addEventListener('click',async()=>{try{await control('control:revoke');$('#connection-result').textContent='工作台连接已断开，扩展中的加密档案保留。';}catch(e){$('#connection-result').textContent=e.message;}});
+try{const r=await control('control:status');pendingWorkbench=r.pending;if(r.pending||r.connectedTabs?.length){$('#workbench-approval').hidden=false;$('#connection-details').textContent=r.pending?'目标：'+r.pending.origin+'。请核对是你启动的求职工作台。':'已有工作台连接，你可以随时断开。';}}catch(e){$('#unlock-status').textContent=e.message;}

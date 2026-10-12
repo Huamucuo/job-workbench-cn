@@ -1,13 +1,13 @@
 param([switch]$NoBrowser)
 $ErrorActionPreference = 'Stop'
 $projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-$url = 'http://127.0.0.1:47831'
+$url = 'http://127.0.0.1:47841'
 try {
   $health = Invoke-RestMethod -Uri "$url/__health" -TimeoutSec 2 -Proxy $null
   if ($health.app -eq 'job-workbench-cn') { if (-not $NoBrowser) { Start-Process $url }; exit 0 }
-  throw 'Port 47831 is used by another app.'
+  throw 'Port 47841 is used by another app.'
 } catch {
-  if ($_.Exception.Message -eq 'Port 47831 is used by another app.') { throw }
+  if ($_.Exception.Message -eq 'Port 47841 is used by another app.') { throw }
 }
 $nodeCommand = Get-Command node.exe -ErrorAction SilentlyContinue
 if (-not $nodeCommand) { throw 'Node.js 24+ is required. Install it free from https://nodejs.org/ and retry.' }

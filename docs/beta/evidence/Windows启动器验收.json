@@ -1,0 +1,63 @@
+{
+  "checkedAt": "2026-10-12T23:38:27.0452138+08:00",
+  "checks": [
+    {
+      "name": "compiled executable exits successfully",
+      "passed": true
+    },
+    {
+      "name": "actual loopback service has expected Beta version",
+      "passed": true
+    },
+    {
+      "name": "service uses the runtime bundled in this directory",
+      "passed": true
+    },
+    {
+      "name": "service only listens on IPv4 loopback",
+      "passed": true
+    },
+    {
+      "name": "installation guide returns exact live extension directory",
+      "passed": true
+    },
+    {
+      "name": "real homepage has import profile autofill and search entries",
+      "passed": true
+    },
+    {
+      "name": "stop executable exits successfully",
+      "passed": true
+    },
+    {
+      "name": "only the owned local service stopped",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "runtimeSHA256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+  "launcherSHA256": "946adb95f093cf2c09e253b3a5dcaa4b84592a3da191a5dd7bffc64fc45fa17f",
+  "sourceChecked": "windows/Launcher.cs",
+  "conflict": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "owned release starts",
+        "passed": true
+      },
+      {
+        "name": "same directory safely reuses the same service",
+        "passed": true
+      },
+      {
+        "name": "another directory cannot silently open the wrong Beta copy",
+        "passed": true
+      },
+      {
+        "name": "copied PID record cannot stop a service from another directory",
+        "passed": true
+      }
+    ]
+  },
+  "artifactStage": "Compiled candidate before final docs ZIP; exact final distribution check is recorded in the delivery receipt"
+}

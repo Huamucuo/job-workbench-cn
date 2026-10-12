@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 2,
+  "profileId": "independent-qa-20261010",
+  "updatedAt": "2026-10-10T12:00:00.000Z",
+  "isFictional": true,
+  "contact": {
+    "name": "验收林澄",
+    "givenName": "Cheng",
+    "familyName": "Lin",
+    "email": "qa.lin.cheng@example.invalid",
+    "phone": "19900000000",
+    "city": "杭州",
+    "website": "https://example.invalid/qa-only"
+  },
+  "education": [
+    {
+      "id": "edu-a",
+      "school": "虚构东岚大学",
+      "degree": "本科",
+      "major": "信息管理与信息系统",
+      "startDate": "2017-09-01",
+      "endDate": "2021-06-30"
+    },
+    {
+      "id": "edu-b",
+      "school": "虚构北辰学院",
+      "degree": "硕士",
+      "major": "软件工程",
+      "startDate": "2021-09",
+      "endDate": "2024-06-28"
+    }
+  ],
+  "internships": [
+    {
+      "id": "int-a",
+      "organization": "虚构青屿实验室",
+      "title": "数据实习生",
+      "startDate": "2020-07-01",
+      "endDate": "2020-09-30",
+      "description": "虚构验收：整理测试数据，完成甲模块。"
+    },
+    {
+      "id": "int-b",
+      "organization": "虚构星帆研究所",
+      "title": "开发实习生",
+      "startDate": "2023-07-01",
+      "endDate": "2023-10-20",
+      "description": "虚构验收：开发乙模块，记录自动化结果。"
+    }
+  ],
+  "work": [
+    {
+      "id": "work-a",
+      "organization": "虚构山海科技",
+      "title": "质量工程师",
+      "startDate": "2024-07-01",
+      "endDate": "2026-09-30",
+      "description": "虚构验收：维护独立测试平台。"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-a",
+      "name": "虚构项目甲",
+      "role": "测试负责人",
+      "startDate": "2022-01-15",
+      "endDate": "2022-06-30",
+      "description": "虚构验收：创建离线测评工具。"
+    },
+    {
+      "id": "proj-b",
+      "name": "虚构项目乙",
+      "role": "开发成员",
+      "startDate": "2023-01-01",
+      "endDate": "2023-12-15",
+      "description": "虚构验收：构建网页信息提取样例。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill-a",
+      "name": "JavaScript",
+      "level": "熟练"
+    },
+    {
+      "id": "skill-b",
+      "name": "SQL",
+      "level": "熟练"
+    }
+  ],
+  "certificates": [
+    {
+      "id": "cert-a",
+      "name": "虚构数据分析证书",
+      "issuer": "虚构认证中心甲",
+      "date": "2023-05-18"
+    },
+    {
+      "id": "cert-b",
+      "name": "虚构软件测试证书",
+      "issuer": "虚构认证中心乙",
+      "date": "2024-03-16"
+    }
+  ]
+}

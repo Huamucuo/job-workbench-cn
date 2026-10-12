@@ -1,6 +1,6 @@
 {
   "name": "job-workbench-cn",
-  "version": "0.3.0",
+  "version": "0.4.0-beta.1",
   "private": true,
   "description": "中文优先、本机保存个人记录的开源求职工作台",
   "type": "module",
@@ -19,6 +19,7 @@
     "update": "node scripts/update-jobs.mjs",
     "update:research": "node scripts/update-jobs.mjs --research",
     "package:extension": "node scripts/package-extension.mjs",
-    "prepare:local": "node scripts/prepare-local.mjs"
+    "prepare:local": "node scripts/prepare-local.mjs",
+    "package:windows": "node scripts/package-windows.mjs"
   }
 }

@@ -1,0 +1,54 @@
+{
+  "frozenAt": "2026-10-10T12:44:49.979Z",
+  "note": "Independent oracle and HTML unchanged after baseline; supplemental radio scenario added before repair retest.",
+  "files": [
+    {
+      "name": "abnormal.html",
+      "sha256": "5d9942f358ef7b63aba13ee89e27f681354ca9bed6a5acbff9f7cd07c1418d73"
+    },
+    {
+      "name": "abnormal.js",
+      "sha256": "2bcd484d90a1efa605c3cf808a3aa48a9ab186ff1f35a8711287baa93232cb5b"
+    },
+    {
+      "name": "common.js",
+      "sha256": "f39c9b0b03d6ad2aa0c7da5f3e09763e77dc72fdcc7ac6d8bb1752a2fdfa3fe1"
+    },
+    {
+      "name": "embedded.html",
+      "sha256": "2f4a7db0e48fc2561f963c094a75ef3feea581a79f9ff433cacb568b158c6891"
+    },
+    {
+      "name": "index.html",
+      "sha256": "9bbb14d33e55777258803de477c53000ca5d54d36649f87c5cd2faa96a5a22db"
+    },
+    {
+      "name": "ordinary.html",
+      "sha256": "153062bb601ee7a67cf20c8f2dbed6f84d2f6da241c28c370182d9c2aa43c683"
+    },
+    {
+      "name": "profile-supported.json",
+      "sha256": "e53c68d469bc6649cce32a9602983ebc6e34dc83771aa0370a54a1bf257487eb"
+    },
+    {
+      "name": "profile-truth.json",
+      "sha256": "326e0eda090be862a9771635df27afc7701f0baa521e0c0fbdeccbdfb93dd84f"
+    },
+    {
+      "name": "soe.html",
+      "sha256": "e998ce479ecd8e6e8ebf2956b1b7e56252841a469ea24ba899a8102df22e5656"
+    },
+    {
+      "name": "soe.js",
+      "sha256": "ec92450f39c94fabfa8fa2415855f875003e32fdb9f96b9685e5305efc3b0c9c"
+    },
+    {
+      "name": "style.css",
+      "sha256": "cb3f98ba71331a5eb8a23f8a889563eb35dfa95521fb5da057d2cdf55c274ded"
+    },
+    {
+      "name": "supplemental.html",
+      "sha256": "f0196169cab8d25077f07fd49e3fc8745f20e7712dd6f7c2b3ae670163093a44"
+    }
+  ]
+}

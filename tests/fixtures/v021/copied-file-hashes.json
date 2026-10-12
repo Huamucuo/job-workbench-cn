@@ -1,0 +1,82 @@
+[
+  {
+    "file": "fixtures/abnormal.html",
+    "sha256": "5d9942f358ef7b63aba13ee89e27f681354ca9bed6a5acbff9f7cd07c1418d73"
+  },
+  {
+    "file": "fixtures/abnormal.js",
+    "sha256": "2bcd484d90a1efa605c3cf808a3aa48a9ab186ff1f35a8711287baa93232cb5b"
+  },
+  {
+    "file": "fixtures/common.js",
+    "sha256": "f39c9b0b03d6ad2aa0c7da5f3e09763e77dc72fdcc7ac6d8bb1752a2fdfa3fe1"
+  },
+  {
+    "file": "fixtures/embedded.html",
+    "sha256": "2f4a7db0e48fc2561f963c094a75ef3feea581a79f9ff433cacb568b158c6891"
+  },
+  {
+    "file": "fixtures/index.html",
+    "sha256": "9bbb14d33e55777258803de477c53000ca5d54d36649f87c5cd2faa96a5a22db"
+  },
+  {
+    "file": "fixtures/ordinary.html",
+    "sha256": "153062bb601ee7a67cf20c8f2dbed6f84d2f6da241c28c370182d9c2aa43c683"
+  },
+  {
+    "file": "fixtures/profile-supported.json",
+    "sha256": "e53c68d469bc6649cce32a9602983ebc6e34dc83771aa0370a54a1bf257487eb"
+  },
+  {
+    "file": "fixtures/profile-truth.json",
+    "sha256": "326e0eda090be862a9771635df27afc7701f0baa521e0c0fbdeccbdfb93dd84f"
+  },
+  {
+    "file": "fixtures/soe.html",
+    "sha256": "e998ce479ecd8e6e8ebf2956b1b7e56252841a469ea24ba899a8102df22e5656"
+  },
+  {
+    "file": "fixtures/soe.js",
+    "sha256": "ec92450f39c94fabfa8fa2415855f875003e32fdb9f96b9685e5305efc3b0c9c"
+  },
+  {
+    "file": "fixtures/style.css",
+    "sha256": "cb3f98ba71331a5eb8a23f8a889563eb35dfa95521fb5da057d2cdf55c274ded"
+  },
+  {
+    "file": "fixtures/supplemental.html",
+    "sha256": "f0196169cab8d25077f07fd49e3fc8745f20e7712dd6f7c2b3ae670163093a44"
+  },
+  {
+    "file": "reproduce/run-acceptance.cjs",
+    "sha256": "8e0125577d1dadf190b77a14e29e3bbe68fe923daf998808594b4ee8c9989d11"
+  },
+  {
+    "file": "reproduce/run-workbench-smoke.cjs",
+    "sha256": "1eed2eb1dc8ab1afea087943eaef41ca721e3d4ea027fe543014e55db7af96ee"
+  },
+  {
+    "file": "reproduce/build-fixtures.cjs",
+    "sha256": "78797b8165b2b82de41903b6fd5ff2f9801dc19c2910b093e65b8bc42f1bab18"
+  },
+  {
+    "file": "reproduce/build-supplemental.cjs",
+    "sha256": "aa471c8595c48d8b7c122837870404f3adbd683b3a8359b27c0a94eec1e32a16"
+  },
+  {
+    "file": "reproduce/qa-server.cjs",
+    "sha256": "e9586a0561a8f8be4039e3fe7853b7a81d0ff879d3dd698d762668b33e5e053c"
+  },
+  {
+    "file": "test-code-manifest.json",
+    "sha256": "df8860ad23f6046d0c55f6fba3d92c4817eab930a9e8785c364c75278ef769d2"
+  },
+  {
+    "file": "fixture-manifest.json",
+    "sha256": "caab4b495354304f1e93df3d3f6c44cafdc910235feffce9827e8516f906f752"
+  },
+  {
+    "file": "runs/repaired-v021/results.json",
+    "sha256": "b29957857d74a57ce778e4878294db86ed9eb5f5b08b38408f346dd5729e194a"
+  }
+]

@@ -1,4 +1,6 @@
 import {validateProfile} from './profile.mjs';
+import {bridgeRequest,sharedMode,bridgeStatus,probeBridge} from './bridge-client.mjs';
+import {removeRecovered,addRecovery} from './recoveries.mjs';
 export const VAULT_KEY='zhiyouyinli.profile.encrypted.v2',DRAFT_KEY=VAULT_KEY+'.draft',MEMORY_KEY='zhiyouyinli.autofill.mapping.v1';
 const rounds=600000,enc=new TextEncoder(),dec=new TextDecoder(),profileKind='job-workbench-encrypted-profile',draftKind='job-workbench-encrypted-draft';
 function b64(bytes){let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s);}
@@ -12,7 +14,7 @@ export function validateEnvelope(e,{allowDraft=false}={}){
 const aad=kind=>enc.encode(kind===profileKind?'job-workbench-profile-v2':'job-workbench-draft-v2');
 async function seal(profile,pass,isDraft){
  const p=validateProfile(profile,{allowInvalidFields:isDraft}),salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),key=await keyFor(pass,salt),kind=isDraft?draftKind:profileKind;
- const plain=enc.encode(JSON.stringify(p));if(plain.byteLength>(isDraft?3000000:1000000))throw new Error('档案过大，请减少经历描述后再保存');
+ const plain=enc.encode(JSON.stringify(p));if(plain.byteLength>3000000)throw new Error('档案超过3MB，请减少附件或导入来源后再保存');
  const cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv,additionalData:aad(kind)},key,plain);
  return {kind,version:1,algorithm:'AES-GCM-256',kdf:'PBKDF2-SHA256',iterations:rounds,salt:b64(salt),iv:b64(iv),ciphertext:b64(new Uint8Array(cipher))};
 }
@@ -28,7 +30,11 @@ export const encryptDraft=(profile,pass)=>seal(profile,pass,true);
 export const decryptDraft=(envelope,pass)=>open(envelope,pass,true);
 export function isExtension(){return Boolean(globalThis.chrome?.runtime?.id&&globalThis.chrome?.storage?.local);}
 export const storage={
- async get(key){if(isExtension()){await chrome.storage.local.setAccessLevel({accessLevel:'TRUSTED_CONTEXTS'});return (await chrome.storage.local.get(key))[key]??null;}const raw=localStorage.getItem(key);return raw===null?null:JSON.parse(raw);},
- async set(key,value){if(isExtension()){await chrome.storage.local.setAccessLevel({accessLevel:'TRUSTED_CONTEXTS'});await chrome.storage.local.set({[key]:value});}else localStorage.setItem(key,JSON.stringify(value));}
+ async get(key){if(isExtension()){const r=await runtime('storage:get',{key});return r.value;}if(sharedMode()){await ensureConnected();return (await bridgeRequest('storage:get',{key})).value;}const raw=localStorage.getItem(key);return raw===null?null:JSON.parse(raw);},
+ async set(key,value){if(isExtension()){await runtime('storage:set',{key,value});return;}if(sharedMode()){await ensureConnected();await bridgeRequest('storage:set',{key,value});return;}localStorage.setItem(key,JSON.stringify(value));},
+ async addRecovery(value){if(isExtension())return runtime('storage:recovery',{value});if(sharedMode()){await ensureConnected();return bridgeRequest('storage:recovery',{value},15000);}if(!navigator.locks)throw new Error('请使用新版Chrome或Edge，以保护多个窗口的草稿');return navigator.locks.request(VAULT_KEY,async()=>{const list=removeRecovered(await this.get(DRAFT_KEY),value.recovered);await this.set(DRAFT_KEY,addRecovery(list,value.record));return {ok:true};});},
+ async commitVault(value){validateEnvelope(value.next);if(isExtension())return runtime('storage:commit',{value});if(sharedMode()){await ensureConnected();return bridgeRequest('storage:commit',{value},15000);}if(!navigator.locks)throw new Error('请使用新版Chrome或Edge，以保护多个窗口的保存');return navigator.locks.request(VAULT_KEY,async()=>{const old=await this.get(VAULT_KEY);if((old?.ciphertext||null)!==value.expectedCiphertext)throw new Error('另一窗口已保存，未覆盖。请导出草稿备份，再重新打开最新档案');if(old)await this.set(VAULT_KEY+'.previous',old);await this.set(VAULT_KEY,value.next);if(value.recovered)await this.set(DRAFT_KEY,removeRecovered(await this.get(DRAFT_KEY),value.recovered));return {ok:true};});}
 };
+async function runtime(type,params){const reply=await chrome.runtime.sendMessage({protocol:'job-beta-v1',type,...params});if(!reply?.ok)throw new Error(reply?.error||'扩展连接失败，请重新加载扩展');return reply.value;}
+async function ensureConnected(){const s=await probeBridge();if(!s.connected)throw new Error('共享档案连接已中断或过期。请回首页重新连接；未保存到另一份档案。');}
 export function downloadJson(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}

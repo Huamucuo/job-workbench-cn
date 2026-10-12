@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:job-workbench:resume-profile:v2",
   "title": "统一求职档案 v2（仅本机，禁止提交真实数据到仓库）",
-  "description": "统一档案 v2 的 v0.3.0 扩展：可选出生日期、日期精度和加密来源记录。运行时额外验证真实日历、起止顺序、ID唯一性、来源关联、整体大小与联系方式。旧 v2 可读；旧程序不保证读取含新字段的文件。",
+  "description": "统一档案v2的Beta扩展：可选学位、语言、自述、加密附件和描述版本。旧v2缺少新字段时仍可读取，不推测事实。运行时验证真实日历、稳定ID、来源关联、版本引用、附件大小与内容、整体大小和联系方式；SHA256在下载附件前复核。",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -224,7 +224,7 @@
             "properties": {
               "path": {
                 "type": "string",
-                "pattern": "^(contact\\.[a-zA-Z]+|(?:education|internships|work|projects|skills|certificates)\\.[\\w-]{1,80}\\.[a-zA-Z]+)$"
+                "pattern": "^(contact\\.[a-zA-Z]+|about\\.(introduction|other)|(?:education|internships|work|projects|skills|certificates|languages)\\.[\\w-]{1,80}\\.[a-zA-Z]+)$"
               },
               "sourceId": {
                 "type": "string",
@@ -304,6 +304,37 @@
           }
         }
       }
+    },
+    "languages": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "$ref": "#/$defs/languages"
+      },
+      "description": "可选，多条语言记录；未明确提供的等级、考试和成绩留空"
+    },
+    "about": {
+      "$ref": "#/$defs/about"
+    },
+    "attachments": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/attachment"
+      },
+      "description": "可选，最多2份，每份原始内容512KiB，总内容1MiB；运行时还验证base64规范与size一致；只随档案加密，不自动上传"
+    },
+    "variants": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "$ref": "#/$defs/variant"
+      }
+    },
+    "activeVariantId": {
+      "type": "string",
+      "pattern": "^(|[\\w-]{1,80})$",
+      "description": "可选，空字符串使用基础表述；非空必须引用既有variant.id"
     }
   },
   "$defs": {
@@ -344,6 +375,11 @@
           "type": "string",
           "maxLength": 200,
           "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
+        },
+        "academicDegree": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "可选，独立于学历degree；仅保存明确提供的学位，不从学历或专业推断"
         }
       }
     },
@@ -518,6 +554,149 @@
           "pattern": "^(|[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)$"
         }
       }
+    },
+    "languages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "level",
+        "certificate"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "level": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "certificate": {
+          "type": "string",
+          "maxLength": 200
+        }
+      }
+    },
+    "about": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "introduction": {
+          "type": "string",
+          "maxLength": 6000
+        },
+        "other": {
+          "type": "string",
+          "maxLength": 6000
+        }
+      }
+    },
+    "attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "type",
+        "size",
+        "sha256",
+        "dataBase64"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240,
+          "pattern": "^[^\\\\/:*?\"<>|\\u0000-\\u001f\\u007f]+$"
+        },
+        "type": {
+          "type": "string",
+          "maxLength": 120,
+          "pattern": "^[\\w.+-]+/[\\w.+-]+$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 524288
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "dataBase64": {
+          "type": "string",
+          "maxLength": 699052,
+          "pattern": "^[A-Za-z0-9+/]*={0,2}$"
+        }
+      }
+    },
+    "descriptionOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section",
+        "recordId",
+        "description"
+      ],
+      "properties": {
+        "section": {
+          "enum": [
+            "internships",
+            "work",
+            "projects"
+          ]
+        },
+        "recordId": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 6000
+        }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "descriptions"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[\\w-]{1,80}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "descriptions": {
+          "type": "array",
+          "maxItems": 90,
+          "items": {
+            "$ref": "#/$defs/descriptionOverride"
+          }
+        },
+        "about": {
+          "$ref": "#/$defs/about"
+        }
+      },
+      "description": "只覆盖既有经历的description以及自述。运行时验证recordId存在和引用唯一性；身份、记录名称、职位和日期不能放入版本"
     }
   }
 }
+

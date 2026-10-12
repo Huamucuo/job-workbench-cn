@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-if(globalThis.JobAutofillEngine?.version==='0.3.0')return;
+if(globalThis.JobAutofillEngine?.version==='0.4.0')return;
 const R=globalThis.JobAutofillRules;
 let session=null,preparing=false;
 const pendingAdds=new Map();
@@ -8,11 +8,54 @@ const clean=s=>String(s||'').replace(/\s+/g,' ').trim().slice(0,300);
 const visible=e=>e.isConnected&&!e.closest('[hidden],[inert],[data-autofill-ui]')&&getComputedStyle(e).visibility!=='hidden'&&e.getClientRects().length>0;
 const heading=e=>clean(e.querySelector(':scope > legend,:scope > h1,:scope > h2,:scope > h3,:scope > h4,:scope > caption')?.textContent||e.getAttribute('aria-label')||(e.getAttribute('aria-labelledby')||'').split(/\s+/).map(id=>document.getElementById(id)?.textContent||'').join(' '));
 function labelText(node){const copy=node.cloneNode(true);copy.querySelectorAll('input,select,textarea,button,script,style').forEach(n=>n.remove());return clean(copy.textContent);}
+function neighboringLabel(e){
+ const container=e.closest('.form-item,.el-form-item,.ant-form-item,.form-field,.af-field');
+ if(!container)return {text:'',ambiguous:false};
+ const labels=Array.from(container.querySelectorAll(':scope > .form-item__text,:scope > .el-form-item__label,:scope > .ant-form-item-label,:scope > [data-field-label],:scope > label')).filter(n=>!n.contains(e)&&!n.querySelector('input,select,textarea,[role="combobox"],.phoenix-select'));
+ const texts=labels.map(labelText).filter(Boolean);
+ // Read only one local label in a known field container. Never concatenate sibling fields.
+ return {text:texts.length===1?texts[0]:'',ambiguous:texts.length>1};
+}
 function label(e){
  const aria=e.getAttribute('aria-labelledby');
  if(aria){const s=clean(aria.split(/\s+/).map(id=>document.getElementById(id)?.textContent||'').join(' '));if(s)return s;}
- return clean(e.getAttribute('aria-label')||Array.from(e.labels||[]).map(labelText).join(' ')||e.getAttribute('placeholder')||e.name||'未命名字段');
+ return clean(e.getAttribute('aria-label')||Array.from(e.labels||[]).map(labelText).join(' ')||neighboringLabel(e).text||e.getAttribute('placeholder')||e.name||'未命名字段');
 }
+const customRoot=e=>e.closest('.phoenix-select,.phoenix-radio-group')||e.closest('[role="radiogroup"]')||e.closest('[role="combobox"]');
+const optionValue=e=>String(e.getAttribute('data-value')??e.getAttribute('value')??e.querySelector('input[type="radio"]')?.value??clean(e.textContent));
+function unsafeInteractiveAncestor(e){
+ for(let parent=e.parentElement;parent;parent=parent.parentElement)if(parent.matches('button,input,select,textarea,a[href],summary,[role="button"],[contenteditable=""],[contenteditable="true"]'))return true;
+ return false;
+}
+function safeChoiceMember(e,root,radio=false){
+ if(unsafeInteractiveAncestor(e)||e.closest('a[href]')||e.matches('button:not([type="button"]),input:not([type="radio"])')||e.querySelector('button:not([type="button"]),input[type="submit"],input[type="image"],input[type="reset"],a[href]'))return false;
+ const owner=e.closest('label');
+ return !owner||radio&&owner.control?.matches('input[type="radio"]')&&root.contains(owner.control);
+}
+function choiceAdapter(root){
+ if(!root||customRoot(root)!==root)return null;
+ if(root.matches('.phoenix-radio-group,[role="radiogroup"]')){
+  const members=Array.from(root.querySelectorAll('[role="radio"],.phoenix-radio')).filter(e=>e.closest('.phoenix-radio-group,[role="radiogroup"]')===root&&!e.parentElement?.closest('[role="radio"],.phoenix-radio'));
+  if(!members.length||members.some(e=>!safeChoiceMember(e,root,true)))return {type:'custom'};
+  return {type:'custom-radio-group',root,members};
+ }
+ if(!root.matches('.phoenix-select,[role="combobox"]'))return {type:'custom'};
+ const triggers=root.matches('input,button')?[root]:Array.from(root.querySelectorAll(':scope > input,:scope > button,:scope > [role="combobox"]'));
+ const trigger=triggers.length===1?triggers[0]:triggers.length===0&&root.matches('div,span')?root:null;
+ if(!trigger||unsafeInteractiveAncestor(trigger)||trigger.matches('button:not([type="button"]),a[href],input:not([readonly])')||root.getAttribute('aria-haspopup')==='dialog')return {type:'custom'};
+ const triggerLabel=trigger.closest('label');if(trigger.closest('a[href]')||triggerLabel&&triggerLabel.control!==trigger)return {type:'custom'};
+ const ids=(trigger.getAttribute('aria-controls')||root.getAttribute('aria-controls')||'').trim().split(/\s+/).filter(Boolean);
+ if(ids.length>1)return {type:'custom'};
+ const owned=Array.from(root.querySelectorAll('[role="listbox"],.phoenix-select__dropdown,.phoenix-select__menu,.phoenix-select-dropdown')).filter(e=>e.closest('.phoenix-select,[role="combobox"]')===root);
+ if(!ids.length&&owned.length!==1)return {type:'custom'};
+ let list=owned.length===1?owned[0]:null;
+ if(ids.length){const matches=Array.from(document.querySelectorAll('[id]')).filter(e=>e.id===ids[0]);if(matches.length>1)return {type:'custom'};if(matches[0]&&!matches[0].matches('[role="listbox"],.phoenix-select__dropdown,.phoenix-select__menu,.phoenix-select-dropdown'))return {type:'custom'};list=matches[0]||null;}
+ if(list&&owned.some(e=>e!==list))return {type:'custom'};
+ const members=list?Array.from(list.querySelectorAll('[role="option"],.phoenix-select__option')).filter(e=>e.closest('[role="listbox"],.phoenix-select__dropdown,.phoenix-select__menu,.phoenix-select-dropdown')===list):[];
+ if(members.some(e=>!safeChoiceMember(e,root)))return {type:'custom'};
+ return {type:'custom-select',root,trigger,list,members,binding:ids[0]||'owned'};
+}
+function adapterOptions(adapter){return (adapter?.members||[]).map(e=>({value:optionValue(e),label:labelText(e),disabled:disabled(e)||!!e.querySelector(':disabled')}));}
 function groupContainer(e,tableCache=new Map()){
  let result=null;
  for(let p=e.parentElement;p&&p.tagName!=='FORM';p=p.parentElement){
@@ -32,7 +75,7 @@ function groupContainer(e,tableCache=new Map()){
    if(!mode){
     const rows=Array.from(table.querySelectorAll(':scope > tbody > tr')).map(tr=>Array.from(tr.querySelectorAll('input,textarea,select')).filter(n=>n.closest('tr')===tr)).filter(fields=>fields.length);
     const keys=rows.map(fields=>fields.map(n=>R.inferField({label:label(n),type:kind(n),group,index:0}).path).filter(Boolean));
-    const identity=group+'.0.'+{education:'school',internships:'organization',work:'organization',projects:'name',skills:'name',certificates:'name'}[group],flat=keys.flat();
+    const identity=group+'.0.'+{education:'school',internships:'organization',work:'organization',projects:'name',skills:'name',certificates:'name',languages:'name'}[group],flat=keys.flat();
     const outside=result&&Array.from(result.element.querySelectorAll('input,textarea,select')).some(n=>!table.contains(n));
     mode=keys.length&&keys.every(k=>k.length>=2&&new Set(k).size===k.length&&k.includes(identity))&&!outside?'rows':flat.length>=2&&new Set(flat).size===flat.length&&flat.includes(identity)?'single':'ambiguous';
     tableCache.set(table,mode);
@@ -46,26 +89,39 @@ function groupContainer(e,tableCache=new Map()){
  return result;
 }
 function safetyContext(e){const parts=[];for(let p=e.parentElement;p;p=p.parentElement){if(p.matches('fieldset,[role="group"],[role="region"],section,article,div,table,form')){const title=heading(p);if(title)parts.push(title);}if(p.tagName==='FORM')break;}return parts.join(' / ').slice(0,1200);}
-const disabled=e=>e.matches(':disabled')||e.getAttribute('aria-disabled')==='true';
-function kind(e){if(e.matches('select'))return e.multiple?'select-multiple':'select-one';if(e.matches('textarea'))return 'textarea';if(e.getAttribute('role')==='combobox')return 'custom';return e.type||'text';}
+const disabled=e=>e.matches(':disabled')||!!e.closest('[aria-disabled="true"],fieldset[disabled]');
+function kind(e){const adapter=choiceAdapter(e);if(adapter)return adapter.type;if(e.matches('select'))return e.multiple?'select-multiple':'select-one';if(e.matches('textarea'))return 'textarea';return e.type||'text';}
 function readValue(entry){
  const {elements:es,descriptor:f}=entry;
  if(f.type==='radio-group')return es.find(e=>e.checked)?.value||'';
  if(f.type==='checkbox-group')return es.filter(e=>e.checked).map(e=>e.value);
  if(f.type==='select-multiple')return Array.from(es[0].selectedOptions).map(o=>o.value);
  if(f.type==='checkbox')return es[0].checked;
+ if(f.type==='custom-radio-group'){const adapter=choiceAdapter(es[0]);return adapter?.members.find(e=>e.getAttribute('aria-checked')==='true'||e.matches('.phoenix-radio--checked,.is-checked')||e.querySelector('input[type="radio"]:checked'))?optionValue(adapter.members.find(e=>e.getAttribute('aria-checked')==='true'||e.matches('.phoenix-radio--checked,.is-checked')||e.querySelector('input[type="radio"]:checked'))):'';}
+ if(f.type==='custom-select'){
+  const root=es[0],adapter=choiceAdapter(root),explicit=root.getAttribute('data-value')??root.getAttribute('value');
+  if(root.matches('input'))return root.value||'';
+  if(explicit!==null)return explicit;
+  const selected=adapter?.members.find(e=>e.getAttribute('aria-selected')==='true');if(selected)return optionValue(selected);
+  const text=clean(root.querySelector('.phoenix-select__value,.phoenix-select__selected,[data-selected-value]')?.textContent);
+  if(!text||/^(请选择|please select|select|选择)$/i.test(text))return '';
+  const options=adapterOptions(adapter),matches=options.filter(o=>R.norm(o.label)===R.norm(text));
+  if(matches.length===1)return matches[0].value;
+  if(entry.appliedChoice&&R.norm(entry.appliedChoice.label)===R.norm(text))return entry.appliedChoice.value;
+  return text;
+ }
  return es[0].value||'';
 }
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const equalValue=(a,b)=>Array.isArray(a)&&Array.isArray(b)?same([...a].sort(),[...b].sort()):same(a,b);
 function describe(es,group,index){
  const e=es[0],type=es.length>1&&['radio','checkbox'].includes(kind(e))?kind(e)+'-group':kind(e)==='radio'?'radio-group':kind(e);
- const options=e.matches('select')?Array.from(e.options).map(o=>({value:o.value,label:clean(o.textContent),disabled:disabled(o)||o.parentElement?.disabled===true})):['radio-group','checkbox-group'].includes(type)?es.map(o=>({value:o.value,label:label(o),disabled:disabled(o)})):[];
+ const adapter=choiceAdapter(e),options=adapter?adapterOptions(adapter):e.matches('select')?Array.from(e.options).map(o=>({value:o.value,label:clean(o.textContent),disabled:disabled(o)||o.parentElement?.disabled===true})):['radio-group','checkbox-group'].includes(type)?es.map(o=>({value:o.value,label:label(o),disabled:disabled(o)})):[];
  const groupLabel=['radio-group','checkbox-group'].includes(type)?heading(e.closest('fieldset,[role="group"]')||e.parentElement):'';
- return {label:groupLabel||label(e),name:clean(e.name),placeholder:clean(e.getAttribute('placeholder')),type,context:group?.title||'',safetyContext:safetyContext(e),group:group?.group||null,index,autocomplete:e.autocomplete||'',disabled:es.some(disabled)||(type==='select-multiple'&&Array.from(e.selectedOptions).some(disabled)),readOnly:!!e.readOnly,maxLength:e.maxLength||0,options,hasValue:false};
+ return {label:groupLabel||label(e),name:clean(e.name),placeholder:adapter?'':clean(e.getAttribute('placeholder')),type,context:group?.title||'',safetyContext:safetyContext(e),group:group?.group||null,index,autocomplete:e.autocomplete||'',disabled:es.some(disabled)||(type==='select-multiple'&&Array.from(e.selectedOptions).some(disabled)),readOnly:adapter?false:!!e.readOnly,maxLength:e.maxLength||0,options,hasValue:false,ambiguousLabel:!groupLabel&&!e.getAttribute('aria-label')&&!e.getAttribute('aria-labelledby')&&!e.labels?.length&&neighboringLabel(e).ambiguous,...(adapter?.type==='custom-select'?{choiceBinding:adapter.binding}:{})};
 }
 function collect(){
- const all=Array.from(document.querySelectorAll('input,textarea,select,[role="combobox"]')).filter(e=>!e.closest('[data-autofill-ui]')&&!['hidden','submit','button','reset'].includes(kind(e)));
+ const all=Array.from(document.querySelectorAll('input,textarea,select,[role="combobox"],[role="radiogroup"],.phoenix-select,.phoenix-radio-group')).filter(e=>!e.closest('[data-autofill-ui]')&&(!customRoot(e)||customRoot(e)===e)&&!['hidden','submit','button','reset'].includes(kind(e)));
  const controls=all.filter(visible),visited=new Set(),containers=new Map(),entries=[],tableCache=new Map(),ambiguousGroups=new Set();
  // Count connected records, including collapsed records, before filtering visible controls.
  for(const e of all){const g=groupContainer(e,tableCache);if(g){if(g.ambiguous)ambiguousGroups.add(g.group);if(!containers.has(g.group))containers.set(g.group,[]);const list=containers.get(g.group);if(!list.includes(g.element))list.push(g.element);}}
@@ -115,7 +171,14 @@ function setNative(e,key,value){
 }
 function assign(entry,value){
  const {elements:es,descriptor:f}=entry;
- if(['radio-group','checkbox-group'].includes(f.type))es.forEach(e=>setNative(e,'checked',Array.isArray(value)?value.includes(e.value):e.value===value));
+ if(f.type==='custom-radio-group'){
+  const adapter=choiceAdapter(es[0]),choices=adapter?.members.filter(e=>optionValue(e)===value&&!disabled(e));
+  if(adapter?.type!=='custom-radio-group'||choices?.length!==1||!visible(choices[0]))throw new Error('自定义单选选项已变化');
+  const target=choices[0].closest('label')?.control||choices[0];
+  if(disabled(target)||!visible(target))throw new Error('自定义单选目标已变化');
+  target.click();return;
+ }
+ if(['radio-group','checkbox-group'].includes(f.type))es.forEach(e=>{if(!visible(e)||disabled(e)||unsafeInteractiveAncestor(e)||!e.matches('input')||e.type!==f.type.replace('-group',''))throw new Error('单选或多选成员在网站事件中变化');const wanted=Array.isArray(value)?value.includes(e.value):e.value===value;if(e.checked!==wanted)e.click();});
  else if(f.type==='select-multiple')Array.from(es[0].options).forEach(o=>{o.selected=value.includes(o.value);});
  else setNative(es[0],'value',value);
  for(const e of es){e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}));}
@@ -128,8 +191,31 @@ function validTarget(entry,allowOptionChanges=false){
  if((currentGroup?.element||null)!==(entry.group?.element||null))return false;
  const current={...live.descriptor},prior={...entry.descriptor};
  delete prior.id;delete prior.hasValue;delete current.id;delete current.hasValue;
- if(allowOptionChanges)current.options=prior.options;
+ if(allowOptionChanges||entry.descriptor.type==='custom-select')current.options=prior.options;
  return same(current,prior)&&!R.blocked(current)&&current.type!=='custom';
+}
+async function selectCustom(entry,item,href){
+ const path=item.choice?.path,inferred=R.inferField(entry.descriptor);
+ if(!R.validPath.test(path||'')||typeof item.value!=='string'||!item.value.trim()||item.value.length>500||inferred.status==='choice'&&!new RegExp('^education\\.\\d+\\.'+inferred.choiceKey+'$').test(path))return {status:'skipped',reason:'自定义选择请求缺少已核对的档案来源'};
+ let adapter=choiceAdapter(entry.elements[0]);
+ if(adapter?.type!=='custom-select'||!visible(adapter.trigger)||disabled(adapter.trigger))return {status:'skipped',reason:'选择器结构或状态已变化'};
+ if(!adapter.list||!visible(adapter.list))adapter.trigger.click();
+ const observation=await observeStable(()=>{
+  if(location.href!==href||!validTarget(entry,true)||!same(readValue(entry),entry.initial))return {status:'stop',reason:'等待选项时页面或已有内容改变，已跳过'};
+  adapter=choiceAdapter(entry.elements[0]);
+  if(adapter?.type!=='custom-select')return {status:'stop',reason:'选择器结构已变化，已跳过'};
+  if(!adapter.list||!visible(adapter.list))return {status:'waiting'};
+  const options=adapterOptions(adapter).filter(o=>o.value!==''),converted=R.convertValue(item.value,{...entry.descriptor,options},path);
+  if(!options.length)return {status:'waiting'};
+  return {status:'ready',stamp:JSON.stringify(options),converted,options};
+ },{stableMs:250});
+ if(!observation.ok)return {status:observation.status==='stop'?'skipped':'pending',reason:observation.reason};
+ if(!observation.converted.ok)return {status:'skipped',reason:'选项缺失或不唯一，已保留人工选择'};
+ adapter=choiceAdapter(entry.elements[0]);
+ const expected=observation.converted.value,options=adapterOptions(adapter),matches=adapter?.members.filter((e,i)=>options[i]?.value===expected&&!options[i].disabled&&visible(e));
+ if(!validTarget(entry,true)||!same(readValue(entry),entry.initial)||!same(options.filter(o=>o.value!==''),observation.options)||matches?.length!==1)return {status:'skipped',reason:'选项或页面在选择前变化，已跳过'};
+ const chosen=options.find(o=>o.value===expected);entry.appliedChoice=chosen;matches[0].click();
+ return {status:'written',value:expected};
 }
 async function apply(scanId,items){
  const begin=performance.now(),s=session;
@@ -149,7 +235,11 @@ async function apply(scanId,items){
  const parentValid=(parent,seen=new Set())=>{
   if(!parent||seen.has(parent.entry.descriptor.id))return false;
   seen.add(parent.entry.descriptor.id);
-  if(!validTarget(parent.entry,!!parent.entry.descriptor.cascade)||!equalValue(readValue(parent.entry),parent.value)||!same(describe(parent.entry.elements,parent.entry.group,parent.entry.descriptor.index).options,parent.options))return false;
+  if(!validTarget(parent.entry,!!parent.entry.descriptor.cascade)||!equalValue(readValue(parent.entry),parent.value))return false;
+  const currentOptions=describe(parent.entry.elements,parent.entry.group,parent.entry.descriptor.index).options;
+  if(parent.entry.descriptor.type==='custom-select'){
+   if(currentOptions.length){const converted=R.convertValue(parent.choiceRaw??parent.value,{...parent.entry.descriptor,options:currentOptions},parent.choicePath||'');if(!converted.ok||!same(converted.value,parent.value))return false;}
+  }else if(!same(currentOptions,parent.options))return false;
   const parentId=parent.entry.descriptor.cascade?.parentId;
   return !parentId||parentValid(written.get(parentId),seen);
  };
@@ -174,7 +264,9 @@ async function apply(scanId,items){
   if(location.href!==s.href||!validTarget(entry,!!item.deferred)||!same(readValue(entry),entry.initial)){result.reason='页面内容已变化，为防错填已跳过';continue;}
   if(entry.descriptor.hasValue&&item.overwrite!==true){result.reason='保留已有内容';continue;}
   let value=item.value;
-  if(item.deferred){
+  if(entry.descriptor.type==='custom-select'){
+   try{const custom=await selectCustom(entry,item,s.href);if(custom.status!=='written'){result.status=custom.status;result.reason=custom.reason;continue;}value=custom.value;}catch{result.status='failed';result.reason='网站拒绝自定义选项操作，请人工核对';continue;}
+  }else if(item.deferred){
    if(!cascade||cascade.path!==item.deferred.path||entry.descriptor.type!=='select-one'||entry.descriptor.hasValue||typeof item.value!=='string'||!item.value.trim()||item.value.length>120){result.reason='级联请求不符合原预览，已跳过';continue;}
    const parent=written.get(cascade.parentId),watch=watches.get(item.fieldId);
    if(!parent?.didWrite){result.reason='上级地区未在本次成功填写，请先核对上级或手工选择';continue;}
@@ -196,16 +288,22 @@ async function apply(scanId,items){
   try{
    // Require a child option mutation after its own parent was written; stale choices are never used.
    for(const [id,watch]of watches)if(entryFor(id)?.descriptor.cascade?.parentId===item.fieldId)watch.changed=false;
-   assign(entry,value);
+   if(entry.descriptor.type!=='custom-select')assign(entry,value);
    await new Promise(resolve=>setTimeout(resolve,40));
-   if(location.href!==s.href||!entry.elements.every(visible)){result.reason='填写后页面变化，请人工核对';continue;}
-   if(!equalValue(readValue(entry),value)){result.reason='页面未保留填写值，请人工核对';continue;}
-   written.set(item.fieldId,{entry,value,options:describe(entry.elements,entry.group,entry.descriptor.index).options,didWrite:true});
-   result.status='filled';result.reason='已回读确认';
-  }catch{result.reason='网站拒绝写入，请人工核对';}
+   if(location.href!==s.href||!entry.elements.every(visible)){result.status='failed';result.reason='填写后页面变化，请重新识别核对';continue;}
+   if(!equalValue(readValue(entry),value)){result.status='failed';result.reason='页面未保留填写值，请重新识别核对';continue;}
+   written.set(item.fieldId,{entry,value,options:describe(entry.elements,entry.group,entry.descriptor.index).options,didWrite:true,...(entry.descriptor.type==='custom-select'?{choiceRaw:item.value,choicePath:item.choice.path}:{})});
+   result.status='pending';result.reason='正在等待网站保留填写结果';
+  }catch{result.status='failed';result.reason='网站拒绝写入，请重新识别核对';}
  }
- for(const result of results){const record=written.get(result.fieldId);if(result.status==='filled'&&!parentValid(record)){result.status='skipped';result.reason='后续页面更新改变了已填内容，请人工核对';}}
- return {results,durationMs:Math.round(performance.now()-begin),filled:results.filter(r=>r.status==='filled').length,attempted:items.length,automaticSubmitRequested:false};
+ // A delayed framework render may undo a DOM write. Keep every attempted write provisional
+ // through a final settling window, and revalidate the record, labels and cascade ancestors.
+ if(written.size)await observeStable(()=>{
+  for(const result of results){const record=written.get(result.fieldId);if(record?.didWrite&&result.status==='pending'&&(location.href!==s.href||!parentValid(record))){result.status='failed';result.reason='网站延迟更新或框架回滚了填写内容，请重新识别后重试';}}
+  return {status:'ready',stamp:JSON.stringify(results.map(r=>[r.fieldId,r.status]))};
+ },{timeoutMs:2200,stableMs:750});
+ for(const result of results){const record=written.get(result.fieldId);if(record?.didWrite&&result.status==='pending'){if(parentValid(record)){result.status='filled';result.reason='已触发网站事件并稳定回读';}else{result.status='failed';result.reason='网站未稳定保留填写内容，请重新识别后重试';}}}
+ return {results,durationMs:Math.round(performance.now()-begin),filled:results.filter(r=>r.status==='filled').length,failed:results.filter(r=>r.status==='failed').length,skipped:results.filter(r=>r.status==='skipped').length,pending:results.filter(r=>r.status==='pending').length,attempted:items.length,automaticSubmitRequested:false};
  }finally{for(const watch of watches.values())watch.observer.disconnect();}
 }
 async function observeStable(inspect,{timeoutMs=3500,stableMs=200}={}){
@@ -225,7 +323,7 @@ async function prepareGroups(counts){
  if(preparing)throw new Error('正在等待经历新增，请勿重复操作');
  preparing=true;session=null;const result=[],href=location.href;
  try{
- const wanted=Object.fromEntries(Object.entries(counts||{}).filter(([k,v])=>['education','internships','work','projects','skills','certificates'].includes(k)&&Number.isInteger(v)&&v>=0&&v<=30));
+ const wanted=Object.fromEntries(Object.entries(counts||{}).filter(([k,v])=>['education','internships','work','projects','skills','certificates','languages'].includes(k)&&Number.isInteger(v)&&v>=0&&v<=30));
  let clicks=0;
  for(const [group,count]of Object.entries(wanted)){
   if(location.href!==href){result.push({group,reason:'页面已导航，整个新增操作已停止'});break;}
@@ -233,12 +331,12 @@ async function prepareGroups(counts){
   const pending=pendingAdds.get(group);
   if(pending){
    if(pending.href!==href||before===pending.before+1)pendingAdds.delete(group);
-   else{result.push({group,count:before,wanted:count,reason:'上次新增尚未确认，未重复点击；请等待或手工检查新增结果'});continue;}
+   else{result.push({group,count:before,wanted:count,status:'pending',reason:'上次新增尚未确认，未重复点击；请等待或手工检查新增结果'});continue;}
   }
   while(before<count&&clicks<5){
    if(location.href!==href){result.push({group,reason:'页面已导航，整个新增操作已停止'});return {clicks,groups:result};}
    if(collect().entries.some(e=>e.descriptor.group===group&&e.descriptor.ambiguousGroup)){result.push({group,reason:'记录边界或顺序不明确，请先手工整理经历'});break;}
-   const candidates=Array.from(document.querySelectorAll('button[type="button"]')).filter(b=>visible(b)&&!b.disabled&&/^(新增|添加|增加|add)\s*/i.test(clean(b.textContent))&&R.groupFor(clean(b.textContent))===group&&!/提交|申请|确认|下一步|submit|apply|next|confirm/i.test(clean(b.textContent)));
+   const candidates=Array.from(document.querySelectorAll('button[type="button"]')).filter(b=>visible(b)&&!b.disabled&&!unsafeInteractiveAncestor(b)&&/^(新增|添加|增加|add)\s*/i.test(clean(b.textContent))&&R.groupFor(clean(b.textContent))===group&&!/提交|申请|确认|下一步|submit|apply|next|confirm/i.test(clean(b.textContent)));
    if(candidates.length!==1){result.push({group,reason:'没有唯一且安全的新增按钮；请手工添加'});break;}
    if(location.href!==href){result.push({group,reason:'页面已导航，整个新增操作已停止'});return {clicks,groups:result};}
    pendingAdds.set(group,{before,href});candidates[0].click();clicks++;
@@ -249,7 +347,7 @@ async function prepareGroups(counts){
     if(after!==before+1)return {status:'stop',reason:'新增数量不符合预期，已停止；请人工核对记录顺序'};
     return {status:'ready',count:after,stamp:JSON.stringify(snapshot.entries.filter(e=>e.descriptor.group===group).map(e=>e.descriptor))};
    });
-   if(!observation.ok){result.push({group,reason:observation.reason});break;}
+   if(!observation.ok){result.push({group,status:observation.status==='stop'?'failed':'pending',reason:observation.reason});break;}
    pendingAdds.delete(group);before=observation.count;
   }
   result.push({group,count:before,wanted:count,...(before<count&&clicks>=5?{reason:'本次最多新增5组；请核对后再次准备或手工添加'}:{})});
@@ -257,5 +355,5 @@ async function prepareGroups(counts){
  return {clicks,groups:result};
  }finally{preparing=false;}
 }
-globalThis.JobAutofillEngine=Object.freeze({version:'0.3.0',scan,apply,prepareGroups});
+globalThis.JobAutofillEngine=Object.freeze({version:'0.4.0',scan,apply,prepareGroups});
 })();

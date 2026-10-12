@@ -1,0 +1,72 @@
+{
+  "writtenAt": "2026-10-12T15:43:52.920Z",
+  "candidate": "0.4.0 Beta RC1",
+  "counts": {
+    "original": 37,
+    "profile": 32,
+    "bridge": 11,
+    "total": 80,
+    "fail": 0
+  },
+  "finalRuns": {
+    "original": "beta-orig-ux2-1791819215049",
+    "workbench": "beta-wb-ux-final-1791819408853",
+    "profile": "beta-profile-simple-ux-final-1791818392601",
+    "bridge": "beta-br-ux-final2-1791819365113"
+  },
+  "originalMatrix": {
+    "original30Preserved": true,
+    "missingOriginalPassIds": [],
+    "workbench7Historical": true,
+    "mainFieldAssertions": {
+      "total": 100,
+      "correct": 100,
+      "filled": 95,
+      "filledCorrect": 95,
+      "abstained": 4,
+      "preserved": 1
+    }
+  },
+  "unitTests": {
+    "pass": 81,
+    "fail": 0
+  },
+  "additional": {
+    "guideBC": {
+      "cases": 6,
+      "B": 18,
+      "C": 19,
+      "submit": 0
+    },
+    "simpleUX": 6,
+    "migrationQuota": 1,
+    "importUI": 11,
+    "enhancedFiles": 2,
+    "enhancedMappedFieldsEach": 72,
+    "validEmptyAndVisibleErrors": 3
+  },
+  "timing": {
+    "method": "Single same-condition automated pair, not a human comparison",
+    "baselineMs": 1660,
+    "extensionMs": 4785,
+    "sharedColdStartupMs": 1379,
+    "totalBaselineMs": 3039,
+    "totalExtensionMs": 6164,
+    "humanSavingProven": false,
+    "humanTiming": "user-waived",
+    "historicalPair": {
+      "baselineMs": 630,
+      "extensionMs": 4443,
+      "coldMs": 745
+    }
+  },
+  "limits": [
+    "Daily browser installation remains a manual user step",
+    "Chrome actual installation not tested on this machine",
+    "Real recruitment-site full workflow remains pending",
+    "No 30 percent human time-saving result",
+    "DOCX Word layout unverified; actual local import verified"
+  ],
+  "rawEvidenceLocation": "Maintenance source .local/beta-qa; excluded from Git and distributions",
+  "publicPublished": false
+}
