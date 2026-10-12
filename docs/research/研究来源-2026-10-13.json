@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-13",
+  "timezone": "Asia/Taipei",
+  "sources": [
+    {
+      "id": "C1",
+      "title": "中信银行校招简历公开模板",
+      "url": "https://job.citicbank.com/CustStyle/zpmhys/addSchoolResume4.html",
+      "scope": "公开字段与模块全文读取；发布日期未显示；未登录、未保存。"
+    },
+    {
+      "id": "C2",
+      "title": "中信银行 2027 校招 FAQ",
+      "url": "https://job.citicbank.com/static/gggs1_209.html",
+      "scope": "读取公开全文并补核保存依赖；标题是 2027 批次，发布日期未显示。"
+    },
+    {
+      "id": "C3",
+      "title": "TCL 大易公开简历模板",
+      "url": "https://sc.hotjob.cn/wt/TCL/web/index/showNewResume?brandCode=1&recruitType=1",
+      "scope": "公开字段全文读取；发布日期未显示；仅代表该企业模板。"
+    },
+    {
+      "id": "C4",
+      "title": "51job 公开网申附件预览",
+      "url": "https://xyz.51job.com/CommPage/Pages/FillInResumePreview.aspx?SelectedIndex=10&ctmid=f85cb918-52f3-4606-99a3-5430158cd673&sourceID=b13560ea-4db4-4ffd-8a91-91f22d9918a9",
+      "scope": "主代理读取该附件页与 11 个栏目导航；页脚 1999–2017，不能当作当前完整流程。"
+    },
+    {
+      "id": "W1",
+      "title": "Workday Career Sites",
+      "url": "https://doc.workday.com/workday-education/en-us/course-manuals/recruiting-for-administrators/career-sites.html",
+      "scope": "读取公开正文；主代理再次核对 Save for Later；无明确更新日期。"
+    },
+    {
+      "id": "W2",
+      "title": "Workday Job Requisition Components",
+      "url": "https://doc.workday.com/workday-education/en-us/course-manuals/recruiting-for-administrators/job-requisition-components.html?toc=2",
+      "scope": "研究代理读取正文；模板、重复经历、主/次/补充问卷与条件分支；无明确更新日期。"
+    },
+    {
+      "id": "G1",
+      "title": "Greenhouse 自定义申请问题",
+      "url": "https://support.greenhouse.io/hc/en-us/articles/360025222851-Add-a-custom-application-question-to-a-job-post",
+      "scope": "读取正文；更新 2026-03-02；问题、选项、必填与隐私可配置。"
+    },
+    {
+      "id": "G2",
+      "title": "Greenhouse 申请级字段",
+      "url": "https://support.greenhouse.io/hc/en-us/articles/115003544472-Create-new-custom-application-field",
+      "scope": "研究代理读取正文；更新 2026-03-02；不同申请可保留不同答案。"
+    },
+    {
+      "id": "G3",
+      "title": "Greenhouse 用户提供的公开申请页面",
+      "url": "https://job-boards.greenhouse.io/greenhouse/jobs/8126988?gh_jid=8126988",
+      "scope": "读取公开表单文字；没有点击填写或提交，也未核验该职位当前报名状态。"
+    },
+    {
+      "id": "G4",
+      "title": "Greenhouse 上传格式与大小",
+      "url": "https://support.greenhouse.io/hc/en-us/articles/360052218132-Supported-formats-for-resumes-cover-letters-and-other-candidate-uploads",
+      "scope": "读取正文并补核附件段落；更新 2026-08-19。与 G1 所列大小不同，不能任选一个作为全站标准。"
+    },
+    {
+      "id": "A1",
+      "title": "Ashby Application Forms",
+      "url": "https://docs.ashbyhq.com/application-forms",
+      "scope": "研究代理读取正文；可重复教育与记录数量、企业/岗位模板；无明确更新日期。"
+    },
+    {
+      "id": "A2",
+      "title": "Ashby Conditional Form Fields",
+      "url": "https://docs.ashbyhq.com/conditional-form-fields",
+      "scope": "研究代理读取正文；条件可组合；无明确更新日期。"
+    },
+    {
+      "id": "A3",
+      "title": "Ashby Questionnaires",
+      "url": "https://docs.ashbyhq.com/questionnaires",
+      "scope": "研究代理读取正文；可有后续阶段问卷；私人候选人链接未访问。"
+    },
+    {
+      "id": "L1",
+      "title": "Lever 配置表单",
+      "url": "https://help.lever.co/s/article/Configuring-your-Lever-Application-Form",
+      "scope": "直接读取失败；只有搜索索引返回文字，不能据此确认当前控件或完整流程。"
+    },
+    {
+      "id": "L2",
+      "title": "Sonar 的 Lever 公开表单",
+      "url": "https://jobs.lever.co/sonarsource/2af7d7de-0c0d-4178-a538-8989e24f37c8/apply",
+      "scope": "研究代理读取公开表单文字；未填入，未验证后台保存；发布日期未显示。"
+    },
+    {
+      "id": "S1",
+      "title": "SAP 外部申请测试脚本",
+      "url": "https://help.sap.com/docs/successfactors-recruiting/recruiting-in-sap-successfactors-test-script/complete-candidate-profile-and-submit-application?locale=en-US&state=PRODUCTION&version=2211",
+      "scope": "2H 2022 历史版本；直接读取为空，仅索引文字，不代表当前全部企业流程。"
+    },
+    {
+      "id": "S2",
+      "title": "SAP 多阶段配置",
+      "url": "https://help.sap.com/docs/successfactors-recruiting/setting-up-and-maintaining-sap-successfactors-recruiting/configuring-job-application-template-for-multistage-applications",
+      "scope": "仅索引文字；多招聘阶段/权限不直接等于多个网页。"
+    },
+    {
+      "id": "B1",
+      "title": "Chrome activeTab",
+      "url": "https://developer.chrome.com/docs/extensions/develop/concepts/activeTab",
+      "scope": "读取正文；同源访问保留、跨源撤销；页面显示旧更新日，配合当前 Edge 探针验证。"
+    },
+    {
+      "id": "B2",
+      "title": "Microsoft Edge 侧栏",
+      "url": "https://learn.microsoft.com/en-us/microsoft-edge/extensions/developer-guide/sidebar",
+      "scope": "读取正文；更新 2026-06-12；持续侧栏及切回标签的已知显示限制。"
+    },
+    {
+      "id": "B3",
+      "title": "Chrome sidePanel",
+      "url": "https://developer.chrome.com/docs/extensions/reference/api/sidePanel",
+      "scope": "读取相关正文；114+ MV3，open 为116+；新侧栏功能尚未在本项目实现。"
+    },
+    {
+      "id": "B4",
+      "title": "Chrome scripting",
+      "url": "https://developer.chrome.com/docs/extensions/reference/api/scripting",
+      "scope": "读取相关正文；documentId 106+，注入还需要目标访问权限。"
+    },
+    {
+      "id": "B5",
+      "title": "Chrome worker 生命周期",
+      "url": "https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle",
+      "scope": "读取正文；worker 会休眠，不能依赖永久全局变量保存明文。"
+    },
+    {
+      "id": "B6",
+      "title": "Chrome storage",
+      "url": "https://developer.chrome.com/docs/extensions/reference/api/storage",
+      "scope": "读取正文；更新 2026-09-11；session 是临时内存存储，不等于加密保险箱。"
+    },
+    {
+      "id": "B7",
+      "title": "Chrome messaging 安全边界",
+      "url": "https://developer.chrome.com/docs/extensions/develop/concepts/messaging",
+      "scope": "读取正文；更新 2025-12-03；页面描述不可信，只向页面发送必要值。"
+    },
+    {
+      "id": "B8",
+      "title": "MDN MutationObserver",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver",
+      "scope": "读取正文；更新 2025-06-10；DOM 变化通知不能证明业务保存成功。"
+    }
+  ],
+  "currentFieldTypes": 43,
+  "currentProductCodeChanged": false,
+  "proposedFlowImplemented": false
+}
