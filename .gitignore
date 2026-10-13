@@ -34,3 +34,5 @@ Thumbs.db
 # Corresponding-font source is intentionally included under its own license.
 !public/autofill/vendor/font-sources/liberation-fonts-1.07.4.tar.gz
 !extension/autofill/vendor/font-sources/liberation-fonts-1.07.4.tar.gz
+!public/autofill/samples/测试（test）-虚构简历.docx
+!public/autofill/samples/测试（test）-虚构简历.pdf

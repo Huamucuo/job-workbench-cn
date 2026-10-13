@@ -1,0 +1,774 @@
+{
+  "version": "0.4.2-beta.1",
+  "date": "2026-10-13",
+  "scope": "Synthetic inputs and isolated browser profiles; no live application submission, no daily-browser installation claim.",
+  "unit": {
+    "pass": 113,
+    "fail": 0,
+    "skip": 0
+  },
+  "scenarios": {
+    "original_extension": {
+      "counts": {
+        "pass": 30,
+        "fail": 0,
+        "skip": 2
+      },
+      "cases": [
+        {
+          "id": "E01-real-extension-loaded",
+          "status": "PASS"
+        },
+        {
+          "id": "P00-required-profile-fields",
+          "status": "PASS"
+        },
+        {
+          "id": "P02-wrong-password-refused",
+          "status": "PASS"
+        },
+        {
+          "id": "P01-profile-roundtrip",
+          "status": "PASS"
+        },
+        {
+          "id": "P03-no-plaintext-at-rest",
+          "status": "PASS"
+        },
+        {
+          "id": "A01-enterprise",
+          "status": "PASS"
+        },
+        {
+          "id": "B01-soe-step1",
+          "status": "PASS"
+        },
+        {
+          "id": "B02-soe-step2",
+          "status": "PASS"
+        },
+        {
+          "id": "B03-soe-step3",
+          "status": "PASS"
+        },
+        {
+          "id": "B04-cross-page-retention",
+          "status": "PASS"
+        },
+        {
+          "id": "C01-family-no-guess",
+          "status": "PASS"
+        },
+        {
+          "id": "C02-ambiguous-no-guess",
+          "status": "PASS"
+        },
+        {
+          "id": "C03-structure-change",
+          "status": "PASS"
+        },
+        {
+          "id": "C04-preserve-existing",
+          "status": "PASS"
+        },
+        {
+          "id": "C05-protected-controls",
+          "status": "PASS"
+        },
+        {
+          "id": "C06-date-and-choice-ambiguity",
+          "status": "PASS"
+        },
+        {
+          "id": "C07-custom-iframe-shadow",
+          "status": "PASS"
+        },
+        {
+          "id": "C08-delayed-dynamic",
+          "status": "PASS"
+        },
+        {
+          "id": "C09-delayed-rescan",
+          "status": "PASS"
+        },
+        {
+          "id": "C10-delayed-page-load",
+          "status": "PASS"
+        },
+        {
+          "id": "M01-manual-mapping",
+          "status": "PASS"
+        },
+        {
+          "id": "M02-mapping-reuse",
+          "status": "PASS"
+        },
+        {
+          "id": "N01-site-autosave-risk",
+          "status": "PASS"
+        },
+        {
+          "id": "N02-input-visible-to-site",
+          "status": "PASS"
+        },
+        {
+          "id": "N03-extension-permissions",
+          "status": "PASS"
+        },
+        {
+          "id": "N04-no-external-transmission-observed",
+          "status": "PASS"
+        },
+        {
+          "id": "S01-no-automatic-submit",
+          "status": "PASS"
+        },
+        {
+          "id": "X01-radio-record-binding",
+          "status": "PASS"
+        },
+        {
+          "id": "X02-explicit-overwrite",
+          "status": "PASS"
+        },
+        {
+          "id": "X03-navigation-invalidates-preview",
+          "status": "PASS"
+        },
+        {
+          "id": "T01-enterprise-repeat",
+          "status": "MEASURED"
+        },
+        {
+          "id": "T02-enterprise-repeat",
+          "status": "MEASURED"
+        },
+        {
+          "id": "T03-enterprise-repeat",
+          "status": "MEASURED"
+        },
+        {
+          "id": "H02-automation-method-comparison",
+          "status": "MEASURED"
+        },
+        {
+          "id": "H01-human-timing",
+          "status": "SKIP"
+        },
+        {
+          "id": "R01-real-recruitment-sites",
+          "status": "SKIP"
+        }
+      ]
+    },
+    "original_workbench": {
+      "counts": {
+        "pass": 7,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "L01-search-empty-is-empty",
+          "status": "PASS"
+        },
+        {
+          "id": "L02-salary-filter",
+          "status": "PASS"
+        },
+        {
+          "id": "L03-favorite-stage-tags-persist",
+          "status": "PASS"
+        },
+        {
+          "id": "L04-notes-storage-boundary",
+          "status": "PASS"
+        },
+        {
+          "id": "L05-backup-export",
+          "status": "PASS"
+        },
+        {
+          "id": "L06-backup-import-in-fresh-context",
+          "status": "PASS"
+        },
+        {
+          "id": "L07-saved-filter-reuse",
+          "status": "PASS"
+        }
+      ]
+    },
+    "profile_and_complex": {
+      "counts": {
+        "pass": 32,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "BP01-web-profile-approved-master",
+          "status": "PASS"
+        },
+        {
+          "id": "BP02-real-docx-pdf-preview",
+          "status": "PASS"
+        },
+        {
+          "id": "BP03-import-facts-and-source-trace",
+          "status": "PASS"
+        },
+        {
+          "id": "BP04-language-degree-about-attachments",
+          "status": "PASS"
+        },
+        {
+          "id": "BP05-descriptive-variant",
+          "status": "PASS"
+        },
+        {
+          "id": "BP06-lock-only-recovery-until-explicit-save",
+          "status": "PASS"
+        },
+        {
+          "id": "BP07-shared-archive-source-confirmed",
+          "status": "PASS"
+        },
+        {
+          "id": "BP08-attachment-original-byte-download-docx",
+          "status": "PASS"
+        },
+        {
+          "id": "BP08-attachment-original-byte-download-pdf",
+          "status": "PASS"
+        },
+        {
+          "id": "BP09-variant-filled-by-real-popup",
+          "status": "PASS"
+        },
+        {
+          "id": "BP10-encrypted-backup-roundtrip",
+          "status": "PASS"
+        },
+        {
+          "id": "BP11-reopened-version-and-attachments",
+          "status": "PASS"
+        },
+        {
+          "id": "BP12-cross-origin-stale-window-CAS",
+          "status": "PASS"
+        },
+        {
+          "id": "BP18-atomic-two-window-recovery",
+          "status": "PASS"
+        },
+        {
+          "id": "BP19-each-window-reopens-own-recovery",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-main",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-duplicates",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-rollback",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-async",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-timeout",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-labels",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-occupied",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-dropdown",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-submit-target",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-radio-submit-target",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-ancestor-option",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-ancestor-trigger",
+          "status": "PASS"
+        },
+        {
+          "id": "BC-ancestor-radio",
+          "status": "PASS"
+        },
+        {
+          "id": "BP14-revoked-shared-connection-no-fallback",
+          "status": "PASS"
+        },
+        {
+          "id": "BP15-encrypted-storage-and-bridge-only",
+          "status": "PASS"
+        },
+        {
+          "id": "BP16-no-outbound-no-sensitive-http-body",
+          "status": "PASS"
+        },
+        {
+          "id": "BP17-no-unhandled-page-error",
+          "status": "PASS"
+        }
+      ]
+    },
+    "bridge_boundaries": {
+      "counts": {
+        "pass": 11,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "BR01-four-entrypoints-and-real-worker",
+          "status": "PASS"
+        },
+        {
+          "id": "BR02-approval-required",
+          "status": "PASS"
+        },
+        {
+          "id": "BR03-actual-popup-consent",
+          "status": "PASS"
+        },
+        {
+          "id": "BR04-plaintext-and-unknown-key-refused",
+          "status": "PASS"
+        },
+        {
+          "id": "BR05-new-tab-unapproved",
+          "status": "PASS"
+        },
+        {
+          "id": "BR06-other-origin-no-bridge",
+          "status": "PASS"
+        },
+        {
+          "id": "BR10-iframe-source-refused",
+          "status": "PASS"
+        },
+        {
+          "id": "BR07-reload-fails-closed",
+          "status": "PASS"
+        },
+        {
+          "id": "BR08-explicit-revoke",
+          "status": "PASS"
+        },
+        {
+          "id": "BR09-network-boundary",
+          "status": "PASS"
+        },
+        {
+          "id": "BR11-server-host-origin-method",
+          "status": "PASS"
+        }
+      ]
+    },
+    "crosspage_default": {
+      "counts": {
+        "pass": 29,
+        "fail": 0,
+        "skip": 2
+      },
+      "cases": [
+        {
+          "id": "CP00-real-toolbar-feature-red",
+          "status": "PASS"
+        },
+        {
+          "id": "CP01-preview-uncommitted",
+          "status": "PASS"
+        },
+        {
+          "id": "CP01-independent-docx-literals",
+          "status": "PASS"
+        },
+        {
+          "id": "CP02-actual-sidepanel-once",
+          "status": "PASS"
+        },
+        {
+          "id": "CP03-contact-protected-prefill",
+          "status": "PASS"
+        },
+        {
+          "id": "CP03b-own-fill-no-repeat",
+          "status": "PASS"
+        },
+        {
+          "id": "CP04-manual-correction",
+          "status": "PASS"
+        },
+        {
+          "id": "CP05-explicit-async-prepare",
+          "status": "PASS"
+        },
+        {
+          "id": "CP06-education-two-records",
+          "status": "PASS"
+        },
+        {
+          "id": "CP07-duplicate-record-protection",
+          "status": "PASS"
+        },
+        {
+          "id": "CP08-same-url-refresh",
+          "status": "PASS"
+        },
+        {
+          "id": "CP09-back-keeps-manual-correction",
+          "status": "PASS"
+        },
+        {
+          "id": "CP10a-worker-restart-requested",
+          "status": "PASS"
+        },
+        {
+          "id": "CP10-work-internships-projects-two-each",
+          "status": "PASS"
+        },
+        {
+          "id": "CP11-conditional-user-choice",
+          "status": "PASS"
+        },
+        {
+          "id": "CP11-async-city-options",
+          "status": "PASS"
+        },
+        {
+          "id": "CP12-no-url-preview-invalidation",
+          "status": "PASS"
+        },
+        {
+          "id": "CP13-skills-certificates",
+          "status": "PASS"
+        },
+        {
+          "id": "CP14-uploads-declarations-unknown",
+          "status": "PASS"
+        },
+        {
+          "id": "CP15-six-url-final-submit-zero",
+          "status": "PASS"
+        },
+        {
+          "id": "CP17-other-tab-refusal",
+          "status": "PASS"
+        },
+        {
+          "id": "CP16-application-key-change",
+          "status": "PASS"
+        },
+        {
+          "id": "CP18-cross-origin-refusal",
+          "status": "PASS"
+        },
+        {
+          "id": "CP19-lock-clears-preview",
+          "status": "PASS"
+        },
+        {
+          "id": "CP20-end-clears-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "CP21-unchanged-ciphertext-single-unlock-zero-scan",
+          "status": "PASS"
+        },
+        {
+          "id": "CP22-at-rest-no-plaintext",
+          "status": "PASS"
+        },
+        {
+          "id": "CP23-no-outbound-no-post",
+          "status": "PASS"
+        },
+        {
+          "id": "CP24-real-five-minute-idle-separate-session",
+          "status": "SKIP"
+        },
+        {
+          "id": "CP25-real-thirty-minute-absolute-expiry",
+          "status": "SKIP"
+        },
+        {
+          "id": "CP26-frozen-production-assets",
+          "status": "PASS"
+        }
+      ]
+    },
+    "fresh_zip_edge": {
+      "counts": {
+        "pass": 5,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "no-extension-does-not-claim-installed",
+          "status": "PASS"
+        },
+        {
+          "id": "late-install-one-check-refreshes-and-finds-correct-version",
+          "status": "PASS"
+        },
+        {
+          "id": "installed-link-opens-shared-archive-and-real-docx-import-no-password",
+          "status": "PASS"
+        },
+        {
+          "id": "installation-page-fits-desktop-and-narrow-widths",
+          "status": "PASS"
+        },
+        {
+          "id": "all-import-entrypoints-reuse-the-one-extension-archive",
+          "status": "PASS"
+        }
+      ]
+    },
+    "fresh_zip_chrome": {
+      "counts": {
+        "pass": 5,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "no-extension-does-not-claim-installed",
+          "status": "PASS"
+        },
+        {
+          "id": "late-install-one-check-refreshes-and-finds-correct-version",
+          "status": "PASS"
+        },
+        {
+          "id": "installed-link-opens-shared-archive-and-real-docx-import-no-password",
+          "status": "PASS"
+        },
+        {
+          "id": "installation-page-fits-desktop-and-narrow-widths",
+          "status": "PASS"
+        },
+        {
+          "id": "all-import-entrypoints-reuse-the-one-extension-archive",
+          "status": "PASS"
+        }
+      ]
+    },
+    "fresh_zip_optional_protection": {
+      "counts": {
+        "pass": 9,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "import-confirm-save-with-no-password-and-all-experiences",
+          "status": "PASS"
+        },
+        {
+          "id": "reopen-edit-save-without-retyping-or-unlocking",
+          "status": "PASS"
+        },
+        {
+          "id": "real-extension-fills-without-password-and-protects-existing-and-identity-values",
+          "status": "PASS"
+        },
+        {
+          "id": "portable-local-backup-explicitly-warns-unencrypted",
+          "status": "PASS"
+        },
+        {
+          "id": "optional-protection-requires-correct-password-and-retains-current-archive",
+          "status": "PASS"
+        },
+        {
+          "id": "turn-off-protection-restores-direct-use-without-data-loss",
+          "status": "PASS"
+        },
+        {
+          "id": "restored-backup-preview-does-not-overwrite-before-confirmation",
+          "status": "PASS"
+        },
+        {
+          "id": "workbench-webpage-cannot-access-device-unlock-material",
+          "status": "PASS"
+        },
+        {
+          "id": "synthetic-workflow-has-no-external-http-or-post-and-no-submission",
+          "status": "PASS"
+        }
+      ]
+    },
+    "capacity_protected_auto_controlled_clock": {
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "protected-idle-lock-retains-only-encrypted-memory-and-reopens-with-original-password",
+          "status": "PASS"
+        },
+        {
+          "id": "explicit-save-after-recovery-capacity-error-commits-the-current-edit",
+          "status": "PASS"
+        }
+      ]
+    },
+    "capacity_default_manual": {
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "failed-sixth-recovery-keeps-editable-inputs-and-old-archive",
+          "status": "PASS"
+        },
+        {
+          "id": "explicit-save-after-recovery-capacity-error-commits-the-current-edit",
+          "status": "PASS"
+        }
+      ]
+    },
+    "capacity_protected_manual": {
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "failed-sixth-recovery-keeps-editable-inputs-and-old-archive",
+          "status": "PASS"
+        },
+        {
+          "id": "explicit-save-after-recovery-capacity-error-commits-the-current-edit",
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  "review": {
+    "status": "PASS",
+    "reviewedHead": "01c92e422a14b9d6f254ef774c8a48c68017a607",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "readOnly": true,
+    "scope": "Independent source review and follow-up fix verification; excludes final GitHub download, day-to-day installation, full live-site compatibility and PDF visual reinspection."
+  },
+  "knownLimits": [
+    "Real websites not comprehensively verified",
+    "User waived human time comparison; no empirical 30 percent time-saved claim",
+    "Genuine 5-minute idle and 30-minute wait not repeated in this iteration; rule and prior evidence retained",
+    "No silent extension installation, no browser-store submission",
+    "Unprotected local mode does not protect against users of the same browser; old unprotected backups/recoveries retained",
+    "Public package includes no third-party job snapshot; initial jobs empty"
+  ],
+  "initialFailures": [
+    {
+      "kind": "product",
+      "issue": "Unrelated workbench connection block obstructed the popup single-page password field",
+      "resolution": "Connection controls collapsed unless a current page actually requests authorization; full32 scenario suite rerun passes"
+    },
+    {
+      "kind": "test-readiness",
+      "issue": "Side panel clicked before initialization; empty-password substring assertion; shared-store/commit checked before async completion",
+      "resolution": "Wait actual ready/commit state; keep all identity, model, privacy and no-submit assertions unchanged"
+    },
+    {
+      "kind": "test-environment",
+      "issue": "Windows isolated browser storage LOCK error with an excessively long path",
+      "resolution": "Short isolated profile label; all profile/complex scenarios repeated successfully"
+    },
+    {
+      "kind": "historical-fixture",
+      "issue": "Old jobs were correctly stale and hidden under active-only default",
+      "resolution": "Read archived all-status view explicitly; original bytes and timestamps unchanged; no fixture redistributed"
+    },
+    {
+      "kind": "independent-review",
+      "issue": "Secondary import link used a separate offline archive; full recovery storage could hide an unsaved edit; an initial fix delayed protected idle locking",
+      "resolution": "Unified all import links and accurate offline notices; manual recovery failure retains editor; protected idle expiry retains only encrypted memory with visible warning; explicit Edge/Chrome route and three capacity modes verified"
+    }
+  ],
+  "windowsLauncher": {
+    "pass": 8,
+    "fail": 0,
+    "startupMs": 1540.4,
+    "humanMeasured": false,
+    "checks": [
+      {
+        "name": "compiled executable exits successfully",
+        "passed": true
+      },
+      {
+        "name": "actual loopback service has expected Beta version",
+        "passed": true
+      },
+      {
+        "name": "service uses the runtime bundled in this directory",
+        "passed": true
+      },
+      {
+        "name": "service only listens on IPv4 loopback",
+        "passed": true
+      },
+      {
+        "name": "installation guide returns exact live extension directory",
+        "passed": true
+      },
+      {
+        "name": "real homepage has import profile autofill and search entries",
+        "passed": true
+      },
+      {
+        "name": "stop executable exits successfully",
+        "passed": true
+      },
+      {
+        "name": "only the owned local service stopped",
+        "passed": true
+      }
+    ]
+  },
+  "nativeBrowserPlan": {
+    "pass": 4,
+    "fail": 0,
+    "dailyBrowserOpened": false,
+    "checks": [
+      "Edge retained",
+      "Chrome retained",
+      "arbitrary URL ignored",
+      "command path ignored"
+    ]
+  }
+}

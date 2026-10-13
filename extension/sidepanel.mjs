@@ -1,4 +1,4 @@
-import {storage,VAULT_KEY,decryptProfile} from './autofill/vault.mjs';
+import {storage,VAULT_KEY,decryptProfile,usesLocalAccess} from './autofill/vault.mjs';
 import {materializeProfile} from './autofill/profile.mjs';
 import {mountPanel} from './autofill/panel.mjs';
 import {SessionScope} from './session-policy.mjs';
@@ -15,13 +15,15 @@ const texts={
  'ended':'本次网申已结束。请在招聘页点击扩展，开始下一次。',
 };
 let target=null,scope=null,profile=null,panel=null,revision=null,epoch=0,observed=null,candidate=null,stamp=null,polling=false,operation=false,paused='',alive=true,unlocking=null,inFlight=null,knownContextKey='';
+let localAccess=false;
+async function refreshAccess(){try{localAccess=usesLocalAccess(await storage.get(VAULT_KEY));$('#session-password').closest('label').hidden=localAccess;$('#session-unlock').textContent=localAccess?'开始本次网申':'解锁并开始本次网申';$('#session-lock').textContent=localAccess?'暂停填写':'锁定资料';$('#session-gate h1').textContent=localAccess?'直接使用我的档案':'解锁一次，接着填下一页';}catch(e){status(e.message,true);}}
 function status(text,bad=false){$('#session-status').textContent=text;$('#session-status').classList.toggle('bad',bad)}
 function cancelCurrent(){
  const running=inFlight;inFlight=null;if(!running)return;
  void chrome.scripting.executeScript({target:{tabId:running.tabId,documentIds:[running.documentId]},world:'ISOLATED',func:id=>globalThis.JobAutofillEngine?.cancelOperation(id),args:[running.operationId]}).catch(()=>{});
 }
 function clearPreview(reason){cancelCurrent();epoch++;stamp=null;observed=null;candidate=null;panel?.invalidate(reason)}
-function lock(reason='资料已锁定，请输入口令继续。'){
+function lock(reason=localAccess?'填写已暂停，点击“开始本次网申”可继续，无需口令。':'资料已锁定，请输入口令继续。'){
  cancelCurrent();epoch++;unlocking=null;scope?.end();scope=null;profile=null;revision=null;stamp=null;observed=null;candidate=null;paused='';
  panel?.destroy();panel=null;$('#continuous-panel').hidden=true;$('#session-gate').hidden=false;$('#session-password').value='';
  status(reason);$('#session-unlock').disabled=!target||target.expiresAt<=Date.now();
@@ -33,7 +35,7 @@ async function adopt(next){
  $('#session-history').replaceChildren();$('#session-log').hidden=true;
  $('#session-target').textContent=target?'本次目标：'+target.origin+target.path:'请在招聘页面点击扩展，选择“开始跨页填写”。';
  $('#session-unlock').disabled=!target||target.expiresAt<=Date.now();
- status(target?(target.expiresAt<=Date.now()?texts['session-expired']:'输入一次口令，本次网申后续页面会自动准备预览。'):'请先从招聘页面点击扩展，开始跨页填写。');
+ await refreshAccess();status(target?(target.expiresAt<=Date.now()?texts['session-expired']:localAccess?'无需口令。开始本次网申后，后续页面会自动准备预览。':'输入一次口令，本次网申后续页面会自动准备预览。'):'请先从招聘页面点击扩展，开始跨页填写。');
 }
 function refused(decision){
  if(decision.lock){lock(texts[decision.reason]||'资料已锁定，请重新开始。');return;}
@@ -135,7 +137,7 @@ $('#session-unlock').addEventListener('click',async()=>{
   await boundary();$('#session-gate').hidden=true;$('#continuous-panel').hidden=false;
   const ownerScope=scope,ownerTarget=target;
   panel=await mountPanel($('#continuous-panel'),{transport,getProfile:()=>profile,onResult:result=>{if(scope===ownerScope&&target===ownerTarget)record(result)},continuous:true});
-  observed=null;candidate=null;paused='';status('已解锁，正在自动检测当前页。');await tick();
+  observed=null;candidate=null;paused='';status(localAccess?'已读取本机档案，正在自动检测当前页。':'已解锁，正在自动检测当前页。');await tick();
  }catch(e){if(ticket===epoch&&target?.requestId===requestId)lock(e.message||'解锁失败，请重新尝试')}finally{password='';if(unlocking===ticket){unlocking=null;button.disabled=!target||target.expiresAt<=Date.now()}}
 });
 async function tick(){
@@ -166,6 +168,7 @@ $('#session-end').addEventListener('click',async()=>{lock(texts.ended);knownCont
 chrome.storage.onChanged.addListener((changes,area)=>{
  if(area==='session'&&changes[TARGET_KEY])void adopt(changes[TARGET_KEY].newValue);
  if(area==='local'&&changes[VAULT_KEY]&&profile&&changes[VAULT_KEY].newValue?.ciphertext!==revision)lock('档案已在另一窗口更新，旧预览已清除。请重新解锁最新资料。');
+ if(area==='local'&&changes[VAULT_KEY]&&!profile)void refreshAccess();
 });
 chrome.tabs.onUpdated.addListener((id,info)=>{if(id===target?.tabId&&profile&&(info.status==='loading'||info.url)){clearPreview('正在进入新页面，加载完成后会自动准备预览。')}});
 chrome.tabs.onRemoved.addListener(id=>{if(id===target?.tabId)lock('原招聘标签页已关闭，请在新页面点击扩展开始。')});

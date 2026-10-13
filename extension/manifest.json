@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "职有引力 · 本机求职填表",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "本机加密档案，先核对再填写；不提交申请。",
   "permissions": [
     "activeTab",
@@ -11,14 +11,20 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "开始跨页填写"
+    "default_title": "开始跨页填写",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
   },
   "options_page": "profile.html",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'self'; base-uri 'none'; form-action 'none'"
   },
-  "version_name": "0.4.1 Beta 跨页候选版",
-  "side_panel": {"default_path":"sidepanel.html"},
+  "version_name": "0.4.2 Beta · 公开下载与首次安装",
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
   "background": {
     "service_worker": "background.mjs",
     "type": "module"
@@ -34,5 +40,11 @@
       "run_at": "document_start",
       "all_frames": false
     }
-  ]
+  ],
+  "icons": {
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "16": "icons/16.png",
+    "128": "icons/128.png"
+  }
 }

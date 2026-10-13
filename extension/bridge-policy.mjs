@@ -8,7 +8,7 @@ export function isTrustedWorkbenchSender(sender){
 export function assertKey(key){if(!keys.has(key))throw new Error('此连接不能访问这个存储项目');}
 function exact(value,allowed){if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(k=>!allowed.includes(k)))throw new Error('连接数据格式不受支持');}
 function encoded(value,min,max){if(typeof value!=='string'||value.length>Math.ceil(max/3)*4||value.length%4!==0||!/^[A-Za-z0-9+/]*={0,2}$/.test(value))throw new Error('加密资料格式不正确');const n=value.length*3/4-(value.endsWith('==')?2:value.endsWith('=')?1:0);if(n<min||n>max)throw new Error('加密资料大小不正确');}
-function envelope(value,draft=false){exact(value,['kind','version','algorithm','kdf','iterations','salt','iv','ciphertext']);if(!['job-workbench-encrypted-profile',...(draft?['job-workbench-encrypted-draft']:[])].includes(value.kind)||value.version!==1||value.algorithm!=='AES-GCM-256'||value.kdf!=='PBKDF2-SHA256'||value.iterations!==600000)throw new Error('只能传输受支持的加密档案，不接收明文简历');encoded(value.salt,16,16);encoded(value.iv,12,12);encoded(value.ciphertext,16,5500000);}
+function envelope(value,draft=false){exact(value,['kind','version','algorithm','kdf','iterations','salt','iv','ciphertext','unlockMode']);if(('unlockMode' in value&&value.unlockMode!=='device')||!['job-workbench-encrypted-profile',...(draft?['job-workbench-encrypted-draft']:[])].includes(value.kind)||value.version!==1||value.algorithm!=='AES-GCM-256'||value.kdf!=='PBKDF2-SHA256'||value.iterations!==600000)throw new Error('只能传输受支持的加密档案，不接收明文简历');encoded(value.salt,16,16);encoded(value.iv,12,12);encoded(value.ciphertext,16,5500000);}
 function recoveryRecord(r){exact(r,['id','createdAt','envelope']);if(typeof r.id!=='string'||r.id.length>80||!r.id||typeof r.createdAt!=='string'||r.createdAt.length>100||r.envelope?.kind!=='job-workbench-encrypted-draft')throw new Error('恢复草稿格式错误');envelope(r.envelope,true);}
 function recoveryList(value){if(value===null||value===undefined)return [];if(!Array.isArray(value)){if(value.kind!=='job-workbench-encrypted-draft')throw new Error('恢复草稿格式错误');value=[{id:'legacy',createdAt:'',envelope:value}];}const ids=new Set();for(const r of value){recoveryRecord(r);if(ids.has(r.id))throw new Error('恢复草稿标识重复');ids.add(r.id);}return value;}
 export function assertStoredValue(key,value){
@@ -30,6 +30,18 @@ export class GrantRegistry{
 export class CanonicalStore{
  constructor(adapter){this.adapter=adapter;this.tail=Promise.resolve();}
  enqueue(job){const next=this.tail.then(job);this.tail=next.catch(()=>{});return next;}
+ devicePassword(create=false){
+  if(typeof create!=='boolean')return Promise.reject(new Error('本机访问请求格式不正确'));
+  return this.enqueue(async()=>{
+   const key='zhiyouyinli.profile.device-access.v1',value=await this.adapter.get(key);
+   if(value!==null){encoded(value,32,32);return value;}
+   const existing=await Promise.all([VAULT_KEY,VAULT_KEY+'.previous',DRAFT_KEY].map(k=>this.adapter.get(k)));
+   const local=e=>e?.unlockMode==='device';
+   if(!create||existing.some(e=>local(e)||Array.isArray(e)&&e.some(r=>local(r.envelope))||local(e?.envelope)))throw new Error('本机访问资料缺失，请恢复一份备份；未重新生成或覆盖现有档案');
+   const bytes=crypto.getRandomValues(new Uint8Array(32));let text='';for(const b of bytes)text+=String.fromCharCode(b);
+   const next=btoa(text);await this.adapter.setMany({[key]:next});return next;
+  });
+ }
  get(key){assertKey(key);return this.enqueue(()=>this.adapter.get(key));}
  set(key,value){assertStoredValue(key,value);if(key===VAULT_KEY)throw new Error('有效档案必须通过核对版本的保存操作');if(key===DRAFT_KEY)throw new Error('恢复草稿必须通过保留其他窗口的追加操作');return this.enqueue(()=>this.adapter.setMany({[key]:value}));}
  addRecovery(value){

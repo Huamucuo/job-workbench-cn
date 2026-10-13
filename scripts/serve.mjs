@@ -16,7 +16,7 @@ const server=http.createServer(async(req,res)=>{
  try {
   const url=new URL(req.url,'http://127.0.0.1');
   if(url.pathname==='/__health'){res.setHeader('Content-Type','application/json; charset=utf-8');res.end(req.method==='HEAD'?'':JSON.stringify({app:'job-workbench-cn',version,pid:process.pid}));return;}
-  if(url.pathname==='/__installation'){res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');res.end(req.method==='HEAD'?'':JSON.stringify({extensionDir:resolve(root,'../extension'),version,workbenchUrl:'http://127.0.0.1:'+port}));return;}
+  if(url.pathname==='/__installation'){res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');res.end(req.method==='HEAD'?'':JSON.stringify({extensionDir:resolve(root,'../extension'),version,extensionVersion:JSON.parse(await readFile(resolve(root,'../extension/manifest.json'),'utf8')).version,workbenchUrl:'http://127.0.0.1:'+port,installerName:'安装扩展.exe',guideUrl:'/help/onboarding.html',browserPages:{edge:'edge://extensions',chrome:'chrome://extensions'}}));return;}
   const requested=decodeURIComponent(url.pathname);
   if(requested==='/data/jobs.json'){try{const localJobs=await readFile(resolve(root,'../.local/jobs.json'));res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-cache');res.end(req.method==='HEAD'?undefined:localJobs);return;}catch(error){if(error.code!=='ENOENT')throw error;}}
   let path=resolve(root,`.${requested==='/'?'/index.html':requested}`);

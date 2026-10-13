@@ -8,9 +8,9 @@ export async function applyReviewedImport({base,currentDraft=base,previousApplie
  if(!['save','draft'].includes(mode)||typeof applyDraft!=='function')throw new Error('导入操作不合法');
  const current=JSON.stringify(currentDraft);
  if(!currentDraft||(current!==plan.baseline&&current!==previousApplied))throw new Error('预览期间档案发生变化。为防止覆盖，请取消后重新选择文件');
- if(mode==='save'&&typeof saveDraft!=='function')throw new Error('加密保存暂不可用，请选择仅加入草稿');
+ if(mode==='save'&&typeof saveDraft!=='function')throw new Error('保存暂不可用，请选择仅加入草稿');
  const next=applyImportPlan(base,plan,{confirmed,identityConfirmed});applyDraft(next);
- if(mode==='save'&&await saveDraft()!==true)throw new Error('加密保存未完成，导入结果仍保留在草稿中');
+ if(mode==='save'&&await saveDraft()!==true)throw new Error('保存未完成，导入结果仍保留在草稿中');
  return next;
 }
 export function mountResumeImport({getDraft,applyDraft,saveDraft,savedMessage='导入并加密保存成功。',onActivity,say}){
@@ -22,7 +22,7 @@ export function mountResumeImport({getDraft,applyDraft,saveDraft,savedMessage='�
  input.addEventListener('change',async()=>{
   const files=[...input.files];input.value='';if(!files.length||!getDraft())return;if(files.length>5){say('每次最多选择5份简历；原资料未改变。',true);return;}reset();controller=new AbortController();const signal=controller.signal;onActivity();
   const status=el('div',{class:'af-message',role:'status',id:'resume-import-status'}),body=el('div',{class:'ri-body'}),footer=el('div',{class:'ri-footer'});
-  dialog=el('dialog',{class:'ri-dialog','aria-label':'简历提取预览'},[el('header',{class:'ri-head'},[el('div',{},[el('h2',{text:'核对后，导入并保存'}),el('p',{text:'预览并修改所选资料，核对后一次加密保存。原简历不会上传；冲突资料不会自动覆盖。'})]),el('button',{class:'af-button secondary',text:'取消并关闭',onClick:reset})]),status,body,footer]);
+  dialog=el('dialog',{class:'ri-dialog','aria-label':'简历提取预览'},[el('header',{class:'ri-head'},[el('div',{},[el('h2',{text:'核对后，导入并保存'}),el('p',{text:'预览并修改所选资料，核对后一次确认保存。原简历不会上传；冲突资料不会自动覆盖。'})]),el('button',{class:'af-button secondary',text:'取消并关闭',onClick:reset})]),status,body,footer]);
   dialog.addEventListener('cancel',e=>{e.preventDefault();reset();});document.body.append(dialog);dialog.showModal();const errors=[];
   for(let i=0;i<files.length;i++){message(status,`正在本机读取 ${i+1}/${files.length}：${files[i].name}`);try{const doc=await readResumeFile(files[i],{signal});if(signal.aborted)return;documents.push(parseDocument(doc));}catch(e){if(signal.aborted)return;errors.push(files[i].name+'：'+e.message);}}
   if(signal.aborted||!getDraft())return;controller=null;
@@ -74,7 +74,7 @@ export function mountResumeImport({getDraft,applyDraft,saveDraft,savedMessage='�
      }})]));}
     if(unknown.length>100)details.append(el('p',{text:'其余原文保存在文件全文与来源记录中，请在档案中手动补录。'}));body.append(details);
    }
-   const reviewed=el('input',{type:'checkbox',id:'resume-reviewed'}),identity=el('input',{type:'checkbox',id:'resume-identity'}),apply=el('button',{id:'resume-confirm-save',class:'af-button',text:'确认导入并加密保存',disabled:true}),draftOnly=el('button',{id:'resume-draft-only',class:'af-button secondary',text:'仅加入草稿，稍后完善',disabled:true});
+   const reviewed=el('input',{type:'checkbox',id:'resume-reviewed'}),identity=el('input',{type:'checkbox',id:'resume-identity'}),apply=el('button',{id:'resume-confirm-save',class:'af-button',text:'确认导入并保存',disabled:true}),draftOnly=el('button',{id:'resume-draft-only',class:'af-button secondary',text:'仅加入草稿，稍后完善',disabled:true});
    if(plan.identityConflict)footer.append(el('label',{class:'af-check ri-warning'},[identity,'检测到不同姓名。我已确认所选文件属于同一个人，且已选择正确身份资料。']));
    footer.append(el('label',{class:'af-check'},[reviewed,'我已核对关键资料、经历顺序与冲突选项，确认保存当前所选内容。']),el('div',{class:'af-actions'},[apply,el('button',{class:'af-button secondary',text:'取消导入',onClick:reset})]),el('details',{id:'resume-advanced'},[el('summary',{class:'af-small',text:'高级选项 · 暂不保存'}),el('p',{class:'af-small',text:'先将所选内容加入草稿，稍后补充；有效档案保持不变，之后需要手动确认保存。'}),draftOnly]));
    const ready=()=>{const blocked=applying||!reviewed.checked||(plan.identityConflict&&!identity.checked);apply.disabled=blocked;draftOnly.disabled=blocked;};reviewed.addEventListener('change',ready);identity.addEventListener('change',ready);
@@ -82,7 +82,7 @@ export function mountResumeImport({getDraft,applyDraft,saveDraft,savedMessage='�
     if(applying||apply.disabled)return;const currentDialog=dialog;applying=true;currentDialog.inert=true;ready();
     try{
      await applyReviewedImport({base:previewBase,currentDraft:getDraft(),previousApplied,plan,confirmed:reviewed.checked,identityConfirmed:identity.checked,mode,applyDraft:next=>{applyDraft(next);previousApplied=JSON.stringify(next);},saveDraft});
-     if(dialog!==currentDialog)return;dispose();say(mode==='save'?(typeof savedMessage==='function'?savedMessage():savedMessage):'导入结果已加入草稿，尚未加密保存。完善后请点击底部“确认并加密保存”。');
+     if(dialog!==currentDialog)return;dispose();say(mode==='save'?(typeof savedMessage==='function'?savedMessage():savedMessage):'导入结果已加入草稿，尚未保存。完善后请点击底部“确认并保存”。');
     }catch(error){if(dialog===currentDialog)message(status,'未保存：'+error.message+'。输入仍保留；请修正后重试，或取消返回草稿。',true);}
     finally{applying=false;currentDialog.inert=false;if(dialog===currentDialog)ready();}
    };

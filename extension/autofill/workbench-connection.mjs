@@ -1,21 +1,24 @@
 import {probeBridge,bridgeStatus,requestLink,bridgeRequest,sharedMode,setSharedMode} from './bridge-client.mjs';
-import {VAULT_KEY,validateEnvelope,downloadJson} from './vault.mjs';
+import {VAULT_KEY,validateEnvelope,downloadJson,usesLocalAccess} from './vault.mjs';
 import {el} from './ui.mjs';
+import {installationState} from './install-state.mjs';
 const box=document.querySelector('#extension-connection');
 if(box){
  const state=el('strong',{id:'extension-state',text:'正在检查扩展…'}),note=el('p',{id:'extension-note'}),link=el('button',{class:'primary',id:'connect-extension',text:'连接扩展'}),use=el('button',{class:'secondary',id:'use-shared-profile',text:'共用这份档案',hidden:true}),guide=el('a',{href:'./autofill-start.html#install',class:'secondary',text:'安装扩展 / 操作说明'}),status=el('p',{role:'status',id:'connection-feedback'}),advanced=el('details',{id:'connection-advanced',class:'beta-connection-advanced'}),offline=el('a',{href:'./profile.html','data-offline-profile':'true',class:'secondary',text:'打开旧离线档案'});
  const hasLocal=()=>!!localStorage.getItem(VAULT_KEY);
  advanced.append(el('summary',{text:'旧资料迁移与网页连接（按需）'}),el('p',{text:'新用户直接使用扩展档案即可。只有迁移旧工作台资料或在网页编辑共用档案时，才需明确批准连接；刷新网页后需重新批准。'}),el('div',{class:'beta-connect-actions'},[link,use,offline]));
  box.replaceChildren(el('div',{},[el('span',{class:'eyebrow',text:'自动填写准备'}),state,note]),el('div',{class:'beta-connect-actions'},[guide]),advanced,status);
- function draw(s){let old=false,shared=false;try{old=hasLocal();shared=sharedMode();}catch{status.textContent='无法检查旧档案，暂不切换资料来源。请允许本机存储后刷新。';}
+ function draw(s){const expected=document.documentElement.dataset.extensionVersion||'0.4.2',check=installationState(s,expected);let old=false,shared=false;try{old=hasLocal();shared=sharedMode();}catch{status.textContent='无法检查旧档案，暂不切换资料来源。请允许本机存储后刷新。';}
   state.textContent=!s.installed?'先安装自动填写扩展':old&&!shared?'扩展已安装 · 旧档案待迁移':s.connected&&shared?'扩展已安装 · 网页档案已连接':'扩展已安装 · 可以打开我的档案';
   note.textContent=!s.installed?'安装只做一次。加载后刷新本页，即可导入简历或打开档案。':old&&!shared?'检测到旧工作台档案。展开下方“旧资料迁移”选择来源，避免建立第二份资料。':'点击上方“导入简历”或“我的档案”直接使用扩展档案；投递时打开工具栏扩展。';
+  if(check.kind==='update'){state.textContent='检测到另一版本扩展 '+(check.version||'未知')+' · 需要更新';note.textContent='先导出扩展加密备份，再按图文教学更新到 '+expected+'。不要删除原资料或同时启用两个副本。';guide.textContent='查看更新步骤';}else{guide.textContent=check.kind==='missing'?'安装扩展（只做一次）':'图文教学 / 操作说明';}guide.classList.toggle('primary',check.kind!=='ready');
   link.textContent=s.connected?'重新核对网页连接':old&&!shared?'迁移旧资料：连接扩展':'连接网页编辑（可选）';use.hidden=!s.connected||shared;offline.hidden=!old;
  }
  window.addEventListener('job-bridge-status',e=>draw(e.detail));
  link.addEventListener('click',async()=>{link.disabled=true;try{await requestLink();status.textContent='请打开工具栏“职有引力”扩展，勾选并点击“批准工作台连接”，然后回到本页。';}catch(e){status.textContent=e.message;}finally{link.disabled=false;}});
  use.addEventListener('click',async()=>{use.disabled=true;try{const s=await probeBridge();if(!s.connected)throw new Error('请先批准连接');const remote=(await bridgeRequest('storage:get',{key:VAULT_KEY})).value,raw=localStorage.getItem(VAULT_KEY),local=raw?JSON.parse(raw):null;if(local)validateEnvelope(local);if(remote)validateEnvelope(remote);
   if(!local||local.ciphertext===remote?.ciphertext){setSharedMode(true);status.textContent='已共用扩展档案，打开“我的档案”即可导入或编辑。';return;}
+  if(usesLocalAccess(local))throw new Error('旧离线档案为免口令模式。请先打开旧离线档案导出备份，再在扩展“我的档案”中恢复并确认；本机访问资料不会通过网页连接迁移，也不会覆盖扩展档案。');
   const dialog=el('dialog',{class:'beta-sync-dialog'}),close=()=>{dialog.close();dialog.remove();use.disabled=false;};
   dialog.append(el('h2',{text:'两边已有档案，请选择来源'}),el('p',{text:'现有内容不会默认互相覆盖。可以先下载工作台中的加密备份；没有口令不能读取备份。'}),el('button',{class:'secondary',text:'下载工作台加密备份',onClick:()=>downloadJson(local,'工作台迁移前.private.json')}));
   const consent=el('input',{type:'checkbox',id:'sync-confirm'}),send=el('button',{class:'primary',text:remote?'确认用工作台档案替换扩展':'确认将工作台档案迁入扩展',disabled:true}),keep=el('button',{class:'secondary',text:remote?'使用扩展原档案':'在扩展建立新的档案'});
@@ -26,7 +29,7 @@ if(box){
  await probeBridge();setInterval(()=>{if(document.visibilityState==='visible')probeBridge();},4000);
  for(const a of document.querySelectorAll('a[href^="./profile.html"]:not([data-offline-profile])'))a.addEventListener('click',async event=>{event.preventDefault();try{
   if(hasLocal()&&!sharedMode()){advanced.open=true;status.textContent='先选择旧资料的去向：迁移到扩展，或打开旧离线档案。原内容不会自动覆盖。';advanced.scrollIntoView({block:'nearest'});return;}
-  const s=bridgeStatus().installed?bridgeStatus():await probeBridge();if(!s.installed){location.assign('./autofill-start.html#install');return;}
+  const s=bridgeStatus().installed?bridgeStatus():await probeBridge();if(installationState(s,document.documentElement.dataset.extensionVersion||'0.4.2').kind!=='ready'){location.assign('./autofill-start.html#install');return;}
   await bridgeRequest('open-profile');status.textContent='已打开扩展里的我的档案。保存一次，工具栏即可复用；无需先批准网页连接。';
  }catch(e){status.textContent=e.message;}});
 }
