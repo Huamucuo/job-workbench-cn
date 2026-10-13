@@ -1,0 +1,25 @@
+{
+  "recordedAt": "2026-10-10T13:10:16.086Z",
+  "files": [
+    {
+      "path": "reproduce/build-fixtures.cjs",
+      "sha256": "78797b8165b2b82de41903b6fd5ff2f9801dc19c2910b093e65b8bc42f1bab18"
+    },
+    {
+      "path": "reproduce/build-supplemental.cjs",
+      "sha256": "aa471c8595c48d8b7c122837870404f3adbd683b3a8359b27c0a94eec1e32a16"
+    },
+    {
+      "path": "reproduce/qa-server.cjs",
+      "sha256": "e9586a0561a8f8be4039e3fe7853b7a81d0ff879d3dd698d762668b33e5e053c"
+    },
+    {
+      "path": "reproduce/run-acceptance.cjs",
+      "sha256": "8e0125577d1dadf190b77a14e29e3bbe68fe923daf998808594b4ee8c9989d11"
+    },
+    {
+      "path": "reproduce/run-workbench-smoke.cjs",
+      "sha256": "1eed2eb1dc8ab1afea087943eaef41ca721e3d4ea027fe543014e55db7af96ee"
+    }
+  ]
+}

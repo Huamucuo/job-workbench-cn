@@ -1,0 +1,6368 @@
+{
+  "run": "repaired-v021",
+  "finishedAt": "2026-10-10T13:05:17.449Z",
+  "counts": {
+    "pass": 30,
+    "fail": 0,
+    "skip": 2
+  },
+  "fatal": null,
+  "cases": [
+    {
+      "id": "E01-real-extension-loaded",
+      "status": "PASS",
+      "extensionId": "blkfegeadchacncppabdoelgioghpbbl",
+      "version": "0.2.1"
+    },
+    {
+      "id": "P00-required-profile-fields",
+      "status": "PASS",
+      "missing": [],
+      "note": "Independent source includes gender and political status; no supported UI field exists in baseline."
+    },
+    {
+      "id": "P02-wrong-password-refused",
+      "status": "PASS",
+      "evidence": [
+        "profile-wrong-password.png"
+      ]
+    },
+    {
+      "id": "P01-profile-roundtrip",
+      "status": "PASS",
+      "fields": [
+        {
+          "path": "contact.name",
+          "expected": "验收林澄",
+          "actual": "验收林澄",
+          "correct": true
+        },
+        {
+          "path": "contact.givenName",
+          "expected": "Cheng",
+          "actual": "Cheng",
+          "correct": true
+        },
+        {
+          "path": "contact.familyName",
+          "expected": "Lin",
+          "actual": "Lin",
+          "correct": true
+        },
+        {
+          "path": "contact.email",
+          "expected": "qa.lin.cheng@example.invalid",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        },
+        {
+          "path": "contact.phone",
+          "expected": "19900000000",
+          "actual": "19900000000",
+          "correct": true
+        },
+        {
+          "path": "contact.gender",
+          "expected": "女",
+          "actual": "女",
+          "correct": true
+        },
+        {
+          "path": "contact.politicalStatus",
+          "expected": "群众",
+          "actual": "群众",
+          "correct": true
+        },
+        {
+          "path": "contact.province",
+          "expected": "浙江省",
+          "actual": "浙江省",
+          "correct": true
+        },
+        {
+          "path": "contact.city",
+          "expected": "杭州",
+          "actual": "杭州",
+          "correct": true
+        },
+        {
+          "path": "contact.district",
+          "expected": "西湖区",
+          "actual": "西湖区",
+          "correct": true
+        },
+        {
+          "path": "contact.website",
+          "expected": "https://example.invalid/qa-only",
+          "actual": "https://example.invalid/qa-only",
+          "correct": true
+        },
+        {
+          "path": "education.0.school",
+          "expected": "虚构东岚大学",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "path": "education.0.degree",
+          "expected": "本科",
+          "actual": "本科",
+          "correct": true
+        },
+        {
+          "path": "education.0.major",
+          "expected": "信息管理与信息系统",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "path": "education.0.startDate",
+          "expected": "2017-09-01",
+          "actual": "2017-09-01",
+          "correct": true
+        },
+        {
+          "path": "education.0.endDate",
+          "expected": "2021-06-30",
+          "actual": "2021-06-30",
+          "correct": true
+        },
+        {
+          "path": "education.1.school",
+          "expected": "虚构北辰学院",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "path": "education.1.degree",
+          "expected": "硕士",
+          "actual": "硕士",
+          "correct": true
+        },
+        {
+          "path": "education.1.major",
+          "expected": "软件工程",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "path": "education.1.startDate",
+          "expected": "2021-09",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "path": "education.1.endDate",
+          "expected": "2024-06-28",
+          "actual": "2024-06-28",
+          "correct": true
+        },
+        {
+          "path": "internships.0.organization",
+          "expected": "虚构青屿实验室",
+          "actual": "虚构青屿实验室",
+          "correct": true
+        },
+        {
+          "path": "internships.0.title",
+          "expected": "数据实习生",
+          "actual": "数据实习生",
+          "correct": true
+        },
+        {
+          "path": "internships.0.startDate",
+          "expected": "2020-07-01",
+          "actual": "2020-07-01",
+          "correct": true
+        },
+        {
+          "path": "internships.0.endDate",
+          "expected": "2020-09-30",
+          "actual": "2020-09-30",
+          "correct": true
+        },
+        {
+          "path": "internships.0.description",
+          "expected": "虚构验收：整理测试数据，完成甲模块。",
+          "actual": "虚构验收：整理测试数据，完成甲模块。",
+          "correct": true
+        },
+        {
+          "path": "internships.1.organization",
+          "expected": "虚构星帆研究所",
+          "actual": "虚构星帆研究所",
+          "correct": true
+        },
+        {
+          "path": "internships.1.title",
+          "expected": "开发实习生",
+          "actual": "开发实习生",
+          "correct": true
+        },
+        {
+          "path": "internships.1.startDate",
+          "expected": "2023-07-01",
+          "actual": "2023-07-01",
+          "correct": true
+        },
+        {
+          "path": "internships.1.endDate",
+          "expected": "2023-10-20",
+          "actual": "2023-10-20",
+          "correct": true
+        },
+        {
+          "path": "internships.1.description",
+          "expected": "虚构验收：开发乙模块，记录自动化结果。",
+          "actual": "虚构验收：开发乙模块，记录自动化结果。",
+          "correct": true
+        },
+        {
+          "path": "work.0.organization",
+          "expected": "虚构山海科技",
+          "actual": "虚构山海科技",
+          "correct": true
+        },
+        {
+          "path": "work.0.title",
+          "expected": "质量工程师",
+          "actual": "质量工程师",
+          "correct": true
+        },
+        {
+          "path": "work.0.startDate",
+          "expected": "2024-07-01",
+          "actual": "2024-07-01",
+          "correct": true
+        },
+        {
+          "path": "work.0.endDate",
+          "expected": "2026-09-30",
+          "actual": "2026-09-30",
+          "correct": true
+        },
+        {
+          "path": "work.0.description",
+          "expected": "虚构验收：维护独立测试平台。",
+          "actual": "虚构验收：维护独立测试平台。",
+          "correct": true
+        },
+        {
+          "path": "projects.0.name",
+          "expected": "虚构项目甲",
+          "actual": "虚构项目甲",
+          "correct": true
+        },
+        {
+          "path": "projects.0.role",
+          "expected": "测试负责人",
+          "actual": "测试负责人",
+          "correct": true
+        },
+        {
+          "path": "projects.0.startDate",
+          "expected": "2022-01-15",
+          "actual": "2022-01-15",
+          "correct": true
+        },
+        {
+          "path": "projects.0.endDate",
+          "expected": "2022-06-30",
+          "actual": "2022-06-30",
+          "correct": true
+        },
+        {
+          "path": "projects.0.description",
+          "expected": "虚构验收：创建离线测评工具。",
+          "actual": "虚构验收：创建离线测评工具。",
+          "correct": true
+        },
+        {
+          "path": "projects.1.name",
+          "expected": "虚构项目乙",
+          "actual": "虚构项目乙",
+          "correct": true
+        },
+        {
+          "path": "projects.1.role",
+          "expected": "开发成员",
+          "actual": "开发成员",
+          "correct": true
+        },
+        {
+          "path": "projects.1.startDate",
+          "expected": "2023-01-01",
+          "actual": "2023-01-01",
+          "correct": true
+        },
+        {
+          "path": "projects.1.endDate",
+          "expected": "2023-12-15",
+          "actual": "2023-12-15",
+          "correct": true
+        },
+        {
+          "path": "projects.1.description",
+          "expected": "虚构验收：构建网页信息提取样例。",
+          "actual": "虚构验收：构建网页信息提取样例。",
+          "correct": true
+        },
+        {
+          "path": "skills.0.name",
+          "expected": "JavaScript",
+          "actual": "JavaScript",
+          "correct": true
+        },
+        {
+          "path": "skills.0.level",
+          "expected": "熟练",
+          "actual": "熟练",
+          "correct": true
+        },
+        {
+          "path": "skills.1.name",
+          "expected": "SQL",
+          "actual": "SQL",
+          "correct": true
+        },
+        {
+          "path": "skills.1.level",
+          "expected": "熟练",
+          "actual": "熟练",
+          "correct": true
+        },
+        {
+          "path": "certificates.0.name",
+          "expected": "虚构数据分析证书",
+          "actual": "虚构数据分析证书",
+          "correct": true
+        },
+        {
+          "path": "certificates.0.issuer",
+          "expected": "虚构认证中心甲",
+          "actual": "虚构认证中心甲",
+          "correct": true
+        },
+        {
+          "path": "certificates.0.date",
+          "expected": "2023-05-18",
+          "actual": "2023-05-18",
+          "correct": true
+        },
+        {
+          "path": "certificates.1.name",
+          "expected": "虚构软件测试证书",
+          "actual": "虚构软件测试证书",
+          "correct": true
+        },
+        {
+          "path": "certificates.1.issuer",
+          "expected": "虚构认证中心乙",
+          "actual": "虚构认证中心乙",
+          "correct": true
+        },
+        {
+          "path": "certificates.1.date",
+          "expected": "2024-03-16",
+          "actual": "2024-03-16",
+          "correct": true
+        }
+      ],
+      "evidence": [
+        "profile-filled.png",
+        "profile-ui-fields.json",
+        "fictional-encrypted-backup.private.json"
+      ]
+    },
+    {
+      "id": "P03-no-plaintext-at-rest",
+      "status": "PASS",
+      "keys": [
+        "zhiyouyinli.profile.encrypted.v2",
+        "zhiyouyinli.profile.encrypted.v2.previous"
+      ],
+      "evidence": [
+        "extension-storage.json"
+      ]
+    },
+    {
+      "id": "A01-enterprise",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "contact.name",
+          "type": "text",
+          "expected": "验收林澄",
+          "policy": "fill",
+          "actual": "验收林澄",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "email",
+          "expected": "qa.lin.cheng@example.invalid",
+          "policy": "fill",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        },
+        {
+          "key": "contact.phone",
+          "type": "tel",
+          "expected": "19900000000",
+          "policy": "fill",
+          "actual": "19900000000",
+          "correct": true
+        },
+        {
+          "key": "contact.city",
+          "type": "text",
+          "expected": "上海（人工保留）",
+          "policy": "preserve",
+          "actual": "上海（人工保留）",
+          "correct": true
+        },
+        {
+          "key": "contact.website",
+          "type": "url",
+          "expected": "https://example.invalid/qa-only",
+          "policy": "fill",
+          "actual": "https://example.invalid/qa-only",
+          "correct": true
+        },
+        {
+          "key": "additional.gender",
+          "type": "radio",
+          "expected": "F",
+          "policy": "fill",
+          "actual": "F",
+          "correct": true
+        },
+        {
+          "key": "additional.politicalStatus",
+          "type": "select",
+          "expected": "none",
+          "policy": "fill",
+          "actual": "none",
+          "correct": true
+        },
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "fill",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.major",
+          "type": "text",
+          "expected": "信息管理与信息系统",
+          "policy": "fill",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "select",
+          "expected": "bs",
+          "policy": "fill",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.0.startDate",
+          "type": "month",
+          "expected": "2017-09",
+          "policy": "fill",
+          "actual": "2017-09",
+          "correct": true
+        },
+        {
+          "key": "education.0.endDate",
+          "type": "month",
+          "expected": "2021-06",
+          "policy": "fill",
+          "actual": "2021-06",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "fill",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.major",
+          "type": "text",
+          "expected": "软件工程",
+          "policy": "fill",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "select",
+          "expected": "ms",
+          "policy": "fill",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "education.1.startDate",
+          "type": "month",
+          "expected": "2021-09",
+          "policy": "fill",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "key": "education.1.endDate",
+          "type": "month",
+          "expected": "2024-06",
+          "policy": "fill",
+          "actual": "2024-06",
+          "correct": true
+        },
+        {
+          "key": "internships.0.organization",
+          "type": "text",
+          "expected": "虚构青屿实验室",
+          "policy": "fill",
+          "actual": "虚构青屿实验室",
+          "correct": true
+        },
+        {
+          "key": "internships.0.title",
+          "type": "text",
+          "expected": "数据实习生",
+          "policy": "fill",
+          "actual": "数据实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.0.startDate",
+          "type": "date",
+          "expected": "2020-07-01",
+          "policy": "fill",
+          "actual": "2020-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.0.endDate",
+          "type": "date",
+          "expected": "2020-09-30",
+          "policy": "fill",
+          "actual": "2020-09-30",
+          "correct": true
+        },
+        {
+          "key": "internships.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：整理测试数据，完成甲模块。",
+          "policy": "fill",
+          "actual": "虚构验收：整理测试数据，完成甲模块。",
+          "correct": true
+        },
+        {
+          "key": "internships.1.organization",
+          "type": "text",
+          "expected": "虚构星帆研究所",
+          "policy": "fill",
+          "actual": "虚构星帆研究所",
+          "correct": true
+        },
+        {
+          "key": "internships.1.title",
+          "type": "text",
+          "expected": "开发实习生",
+          "policy": "fill",
+          "actual": "开发实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.1.startDate",
+          "type": "date",
+          "expected": "2023-07-01",
+          "policy": "fill",
+          "actual": "2023-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.1.endDate",
+          "type": "date",
+          "expected": "2023-10-20",
+          "policy": "fill",
+          "actual": "2023-10-20",
+          "correct": true
+        },
+        {
+          "key": "internships.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：开发乙模块，记录自动化结果。",
+          "policy": "fill",
+          "actual": "虚构验收：开发乙模块，记录自动化结果。",
+          "correct": true
+        },
+        {
+          "key": "work.0.organization",
+          "type": "text",
+          "expected": "虚构山海科技",
+          "policy": "fill",
+          "actual": "虚构山海科技",
+          "correct": true
+        },
+        {
+          "key": "work.0.title",
+          "type": "text",
+          "expected": "质量工程师",
+          "policy": "fill",
+          "actual": "质量工程师",
+          "correct": true
+        },
+        {
+          "key": "work.0.startDate",
+          "type": "date",
+          "expected": "2024-07-01",
+          "policy": "fill",
+          "actual": "2024-07-01",
+          "correct": true
+        },
+        {
+          "key": "work.0.endDate",
+          "type": "date",
+          "expected": "2026-09-30",
+          "policy": "fill",
+          "actual": "2026-09-30",
+          "correct": true
+        },
+        {
+          "key": "work.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：维护独立测试平台。",
+          "policy": "fill",
+          "actual": "虚构验收：维护独立测试平台。",
+          "correct": true
+        },
+        {
+          "key": "projects.0.name",
+          "type": "text",
+          "expected": "虚构项目甲",
+          "policy": "fill",
+          "actual": "虚构项目甲",
+          "correct": true
+        },
+        {
+          "key": "projects.0.role",
+          "type": "text",
+          "expected": "测试负责人",
+          "policy": "fill",
+          "actual": "测试负责人",
+          "correct": true
+        },
+        {
+          "key": "projects.0.startDate",
+          "type": "date",
+          "expected": "2022-01-15",
+          "policy": "fill",
+          "actual": "2022-01-15",
+          "correct": true
+        },
+        {
+          "key": "projects.0.endDate",
+          "type": "date",
+          "expected": "2022-06-30",
+          "policy": "fill",
+          "actual": "2022-06-30",
+          "correct": true
+        },
+        {
+          "key": "projects.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：创建离线测评工具。",
+          "policy": "fill",
+          "actual": "虚构验收：创建离线测评工具。",
+          "correct": true
+        },
+        {
+          "key": "projects.1.name",
+          "type": "text",
+          "expected": "虚构项目乙",
+          "policy": "fill",
+          "actual": "虚构项目乙",
+          "correct": true
+        },
+        {
+          "key": "projects.1.role",
+          "type": "text",
+          "expected": "开发成员",
+          "policy": "fill",
+          "actual": "开发成员",
+          "correct": true
+        },
+        {
+          "key": "projects.1.startDate",
+          "type": "date",
+          "expected": "2023-01-01",
+          "policy": "fill",
+          "actual": "2023-01-01",
+          "correct": true
+        },
+        {
+          "key": "projects.1.endDate",
+          "type": "date",
+          "expected": "2023-12-15",
+          "policy": "fill",
+          "actual": "2023-12-15",
+          "correct": true
+        },
+        {
+          "key": "projects.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：构建网页信息提取样例。",
+          "policy": "fill",
+          "actual": "虚构验收：构建网页信息提取样例。",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.name",
+          "type": "text",
+          "expected": "虚构数据分析证书",
+          "policy": "fill",
+          "actual": "虚构数据分析证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.issuer",
+          "type": "text",
+          "expected": "虚构认证中心甲",
+          "policy": "fill",
+          "actual": "虚构认证中心甲",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.date",
+          "type": "date",
+          "expected": "2023-05-18",
+          "policy": "fill",
+          "actual": "2023-05-18",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.name",
+          "type": "text",
+          "expected": "虚构软件测试证书",
+          "policy": "fill",
+          "actual": "虚构软件测试证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.issuer",
+          "type": "text",
+          "expected": "虚构认证中心乙",
+          "policy": "fill",
+          "actual": "虚构认证中心乙",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.date",
+          "type": "date",
+          "expected": "2024-03-16",
+          "policy": "fill",
+          "actual": "2024-03-16",
+          "correct": true
+        },
+        {
+          "key": "skills.all",
+          "type": "checkbox",
+          "expected": [
+            "js",
+            "sql"
+          ],
+          "policy": "fill",
+          "actual": [
+            "js",
+            "sql"
+          ],
+          "correct": true
+        },
+        {
+          "key": "protected.captcha",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "protected.id",
+          "type": "text",
+          "expected": "测试占位-不可覆盖",
+          "policy": "abstain",
+          "actual": "测试占位-不可覆盖",
+          "correct": true
+        },
+        {
+          "key": "protected.consent",
+          "type": "checkbox",
+          "expected": false,
+          "policy": "abstain",
+          "actual": false,
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 3326,
+      "chosen": 48,
+      "url": "http://127.0.0.1:47941/ordinary.html",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "Email address",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "email",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "联系电话",
+          "path": "contact.phone",
+          "value": "19900000000",
+          "notes": [
+            "tel",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "居住城市",
+          "path": "contact.city",
+          "value": "杭州",
+          "notes": [
+            "text",
+            "已有内容 · 已有内容，默认不覆盖"
+          ],
+          "checked": false
+        },
+        {
+          "label": "Portfolio URL",
+          "path": "contact.website",
+          "value": "https://example.invalid/qa-only",
+          "notes": [
+            "url",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "性别",
+          "path": "contact.gender",
+          "value": "女",
+          "notes": [
+            "radio-group",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "政治面貌",
+          "path": "contact.politicalStatus",
+          "value": "群众",
+          "notes": [
+            "select-one",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.0.school",
+          "value": "虚构东岚大学",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.0.major",
+          "value": "信息管理与信息系统",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "教育经历 1 · select-one",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.0.startDate",
+          "value": "2017-09-01",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.0.endDate",
+          "value": "2021-06-30",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.1.school",
+          "value": "虚构北辰学院",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.1.major",
+          "value": "软件工程",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.1.degree",
+          "value": "硕士",
+          "notes": [
+            "教育经历 2 · select-one",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.1.startDate",
+          "value": "2021-09",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.1.endDate",
+          "value": "2024-06-28",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.0.organization",
+          "value": "虚构青屿实验室",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.0.title",
+          "value": "数据实习生",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.0.startDate",
+          "value": "2020-07-01",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.0.endDate",
+          "value": "2020-09-30",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.0.description",
+          "value": "虚构验收：整理测试数据，完成甲模块。",
+          "notes": [
+            "实习经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.1.organization",
+          "value": "虚构星帆研究所",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.1.title",
+          "value": "开发实习生",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.1.startDate",
+          "value": "2023-07-01",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.1.endDate",
+          "value": "2023-10-20",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.1.description",
+          "value": "虚构验收：开发乙模块，记录自动化结果。",
+          "notes": [
+            "实习经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "公司名称",
+          "path": "work.0.organization",
+          "value": "虚构山海科技",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "work.0.title",
+          "value": "质量工程师",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "work.0.startDate",
+          "value": "2024-07-01",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "work.0.endDate",
+          "value": "2026-09-30",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "work.0.description",
+          "value": "虚构验收：维护独立测试平台。",
+          "notes": [
+            "工作经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.0.name",
+          "value": "虚构项目甲",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.0.role",
+          "value": "测试负责人",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.0.startDate",
+          "value": "2022-01-15",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.0.endDate",
+          "value": "2022-06-30",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.0.description",
+          "value": "虚构验收：创建离线测评工具。",
+          "notes": [
+            "项目经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.1.name",
+          "value": "虚构项目乙",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.1.role",
+          "value": "开发成员",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.1.startDate",
+          "value": "2023-01-01",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.1.endDate",
+          "value": "2023-12-15",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.1.description",
+          "value": "虚构验收：构建网页信息提取样例。",
+          "notes": [
+            "项目经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.0.name",
+          "value": "虚构数据分析证书",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.0.issuer",
+          "value": "虚构认证中心甲",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.0.date",
+          "value": "2023-05-18",
+          "notes": [
+            "证书 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.1.name",
+          "value": "虚构软件测试证书",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.1.issuer",
+          "value": "虚构认证中心乙",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.1.date",
+          "value": "2024-03-16",
+          "notes": [
+            "证书 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "技能",
+          "path": "skills.all",
+          "value": "JavaScript、SQL",
+          "notes": [
+            "技能 · checkbox-group",
+            "可填写 · 技能多选分组"
+          ],
+          "checked": true
+        },
+        {
+          "label": "验证码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "身份证号码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "同意隐私政策",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "checkbox",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "A01-enterprise-preview.png",
+        "A01-enterprise-result.png",
+        "A01-enterprise-page.png",
+        "A01-enterprise-dom.json"
+      ]
+    },
+    {
+      "id": "B01-soe-step1",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "contact.name",
+          "type": "text",
+          "expected": "验收林澄",
+          "policy": "fill",
+          "actual": "验收林澄",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "text",
+          "expected": "qa.lin.cheng@example.invalid",
+          "policy": "fill",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        },
+        {
+          "key": "contact.phone",
+          "type": "text",
+          "expected": "19900000000",
+          "policy": "fill",
+          "actual": "19900000000",
+          "correct": true
+        },
+        {
+          "key": "contact.givenName",
+          "type": "text",
+          "expected": "Cheng",
+          "policy": "fill",
+          "actual": "Cheng",
+          "correct": true
+        },
+        {
+          "key": "contact.familyName",
+          "type": "text",
+          "expected": "Lin",
+          "policy": "fill",
+          "actual": "Lin",
+          "correct": true
+        },
+        {
+          "key": "additional.province",
+          "type": "select",
+          "expected": "zj",
+          "policy": "fill",
+          "actual": "zj",
+          "correct": true
+        },
+        {
+          "key": "contact.city",
+          "type": "select",
+          "expected": "hz",
+          "policy": "fill",
+          "actual": "hz",
+          "correct": true
+        },
+        {
+          "key": "additional.district",
+          "type": "select",
+          "expected": "xh",
+          "policy": "fill",
+          "actual": "xh",
+          "correct": true
+        },
+        {
+          "key": "additional.gender",
+          "type": "radio",
+          "expected": "f",
+          "policy": "fill",
+          "actual": "f",
+          "correct": true
+        },
+        {
+          "key": "additional.politicalStatus",
+          "type": "select",
+          "expected": "none",
+          "policy": "fill",
+          "actual": "none",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 2828,
+      "chosen": 10,
+      "url": "http://127.0.0.1:47941/soe.html",
+      "previewRows": [
+        {
+          "label": "中文姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 标准 autocomplete 明确对应"
+          ],
+          "checked": true
+        },
+        {
+          "label": "电子邮箱",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "手机号码",
+          "path": "contact.phone",
+          "value": "19900000000",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "英文名",
+          "path": "contact.givenName",
+          "value": "Cheng",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "英文姓",
+          "path": "contact.familyName",
+          "value": "Lin",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "现居省份",
+          "path": "contact.province",
+          "value": "浙江省",
+          "notes": [
+            "select-one",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "居住城市",
+          "path": "contact.city",
+          "value": "杭州",
+          "notes": [
+            "select-one",
+            "可填写 · 需同时勾选上级地区；填写时等待上级加载后按此文字唯一匹配"
+          ],
+          "checked": true
+        },
+        {
+          "label": "所在区县",
+          "path": "contact.district",
+          "value": "西湖区",
+          "notes": [
+            "select-one",
+            "可填写 · 需同时勾选上级地区；填写时等待上级加载后按此文字唯一匹配"
+          ],
+          "checked": true
+        },
+        {
+          "label": "性别",
+          "path": "contact.gender",
+          "value": "女",
+          "notes": [
+            "radio-group",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "政治面貌",
+          "path": "contact.politicalStatus",
+          "value": "群众",
+          "notes": [
+            "select-one",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        }
+      ],
+      "evidence": [
+        "B01-soe-step1-preview.png",
+        "B01-soe-step1-result.png",
+        "B01-soe-step1-page.png",
+        "B01-soe-step1-dom.json"
+      ]
+    },
+    {
+      "id": "B02-soe-step2",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "fill",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.major",
+          "type": "text",
+          "expected": "信息管理与信息系统",
+          "policy": "fill",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "select",
+          "expected": "bs",
+          "policy": "fill",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.0.startDate",
+          "type": "month",
+          "expected": "2017-09",
+          "policy": "fill",
+          "actual": "2017-09",
+          "correct": true
+        },
+        {
+          "key": "education.0.endDate",
+          "type": "month",
+          "expected": "2021-06",
+          "policy": "fill",
+          "actual": "2021-06",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "fill",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.major",
+          "type": "text",
+          "expected": "软件工程",
+          "policy": "fill",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "select",
+          "expected": "ms",
+          "policy": "fill",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "education.1.startDate",
+          "type": "month",
+          "expected": "2021-09",
+          "policy": "fill",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "key": "education.1.endDate",
+          "type": "month",
+          "expected": "2024-06",
+          "policy": "fill",
+          "actual": "2024-06",
+          "correct": true
+        },
+        {
+          "key": "internships.0.organization",
+          "type": "text",
+          "expected": "虚构青屿实验室",
+          "policy": "fill",
+          "actual": "虚构青屿实验室",
+          "correct": true
+        },
+        {
+          "key": "internships.0.title",
+          "type": "text",
+          "expected": "数据实习生",
+          "policy": "fill",
+          "actual": "数据实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.0.startDate",
+          "type": "date",
+          "expected": "2020-07-01",
+          "policy": "fill",
+          "actual": "2020-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.0.endDate",
+          "type": "date",
+          "expected": "2020-09-30",
+          "policy": "fill",
+          "actual": "2020-09-30",
+          "correct": true
+        },
+        {
+          "key": "internships.0.description",
+          "type": "text",
+          "expected": "虚构验收：整理测试数据，完成甲模块。",
+          "policy": "fill",
+          "actual": "虚构验收：整理测试数据，完成甲模块。",
+          "correct": true
+        },
+        {
+          "key": "internships.1.organization",
+          "type": "text",
+          "expected": "虚构星帆研究所",
+          "policy": "fill",
+          "actual": "虚构星帆研究所",
+          "correct": true
+        },
+        {
+          "key": "internships.1.title",
+          "type": "text",
+          "expected": "开发实习生",
+          "policy": "fill",
+          "actual": "开发实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.1.startDate",
+          "type": "date",
+          "expected": "2023-07-01",
+          "policy": "fill",
+          "actual": "2023-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.1.endDate",
+          "type": "date",
+          "expected": "2023-10-20",
+          "policy": "fill",
+          "actual": "2023-10-20",
+          "correct": true
+        },
+        {
+          "key": "internships.1.description",
+          "type": "text",
+          "expected": "虚构验收：开发乙模块，记录自动化结果。",
+          "policy": "fill",
+          "actual": "虚构验收：开发乙模块，记录自动化结果。",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 2053,
+      "chosen": 20,
+      "url": "http://127.0.0.1:47941/soe.html?step=2",
+      "previewRows": [
+        {
+          "label": "院校名称",
+          "path": "education.0.school",
+          "value": "虚构东岚大学",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.0.major",
+          "value": "信息管理与信息系统",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "教育经历 1 · select-one",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.0.startDate",
+          "value": "2017-09-01",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.0.endDate",
+          "value": "2021-06-30",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.1.school",
+          "value": "虚构北辰学院",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.1.major",
+          "value": "软件工程",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.1.degree",
+          "value": "硕士",
+          "notes": [
+            "教育经历 2 · select-one",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.1.startDate",
+          "value": "2021-09",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.1.endDate",
+          "value": "2024-06-28",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "单位名称",
+          "path": "internships.0.organization",
+          "value": "虚构青屿实验室",
+          "notes": [
+            "实习经历 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.0.title",
+          "value": "数据实习生",
+          "notes": [
+            "实习经历 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.0.startDate",
+          "value": "2020-07-01",
+          "notes": [
+            "实习经历 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.0.endDate",
+          "value": "2020-09-30",
+          "notes": [
+            "实习经历 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.0.description",
+          "value": "虚构验收：整理测试数据，完成甲模块。",
+          "notes": [
+            "实习经历 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "单位名称",
+          "path": "internships.1.organization",
+          "value": "虚构星帆研究所",
+          "notes": [
+            "实习经历 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.1.title",
+          "value": "开发实习生",
+          "notes": [
+            "实习经历 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.1.startDate",
+          "value": "2023-07-01",
+          "notes": [
+            "实习经历 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.1.endDate",
+          "value": "2023-10-20",
+          "notes": [
+            "实习经历 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.1.description",
+          "value": "虚构验收：开发乙模块，记录自动化结果。",
+          "notes": [
+            "实习经历 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        }
+      ],
+      "evidence": [
+        "B02-soe-step2-preview.png",
+        "B02-soe-step2-result.png",
+        "B02-soe-step2-page.png",
+        "B02-soe-step2-dom.json"
+      ]
+    },
+    {
+      "id": "B03-soe-step3",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "projects.0.name",
+          "type": "text",
+          "expected": "虚构项目甲",
+          "policy": "fill",
+          "actual": "虚构项目甲",
+          "correct": true
+        },
+        {
+          "key": "projects.0.role",
+          "type": "text",
+          "expected": "测试负责人",
+          "policy": "fill",
+          "actual": "测试负责人",
+          "correct": true
+        },
+        {
+          "key": "projects.0.startDate",
+          "type": "date",
+          "expected": "2022-01-15",
+          "policy": "fill",
+          "actual": "2022-01-15",
+          "correct": true
+        },
+        {
+          "key": "projects.0.endDate",
+          "type": "date",
+          "expected": "2022-06-30",
+          "policy": "fill",
+          "actual": "2022-06-30",
+          "correct": true
+        },
+        {
+          "key": "projects.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：创建离线测评工具。",
+          "policy": "fill",
+          "actual": "虚构验收：创建离线测评工具。",
+          "correct": true
+        },
+        {
+          "key": "projects.1.name",
+          "type": "text",
+          "expected": "虚构项目乙",
+          "policy": "fill",
+          "actual": "虚构项目乙",
+          "correct": true
+        },
+        {
+          "key": "projects.1.role",
+          "type": "text",
+          "expected": "开发成员",
+          "policy": "fill",
+          "actual": "开发成员",
+          "correct": true
+        },
+        {
+          "key": "projects.1.startDate",
+          "type": "date",
+          "expected": "2023-01-01",
+          "policy": "fill",
+          "actual": "2023-01-01",
+          "correct": true
+        },
+        {
+          "key": "projects.1.endDate",
+          "type": "date",
+          "expected": "2023-12-15",
+          "policy": "fill",
+          "actual": "2023-12-15",
+          "correct": true
+        },
+        {
+          "key": "projects.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：构建网页信息提取样例。",
+          "policy": "fill",
+          "actual": "虚构验收：构建网页信息提取样例。",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.name",
+          "type": "text",
+          "expected": "虚构数据分析证书",
+          "policy": "fill",
+          "actual": "虚构数据分析证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.issuer",
+          "type": "text",
+          "expected": "虚构认证中心甲",
+          "policy": "fill",
+          "actual": "虚构认证中心甲",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.date",
+          "type": "date",
+          "expected": "2023-05-18",
+          "policy": "fill",
+          "actual": "2023-05-18",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.name",
+          "type": "text",
+          "expected": "虚构软件测试证书",
+          "policy": "fill",
+          "actual": "虚构软件测试证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.issuer",
+          "type": "text",
+          "expected": "虚构认证中心乙",
+          "policy": "fill",
+          "actual": "虚构认证中心乙",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.date",
+          "type": "date",
+          "expected": "2024-03-16",
+          "policy": "fill",
+          "actual": "2024-03-16",
+          "correct": true
+        },
+        {
+          "key": "skills.all",
+          "type": "multi-select",
+          "expected": [
+            "JavaScript",
+            "SQL"
+          ],
+          "policy": "fill",
+          "actual": [
+            "JavaScript",
+            "SQL"
+          ],
+          "correct": true
+        },
+        {
+          "key": "protected.declaration",
+          "type": "checkbox",
+          "expected": false,
+          "policy": "abstain",
+          "actual": false,
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 1677,
+      "chosen": 17,
+      "url": "http://127.0.0.1:47941/soe.html?step=3",
+      "previewRows": [
+        {
+          "label": "项目名称",
+          "path": "projects.0.name",
+          "value": "虚构项目甲",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.0.role",
+          "value": "测试负责人",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.0.startDate",
+          "value": "2022-01-15",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.0.endDate",
+          "value": "2022-06-30",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.0.description",
+          "value": "虚构验收：创建离线测评工具。",
+          "notes": [
+            "项目经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.1.name",
+          "value": "虚构项目乙",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.1.role",
+          "value": "开发成员",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.1.startDate",
+          "value": "2023-01-01",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.1.endDate",
+          "value": "2023-12-15",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.1.description",
+          "value": "虚构验收：构建网页信息提取样例。",
+          "notes": [
+            "项目经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.0.name",
+          "value": "虚构数据分析证书",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.0.issuer",
+          "value": "虚构认证中心甲",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.0.date",
+          "value": "2023-05-18",
+          "notes": [
+            "证书 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.1.name",
+          "value": "虚构软件测试证书",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.1.issuer",
+          "value": "虚构认证中心乙",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.1.date",
+          "value": "2024-03-16",
+          "notes": [
+            "证书 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业技能",
+          "path": "skills.all",
+          "value": "JavaScript、SQL",
+          "notes": [
+            "技能 · select-multiple",
+            "可填写 · 技能多选分组"
+          ],
+          "checked": true
+        },
+        {
+          "label": "本人声明以上信息真实，确认提交",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "checkbox",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "B03-soe-step3-preview.png",
+        "B03-soe-step3-result.png",
+        "B03-soe-step3-page.png",
+        "B03-soe-step3-dom.json"
+      ]
+    },
+    {
+      "id": "B04-cross-page-retention",
+      "status": "PASS",
+      "saved": {
+        "a": {
+          "contact.name": "验收林澄",
+          "contact.email": "qa.lin.cheng@example.invalid",
+          "contact.phone": "19900000000",
+          "contact.givenName": "Cheng",
+          "contact.familyName": "Lin",
+          "additional.province": "zj",
+          "contact.city": "hz",
+          "additional.district": "xh",
+          "additional.gender": "f",
+          "additional.politicalStatus": "none"
+        },
+        "b": {
+          "education.0.school": "虚构东岚大学",
+          "education.0.major": "信息管理与信息系统",
+          "education.0.degree": "bs",
+          "education.0.startDate": "2017-09",
+          "education.0.endDate": "2021-06",
+          "education.1.school": "虚构北辰学院",
+          "education.1.major": "软件工程",
+          "education.1.degree": "ms",
+          "education.1.startDate": "2021-09",
+          "education.1.endDate": "2024-06",
+          "internships.0.organization": "虚构青屿实验室",
+          "internships.0.title": "数据实习生",
+          "internships.0.startDate": "2020-07-01",
+          "internships.0.endDate": "2020-09-30",
+          "internships.0.description": "虚构验收：整理测试数据，完成甲模块。",
+          "internships.1.organization": "虚构星帆研究所",
+          "internships.1.title": "开发实习生",
+          "internships.1.startDate": "2023-07-01",
+          "internships.1.endDate": "2023-10-20",
+          "internships.1.description": "虚构验收：开发乙模块，记录自动化结果。"
+        }
+      },
+      "evidence": [
+        "B04-soe-final-page.png",
+        "B04-soe-final-dom.json"
+      ]
+    },
+    {
+      "id": "C01-family-no-guess",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "guard.family.name",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.family.phone",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.family.relationship",
+          "type": "text",
+          "expected": "父亲",
+          "policy": "abstain",
+          "actual": "父亲",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 645,
+      "chosen": 0,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=family",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 家庭成员、亲属或其他非申请人资料，必须人工填写"
+          ],
+          "checked": false
+        },
+        {
+          "label": "联系电话",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 家庭成员、亲属或其他非申请人资料，必须人工填写"
+          ],
+          "checked": false
+        },
+        {
+          "label": "与本人关系",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 家庭成员、亲属或其他非申请人资料，必须人工填写"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "C01-family-no-guess-preview.png",
+        "C01-family-no-guess-result.png",
+        "C01-family-no-guess-page.png",
+        "C01-family-no-guess-dom.json"
+      ]
+    },
+    {
+      "id": "C02-ambiguous-no-guess",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "guard.conflict",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.unspecified",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "text",
+          "expected": "",
+          "policy": "fill",
+          "actual": "",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 622,
+      "chosen": 0,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=ambiguous",
+      "previewRows": [
+        {
+          "label": "电子邮箱",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "待对应 · 名称或所属经历不够明确，请人工指定"
+          ],
+          "checked": false
+        },
+        {
+          "label": "联系资料",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "待对应 · 名称或所属经历不够明确，请人工指定"
+          ],
+          "checked": false
+        },
+        {
+          "label": "联系邮址",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "待对应 · 名称或所属经历不够明确，请人工指定"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "C02-ambiguous-no-guess-preview.png",
+        "C02-ambiguous-no-guess-result.png",
+        "C02-ambiguous-no-guess-page.png",
+        "C02-ambiguous-no-guess-dom.json"
+      ]
+    },
+    {
+      "id": "C03-structure-change",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "guard.changed",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "text",
+          "expected": "qa.lin.cheng@example.invalid",
+          "policy": "fill",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 893,
+      "chosen": 2,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=changed",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "电子邮箱",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        }
+      ],
+      "evidence": [
+        "C03-structure-change-preview.png",
+        "C03-structure-change-result.png",
+        "C03-structure-change-page.png",
+        "C03-structure-change-dom.json"
+      ]
+    },
+    {
+      "id": "C04-preserve-existing",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "guard.edited",
+          "type": "text",
+          "expected": "人工刚刚修改，必须保留",
+          "policy": "abstain",
+          "actual": "人工刚刚修改，必须保留",
+          "correct": true
+        },
+        {
+          "key": "guard.occupied",
+          "type": "email",
+          "expected": "existing@example.invalid",
+          "policy": "abstain",
+          "actual": "existing@example.invalid",
+          "correct": true
+        },
+        {
+          "key": "guard.readonly",
+          "type": "tel",
+          "expected": "保留只读",
+          "policy": "abstain",
+          "actual": "保留只读",
+          "correct": true
+        },
+        {
+          "key": "guard.disabled",
+          "type": "url",
+          "expected": "https://example.invalid/existing",
+          "policy": "abstain",
+          "actual": "https://example.invalid/existing",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 905,
+      "chosen": 1,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=occupied",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "电子邮箱",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "email",
+            "已有内容 · 已有内容，默认不覆盖"
+          ],
+          "checked": false
+        },
+        {
+          "label": "手机号码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "tel",
+            "人工处理 · 禁用或只读控件"
+          ],
+          "checked": false
+        },
+        {
+          "label": "作品集网址",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "url",
+            "人工处理 · 禁用或只读控件"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "C04-preserve-existing-preview.png",
+        "C04-preserve-existing-result.png",
+        "C04-preserve-existing-page.png",
+        "C04-preserve-existing-dom.json"
+      ]
+    },
+    {
+      "id": "C05-protected-controls",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "guard.captcha",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.password",
+          "type": "password",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.id",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.consent",
+          "type": "checkbox",
+          "expected": false,
+          "policy": "abstain",
+          "actual": false,
+          "correct": true
+        },
+        {
+          "key": "guard.emergency.name",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.emergency.phone",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.hidden",
+          "type": "hidden",
+          "expected": "untouched",
+          "policy": "abstain",
+          "actual": "untouched",
+          "correct": true
+        },
+        {
+          "key": "guard.file",
+          "type": "file",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 620,
+      "chosen": 0,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=guarded",
+      "previewRows": [
+        {
+          "label": "验证码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "密码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "password",
+            "人工处理 · 密码、上传、隐藏和提交控件不处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "身份证",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "我同意所有条款",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "checkbox",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "姓名",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "联系电话",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "简历上传",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "file",
+            "人工处理 · 密码、上传、隐藏和提交控件不处理"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "C05-protected-controls-preview.png",
+        "C05-protected-controls-result.png",
+        "C05-protected-controls-page.png",
+        "C05-protected-controls-dom.json"
+      ]
+    },
+    {
+      "id": "C06-date-and-choice-ambiguity",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "guard.imprecise",
+          "type": "date",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.duplicate",
+          "type": "select",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "guard.tooshort",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 632,
+      "chosen": 0,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=precision",
+      "previewRows": [
+        {
+          "label": "入学时间",
+          "path": "education.1.startDate",
+          "value": "2021-09",
+          "notes": [
+            "教育经历 2 · date",
+            "暂不填写 · 来源只有年月，不能编造具体日"
+          ],
+          "checked": false
+        },
+        {
+          "label": "学历",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "教育经历 1 · select-one",
+            "暂不填写 · 选项缺失或不唯一，请人工选择"
+          ],
+          "checked": false
+        },
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "暂不填写 · 内容超过网站长度限制，不截断资料"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "C06-date-and-choice-ambiguity-preview.png",
+        "C06-date-and-choice-ambiguity-result.png",
+        "C06-date-and-choice-ambiguity-page.png",
+        "C06-date-and-choice-ambiguity-dom.json"
+      ]
+    },
+    {
+      "id": "C07-custom-iframe-shadow",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "guard.custom",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 623,
+      "chosen": 0,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=custom",
+      "previewRows": [
+        {
+          "label": "居住城市",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "custom",
+            "人工处理 · 禁用或只读控件"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "C07-custom-iframe-shadow-preview.png",
+        "C07-custom-iframe-shadow-result.png",
+        "C07-custom-iframe-shadow-page.png",
+        "C07-custom-iframe-shadow-dom.json"
+      ]
+    },
+    {
+      "id": "C08-delayed-dynamic",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "fill",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.major",
+          "type": "text",
+          "expected": "信息管理与信息系统",
+          "policy": "fill",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "select",
+          "expected": "bs",
+          "policy": "fill",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.0.startDate",
+          "type": "month",
+          "expected": "2017-09",
+          "policy": "fill",
+          "actual": "2017-09",
+          "correct": true
+        },
+        {
+          "key": "education.0.endDate",
+          "type": "month",
+          "expected": "2021-06",
+          "policy": "fill",
+          "actual": "2021-06",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "fill",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.major",
+          "type": "text",
+          "expected": "软件工程",
+          "policy": "fill",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "select",
+          "expected": "ms",
+          "policy": "fill",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "education.1.startDate",
+          "type": "month",
+          "expected": "2021-09",
+          "policy": "fill",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "key": "education.1.endDate",
+          "type": "month",
+          "expected": "2024-06",
+          "policy": "fill",
+          "actual": "2024-06",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 3507,
+      "chosen": 10,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=dynamic",
+      "previewRows": [
+        {
+          "label": "院校名称",
+          "path": "education.0.school",
+          "value": "虚构东岚大学",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.0.major",
+          "value": "信息管理与信息系统",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "教育经历 1 · select-one",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.0.startDate",
+          "value": "2017-09-01",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.0.endDate",
+          "value": "2021-06-30",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.1.school",
+          "value": "虚构北辰学院",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.1.major",
+          "value": "软件工程",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.1.degree",
+          "value": "硕士",
+          "notes": [
+            "教育经历 2 · select-one",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.1.startDate",
+          "value": "2021-09",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.1.endDate",
+          "value": "2024-06-28",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        }
+      ],
+      "evidence": [
+        "C08-delayed-dynamic-preview.png",
+        "C08-delayed-dynamic-result.png",
+        "C08-delayed-dynamic-page.png",
+        "C08-delayed-dynamic-dom.json"
+      ]
+    },
+    {
+      "id": "C09-delayed-rescan",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "preserve",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.major",
+          "type": "text",
+          "expected": "信息管理与信息系统",
+          "policy": "preserve",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "select",
+          "expected": "bs",
+          "policy": "preserve",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.0.startDate",
+          "type": "month",
+          "expected": "2017-09",
+          "policy": "preserve",
+          "actual": "2017-09",
+          "correct": true
+        },
+        {
+          "key": "education.0.endDate",
+          "type": "month",
+          "expected": "2021-06",
+          "policy": "preserve",
+          "actual": "2021-06",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "preserve",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.major",
+          "type": "text",
+          "expected": "软件工程",
+          "policy": "preserve",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "select",
+          "expected": "ms",
+          "policy": "preserve",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "education.1.startDate",
+          "type": "month",
+          "expected": "2021-09",
+          "policy": "preserve",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "key": "education.1.endDate",
+          "type": "month",
+          "expected": "2024-06",
+          "policy": "preserve",
+          "actual": "2024-06",
+          "correct": true
+        }
+      ],
+      "evidence": [
+        "C09-delayed-rescan-page.png",
+        "C09-delayed-rescan-result.png"
+      ]
+    },
+    {
+      "id": "C10-delayed-page-load",
+      "status": "PASS",
+      "before": {
+        "contact.name": "",
+        "contact.email": ""
+      },
+      "actual": {
+        "contact.name": "验收林澄",
+        "contact.email": "qa.lin.cheng@example.invalid"
+      },
+      "evidence": [
+        "C10-delayed-page-load-result.png",
+        "C10-delayed-page-load-page.png"
+      ]
+    },
+    {
+      "id": "M01-manual-mapping",
+      "status": "PASS",
+      "evidence": [
+        "M01-manual-mapping-page.png",
+        "M01-manual-mapping-result.png"
+      ]
+    },
+    {
+      "id": "M02-mapping-reuse",
+      "status": "PASS",
+      "evidence": [
+        "M02-mapping-reuse-preview.json",
+        "M02-mapping-reuse-preview.png"
+      ]
+    },
+    {
+      "id": "N01-site-autosave-risk",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "contact.name",
+          "type": "text",
+          "expected": "验收林澄",
+          "policy": "fill",
+          "actual": "验收林澄",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "text",
+          "expected": "qa.lin.cheng@example.invalid",
+          "policy": "fill",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 1024,
+      "chosen": 2,
+      "url": "http://127.0.0.1:47941/abnormal.html?case=network",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "电子邮箱",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        }
+      ],
+      "evidence": [
+        "N01-site-autosave-risk-preview.png",
+        "N01-site-autosave-risk-result.png",
+        "N01-site-autosave-risk-page.png",
+        "N01-site-autosave-risk-dom.json"
+      ]
+    },
+    {
+      "id": "N02-input-visible-to-site",
+      "status": "PASS",
+      "meaning": "Risk demonstrator, not a security pass: the website receives data before submit via input handlers.",
+      "evidence": [
+        "site-autosave-receiver.ndjson"
+      ]
+    },
+    {
+      "id": "N03-extension-permissions",
+      "status": "PASS",
+      "manifest": {
+        "manifest_version": 3,
+        "name": "职有引力 · 本机求职填表",
+        "version": "0.2.1",
+        "description": "本机加密档案，先核对再填写；不提交申请。",
+        "permissions": [
+          "activeTab",
+          "scripting",
+          "storage"
+        ],
+        "action": {
+          "default_popup": "popup.html",
+          "default_title": "核对并填写当前页"
+        },
+        "options_page": "profile.html",
+        "content_security_policy": {
+          "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'"
+        }
+      }
+    },
+    {
+      "id": "N04-no-external-transmission-observed",
+      "status": "PASS",
+      "externalRequests": [],
+      "note": "Scoped to exercised extension/page traffic. Test receiver is local and deliberate."
+    },
+    {
+      "id": "S01-no-automatic-submit",
+      "status": "PASS",
+      "counts": [
+        {
+          "id": "A01-enterprise",
+          "submits": 0
+        },
+        {
+          "id": "B01-soe-step1",
+          "submits": 0
+        },
+        {
+          "id": "B02-soe-step2",
+          "submits": 0
+        },
+        {
+          "id": "B03-soe-step3",
+          "submits": 0
+        },
+        {
+          "id": "C01-family-no-guess",
+          "submits": 0
+        },
+        {
+          "id": "C02-ambiguous-no-guess",
+          "submits": 0
+        },
+        {
+          "id": "C03-structure-change",
+          "submits": 0
+        },
+        {
+          "id": "C04-preserve-existing",
+          "submits": 0
+        },
+        {
+          "id": "C05-protected-controls",
+          "submits": 0
+        },
+        {
+          "id": "C06-date-and-choice-ambiguity",
+          "submits": 0
+        },
+        {
+          "id": "C07-custom-iframe-shadow",
+          "submits": 0
+        },
+        {
+          "id": "C08-delayed-dynamic",
+          "submits": 0
+        },
+        {
+          "id": "N01-site-autosave-risk",
+          "submits": 0
+        }
+      ]
+    },
+    {
+      "id": "X01-radio-record-binding",
+      "status": "PASS",
+      "fields": [
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "fill",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "radio",
+          "expected": "bs",
+          "policy": "fill",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "fill",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "radio",
+          "expected": "ms",
+          "policy": "fill",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "contact.name",
+          "type": "text",
+          "expected": "验收林澄",
+          "policy": "fill",
+          "actual": "验收林澄",
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 1116,
+      "chosen": 5,
+      "url": "http://127.0.0.1:47941/supplemental.html",
+      "previewRows": [
+        {
+          "label": "University",
+          "path": "education.0.school",
+          "value": "虚构东岚大学",
+          "notes": [
+            "Education 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "Degree",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "Education 1 · radio-group",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "University",
+          "path": "education.1.school",
+          "value": "虚构北辰学院",
+          "notes": [
+            "Education 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "Degree",
+          "path": "education.1.degree",
+          "value": "硕士",
+          "notes": [
+            "Education 2 · radio-group",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        }
+      ],
+      "evidence": [
+        "X01-radio-record-binding-preview.png",
+        "X01-radio-record-binding-result.png",
+        "X01-radio-record-binding-page.png",
+        "X01-radio-record-binding-dom.json"
+      ]
+    },
+    {
+      "id": "X02-explicit-overwrite",
+      "status": "PASS",
+      "actual": {
+        "guard.edited": "验收林澄",
+        "guard.occupied": "qa.lin.cheng@example.invalid",
+        "guard.readonly": "保留只读",
+        "guard.disabled": "https://example.invalid/existing"
+      },
+      "onlyPermissionSelected": false,
+      "evidence": [
+        "X02-explicit-overwrite-result.png",
+        "X02-explicit-overwrite-page.png"
+      ]
+    },
+    {
+      "id": "X03-navigation-invalidates-preview",
+      "status": "PASS",
+      "actual": {
+        "guard.changed": "",
+        "contact.email": ""
+      },
+      "evidence": [
+        "X03-navigation-invalidates-preview-result.png",
+        "X03-navigation-invalidates-preview-page.png"
+      ]
+    },
+    {
+      "id": "T01-enterprise-repeat",
+      "status": "MEASURED",
+      "fields": [
+        {
+          "key": "contact.name",
+          "type": "text",
+          "expected": "验收林澄",
+          "policy": "fill",
+          "actual": "验收林澄",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "email",
+          "expected": "qa.lin.cheng@example.invalid",
+          "policy": "fill",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        },
+        {
+          "key": "contact.phone",
+          "type": "tel",
+          "expected": "19900000000",
+          "policy": "fill",
+          "actual": "19900000000",
+          "correct": true
+        },
+        {
+          "key": "contact.city",
+          "type": "text",
+          "expected": "上海（人工保留）",
+          "policy": "preserve",
+          "actual": "上海（人工保留）",
+          "correct": true
+        },
+        {
+          "key": "contact.website",
+          "type": "url",
+          "expected": "https://example.invalid/qa-only",
+          "policy": "fill",
+          "actual": "https://example.invalid/qa-only",
+          "correct": true
+        },
+        {
+          "key": "additional.gender",
+          "type": "radio",
+          "expected": "F",
+          "policy": "fill",
+          "actual": "F",
+          "correct": true
+        },
+        {
+          "key": "additional.politicalStatus",
+          "type": "select",
+          "expected": "none",
+          "policy": "fill",
+          "actual": "none",
+          "correct": true
+        },
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "fill",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.major",
+          "type": "text",
+          "expected": "信息管理与信息系统",
+          "policy": "fill",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "select",
+          "expected": "bs",
+          "policy": "fill",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.0.startDate",
+          "type": "month",
+          "expected": "2017-09",
+          "policy": "fill",
+          "actual": "2017-09",
+          "correct": true
+        },
+        {
+          "key": "education.0.endDate",
+          "type": "month",
+          "expected": "2021-06",
+          "policy": "fill",
+          "actual": "2021-06",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "fill",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.major",
+          "type": "text",
+          "expected": "软件工程",
+          "policy": "fill",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "select",
+          "expected": "ms",
+          "policy": "fill",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "education.1.startDate",
+          "type": "month",
+          "expected": "2021-09",
+          "policy": "fill",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "key": "education.1.endDate",
+          "type": "month",
+          "expected": "2024-06",
+          "policy": "fill",
+          "actual": "2024-06",
+          "correct": true
+        },
+        {
+          "key": "internships.0.organization",
+          "type": "text",
+          "expected": "虚构青屿实验室",
+          "policy": "fill",
+          "actual": "虚构青屿实验室",
+          "correct": true
+        },
+        {
+          "key": "internships.0.title",
+          "type": "text",
+          "expected": "数据实习生",
+          "policy": "fill",
+          "actual": "数据实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.0.startDate",
+          "type": "date",
+          "expected": "2020-07-01",
+          "policy": "fill",
+          "actual": "2020-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.0.endDate",
+          "type": "date",
+          "expected": "2020-09-30",
+          "policy": "fill",
+          "actual": "2020-09-30",
+          "correct": true
+        },
+        {
+          "key": "internships.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：整理测试数据，完成甲模块。",
+          "policy": "fill",
+          "actual": "虚构验收：整理测试数据，完成甲模块。",
+          "correct": true
+        },
+        {
+          "key": "internships.1.organization",
+          "type": "text",
+          "expected": "虚构星帆研究所",
+          "policy": "fill",
+          "actual": "虚构星帆研究所",
+          "correct": true
+        },
+        {
+          "key": "internships.1.title",
+          "type": "text",
+          "expected": "开发实习生",
+          "policy": "fill",
+          "actual": "开发实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.1.startDate",
+          "type": "date",
+          "expected": "2023-07-01",
+          "policy": "fill",
+          "actual": "2023-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.1.endDate",
+          "type": "date",
+          "expected": "2023-10-20",
+          "policy": "fill",
+          "actual": "2023-10-20",
+          "correct": true
+        },
+        {
+          "key": "internships.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：开发乙模块，记录自动化结果。",
+          "policy": "fill",
+          "actual": "虚构验收：开发乙模块，记录自动化结果。",
+          "correct": true
+        },
+        {
+          "key": "work.0.organization",
+          "type": "text",
+          "expected": "虚构山海科技",
+          "policy": "fill",
+          "actual": "虚构山海科技",
+          "correct": true
+        },
+        {
+          "key": "work.0.title",
+          "type": "text",
+          "expected": "质量工程师",
+          "policy": "fill",
+          "actual": "质量工程师",
+          "correct": true
+        },
+        {
+          "key": "work.0.startDate",
+          "type": "date",
+          "expected": "2024-07-01",
+          "policy": "fill",
+          "actual": "2024-07-01",
+          "correct": true
+        },
+        {
+          "key": "work.0.endDate",
+          "type": "date",
+          "expected": "2026-09-30",
+          "policy": "fill",
+          "actual": "2026-09-30",
+          "correct": true
+        },
+        {
+          "key": "work.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：维护独立测试平台。",
+          "policy": "fill",
+          "actual": "虚构验收：维护独立测试平台。",
+          "correct": true
+        },
+        {
+          "key": "projects.0.name",
+          "type": "text",
+          "expected": "虚构项目甲",
+          "policy": "fill",
+          "actual": "虚构项目甲",
+          "correct": true
+        },
+        {
+          "key": "projects.0.role",
+          "type": "text",
+          "expected": "测试负责人",
+          "policy": "fill",
+          "actual": "测试负责人",
+          "correct": true
+        },
+        {
+          "key": "projects.0.startDate",
+          "type": "date",
+          "expected": "2022-01-15",
+          "policy": "fill",
+          "actual": "2022-01-15",
+          "correct": true
+        },
+        {
+          "key": "projects.0.endDate",
+          "type": "date",
+          "expected": "2022-06-30",
+          "policy": "fill",
+          "actual": "2022-06-30",
+          "correct": true
+        },
+        {
+          "key": "projects.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：创建离线测评工具。",
+          "policy": "fill",
+          "actual": "虚构验收：创建离线测评工具。",
+          "correct": true
+        },
+        {
+          "key": "projects.1.name",
+          "type": "text",
+          "expected": "虚构项目乙",
+          "policy": "fill",
+          "actual": "虚构项目乙",
+          "correct": true
+        },
+        {
+          "key": "projects.1.role",
+          "type": "text",
+          "expected": "开发成员",
+          "policy": "fill",
+          "actual": "开发成员",
+          "correct": true
+        },
+        {
+          "key": "projects.1.startDate",
+          "type": "date",
+          "expected": "2023-01-01",
+          "policy": "fill",
+          "actual": "2023-01-01",
+          "correct": true
+        },
+        {
+          "key": "projects.1.endDate",
+          "type": "date",
+          "expected": "2023-12-15",
+          "policy": "fill",
+          "actual": "2023-12-15",
+          "correct": true
+        },
+        {
+          "key": "projects.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：构建网页信息提取样例。",
+          "policy": "fill",
+          "actual": "虚构验收：构建网页信息提取样例。",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.name",
+          "type": "text",
+          "expected": "虚构数据分析证书",
+          "policy": "fill",
+          "actual": "虚构数据分析证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.issuer",
+          "type": "text",
+          "expected": "虚构认证中心甲",
+          "policy": "fill",
+          "actual": "虚构认证中心甲",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.date",
+          "type": "date",
+          "expected": "2023-05-18",
+          "policy": "fill",
+          "actual": "2023-05-18",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.name",
+          "type": "text",
+          "expected": "虚构软件测试证书",
+          "policy": "fill",
+          "actual": "虚构软件测试证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.issuer",
+          "type": "text",
+          "expected": "虚构认证中心乙",
+          "policy": "fill",
+          "actual": "虚构认证中心乙",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.date",
+          "type": "date",
+          "expected": "2024-03-16",
+          "policy": "fill",
+          "actual": "2024-03-16",
+          "correct": true
+        },
+        {
+          "key": "skills.all",
+          "type": "checkbox",
+          "expected": [
+            "js",
+            "sql"
+          ],
+          "policy": "fill",
+          "actual": [
+            "js",
+            "sql"
+          ],
+          "correct": true
+        },
+        {
+          "key": "protected.captcha",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "protected.id",
+          "type": "text",
+          "expected": "测试占位-不可覆盖",
+          "policy": "abstain",
+          "actual": "测试占位-不可覆盖",
+          "correct": true
+        },
+        {
+          "key": "protected.consent",
+          "type": "checkbox",
+          "expected": false,
+          "policy": "abstain",
+          "actual": false,
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 3336,
+      "chosen": 48,
+      "url": "http://127.0.0.1:47941/ordinary.html",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "Email address",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "email",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "联系电话",
+          "path": "contact.phone",
+          "value": "19900000000",
+          "notes": [
+            "tel",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "居住城市",
+          "path": "contact.city",
+          "value": "杭州",
+          "notes": [
+            "text",
+            "已有内容 · 已有内容，默认不覆盖"
+          ],
+          "checked": false
+        },
+        {
+          "label": "Portfolio URL",
+          "path": "contact.website",
+          "value": "https://example.invalid/qa-only",
+          "notes": [
+            "url",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "性别",
+          "path": "contact.gender",
+          "value": "女",
+          "notes": [
+            "radio-group",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "政治面貌",
+          "path": "contact.politicalStatus",
+          "value": "群众",
+          "notes": [
+            "select-one",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.0.school",
+          "value": "虚构东岚大学",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.0.major",
+          "value": "信息管理与信息系统",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "教育经历 1 · select-one",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.0.startDate",
+          "value": "2017-09-01",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.0.endDate",
+          "value": "2021-06-30",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.1.school",
+          "value": "虚构北辰学院",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.1.major",
+          "value": "软件工程",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.1.degree",
+          "value": "硕士",
+          "notes": [
+            "教育经历 2 · select-one",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.1.startDate",
+          "value": "2021-09",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.1.endDate",
+          "value": "2024-06-28",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.0.organization",
+          "value": "虚构青屿实验室",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.0.title",
+          "value": "数据实习生",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.0.startDate",
+          "value": "2020-07-01",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.0.endDate",
+          "value": "2020-09-30",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.0.description",
+          "value": "虚构验收：整理测试数据，完成甲模块。",
+          "notes": [
+            "实习经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.1.organization",
+          "value": "虚构星帆研究所",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.1.title",
+          "value": "开发实习生",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.1.startDate",
+          "value": "2023-07-01",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.1.endDate",
+          "value": "2023-10-20",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.1.description",
+          "value": "虚构验收：开发乙模块，记录自动化结果。",
+          "notes": [
+            "实习经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "公司名称",
+          "path": "work.0.organization",
+          "value": "虚构山海科技",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "work.0.title",
+          "value": "质量工程师",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "work.0.startDate",
+          "value": "2024-07-01",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "work.0.endDate",
+          "value": "2026-09-30",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "work.0.description",
+          "value": "虚构验收：维护独立测试平台。",
+          "notes": [
+            "工作经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.0.name",
+          "value": "虚构项目甲",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.0.role",
+          "value": "测试负责人",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.0.startDate",
+          "value": "2022-01-15",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.0.endDate",
+          "value": "2022-06-30",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.0.description",
+          "value": "虚构验收：创建离线测评工具。",
+          "notes": [
+            "项目经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.1.name",
+          "value": "虚构项目乙",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.1.role",
+          "value": "开发成员",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.1.startDate",
+          "value": "2023-01-01",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.1.endDate",
+          "value": "2023-12-15",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.1.description",
+          "value": "虚构验收：构建网页信息提取样例。",
+          "notes": [
+            "项目经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.0.name",
+          "value": "虚构数据分析证书",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.0.issuer",
+          "value": "虚构认证中心甲",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.0.date",
+          "value": "2023-05-18",
+          "notes": [
+            "证书 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.1.name",
+          "value": "虚构软件测试证书",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.1.issuer",
+          "value": "虚构认证中心乙",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.1.date",
+          "value": "2024-03-16",
+          "notes": [
+            "证书 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "技能",
+          "path": "skills.all",
+          "value": "JavaScript、SQL",
+          "notes": [
+            "技能 · checkbox-group",
+            "可填写 · 技能多选分组"
+          ],
+          "checked": true
+        },
+        {
+          "label": "验证码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "身份证号码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "同意隐私政策",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "checkbox",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "T01-enterprise-repeat-preview.png",
+        "T01-enterprise-repeat-result.png",
+        "T01-enterprise-repeat-page.png",
+        "T01-enterprise-repeat-dom.json"
+      ],
+      "verdict": "PASS",
+      "kind": "timing",
+      "note": "Repeated timing of the full A form. Not a human measurement; missing fields remain visible in the recorded verdict."
+    },
+    {
+      "id": "T02-enterprise-repeat",
+      "status": "MEASURED",
+      "fields": [
+        {
+          "key": "contact.name",
+          "type": "text",
+          "expected": "验收林澄",
+          "policy": "fill",
+          "actual": "验收林澄",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "email",
+          "expected": "qa.lin.cheng@example.invalid",
+          "policy": "fill",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        },
+        {
+          "key": "contact.phone",
+          "type": "tel",
+          "expected": "19900000000",
+          "policy": "fill",
+          "actual": "19900000000",
+          "correct": true
+        },
+        {
+          "key": "contact.city",
+          "type": "text",
+          "expected": "上海（人工保留）",
+          "policy": "preserve",
+          "actual": "上海（人工保留）",
+          "correct": true
+        },
+        {
+          "key": "contact.website",
+          "type": "url",
+          "expected": "https://example.invalid/qa-only",
+          "policy": "fill",
+          "actual": "https://example.invalid/qa-only",
+          "correct": true
+        },
+        {
+          "key": "additional.gender",
+          "type": "radio",
+          "expected": "F",
+          "policy": "fill",
+          "actual": "F",
+          "correct": true
+        },
+        {
+          "key": "additional.politicalStatus",
+          "type": "select",
+          "expected": "none",
+          "policy": "fill",
+          "actual": "none",
+          "correct": true
+        },
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "fill",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.major",
+          "type": "text",
+          "expected": "信息管理与信息系统",
+          "policy": "fill",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "select",
+          "expected": "bs",
+          "policy": "fill",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.0.startDate",
+          "type": "month",
+          "expected": "2017-09",
+          "policy": "fill",
+          "actual": "2017-09",
+          "correct": true
+        },
+        {
+          "key": "education.0.endDate",
+          "type": "month",
+          "expected": "2021-06",
+          "policy": "fill",
+          "actual": "2021-06",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "fill",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.major",
+          "type": "text",
+          "expected": "软件工程",
+          "policy": "fill",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "select",
+          "expected": "ms",
+          "policy": "fill",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "education.1.startDate",
+          "type": "month",
+          "expected": "2021-09",
+          "policy": "fill",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "key": "education.1.endDate",
+          "type": "month",
+          "expected": "2024-06",
+          "policy": "fill",
+          "actual": "2024-06",
+          "correct": true
+        },
+        {
+          "key": "internships.0.organization",
+          "type": "text",
+          "expected": "虚构青屿实验室",
+          "policy": "fill",
+          "actual": "虚构青屿实验室",
+          "correct": true
+        },
+        {
+          "key": "internships.0.title",
+          "type": "text",
+          "expected": "数据实习生",
+          "policy": "fill",
+          "actual": "数据实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.0.startDate",
+          "type": "date",
+          "expected": "2020-07-01",
+          "policy": "fill",
+          "actual": "2020-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.0.endDate",
+          "type": "date",
+          "expected": "2020-09-30",
+          "policy": "fill",
+          "actual": "2020-09-30",
+          "correct": true
+        },
+        {
+          "key": "internships.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：整理测试数据，完成甲模块。",
+          "policy": "fill",
+          "actual": "虚构验收：整理测试数据，完成甲模块。",
+          "correct": true
+        },
+        {
+          "key": "internships.1.organization",
+          "type": "text",
+          "expected": "虚构星帆研究所",
+          "policy": "fill",
+          "actual": "虚构星帆研究所",
+          "correct": true
+        },
+        {
+          "key": "internships.1.title",
+          "type": "text",
+          "expected": "开发实习生",
+          "policy": "fill",
+          "actual": "开发实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.1.startDate",
+          "type": "date",
+          "expected": "2023-07-01",
+          "policy": "fill",
+          "actual": "2023-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.1.endDate",
+          "type": "date",
+          "expected": "2023-10-20",
+          "policy": "fill",
+          "actual": "2023-10-20",
+          "correct": true
+        },
+        {
+          "key": "internships.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：开发乙模块，记录自动化结果。",
+          "policy": "fill",
+          "actual": "虚构验收：开发乙模块，记录自动化结果。",
+          "correct": true
+        },
+        {
+          "key": "work.0.organization",
+          "type": "text",
+          "expected": "虚构山海科技",
+          "policy": "fill",
+          "actual": "虚构山海科技",
+          "correct": true
+        },
+        {
+          "key": "work.0.title",
+          "type": "text",
+          "expected": "质量工程师",
+          "policy": "fill",
+          "actual": "质量工程师",
+          "correct": true
+        },
+        {
+          "key": "work.0.startDate",
+          "type": "date",
+          "expected": "2024-07-01",
+          "policy": "fill",
+          "actual": "2024-07-01",
+          "correct": true
+        },
+        {
+          "key": "work.0.endDate",
+          "type": "date",
+          "expected": "2026-09-30",
+          "policy": "fill",
+          "actual": "2026-09-30",
+          "correct": true
+        },
+        {
+          "key": "work.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：维护独立测试平台。",
+          "policy": "fill",
+          "actual": "虚构验收：维护独立测试平台。",
+          "correct": true
+        },
+        {
+          "key": "projects.0.name",
+          "type": "text",
+          "expected": "虚构项目甲",
+          "policy": "fill",
+          "actual": "虚构项目甲",
+          "correct": true
+        },
+        {
+          "key": "projects.0.role",
+          "type": "text",
+          "expected": "测试负责人",
+          "policy": "fill",
+          "actual": "测试负责人",
+          "correct": true
+        },
+        {
+          "key": "projects.0.startDate",
+          "type": "date",
+          "expected": "2022-01-15",
+          "policy": "fill",
+          "actual": "2022-01-15",
+          "correct": true
+        },
+        {
+          "key": "projects.0.endDate",
+          "type": "date",
+          "expected": "2022-06-30",
+          "policy": "fill",
+          "actual": "2022-06-30",
+          "correct": true
+        },
+        {
+          "key": "projects.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：创建离线测评工具。",
+          "policy": "fill",
+          "actual": "虚构验收：创建离线测评工具。",
+          "correct": true
+        },
+        {
+          "key": "projects.1.name",
+          "type": "text",
+          "expected": "虚构项目乙",
+          "policy": "fill",
+          "actual": "虚构项目乙",
+          "correct": true
+        },
+        {
+          "key": "projects.1.role",
+          "type": "text",
+          "expected": "开发成员",
+          "policy": "fill",
+          "actual": "开发成员",
+          "correct": true
+        },
+        {
+          "key": "projects.1.startDate",
+          "type": "date",
+          "expected": "2023-01-01",
+          "policy": "fill",
+          "actual": "2023-01-01",
+          "correct": true
+        },
+        {
+          "key": "projects.1.endDate",
+          "type": "date",
+          "expected": "2023-12-15",
+          "policy": "fill",
+          "actual": "2023-12-15",
+          "correct": true
+        },
+        {
+          "key": "projects.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：构建网页信息提取样例。",
+          "policy": "fill",
+          "actual": "虚构验收：构建网页信息提取样例。",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.name",
+          "type": "text",
+          "expected": "虚构数据分析证书",
+          "policy": "fill",
+          "actual": "虚构数据分析证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.issuer",
+          "type": "text",
+          "expected": "虚构认证中心甲",
+          "policy": "fill",
+          "actual": "虚构认证中心甲",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.date",
+          "type": "date",
+          "expected": "2023-05-18",
+          "policy": "fill",
+          "actual": "2023-05-18",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.name",
+          "type": "text",
+          "expected": "虚构软件测试证书",
+          "policy": "fill",
+          "actual": "虚构软件测试证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.issuer",
+          "type": "text",
+          "expected": "虚构认证中心乙",
+          "policy": "fill",
+          "actual": "虚构认证中心乙",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.date",
+          "type": "date",
+          "expected": "2024-03-16",
+          "policy": "fill",
+          "actual": "2024-03-16",
+          "correct": true
+        },
+        {
+          "key": "skills.all",
+          "type": "checkbox",
+          "expected": [
+            "js",
+            "sql"
+          ],
+          "policy": "fill",
+          "actual": [
+            "js",
+            "sql"
+          ],
+          "correct": true
+        },
+        {
+          "key": "protected.captcha",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "protected.id",
+          "type": "text",
+          "expected": "测试占位-不可覆盖",
+          "policy": "abstain",
+          "actual": "测试占位-不可覆盖",
+          "correct": true
+        },
+        {
+          "key": "protected.consent",
+          "type": "checkbox",
+          "expected": false,
+          "policy": "abstain",
+          "actual": false,
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 3201,
+      "chosen": 48,
+      "url": "http://127.0.0.1:47941/ordinary.html",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "Email address",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "email",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "联系电话",
+          "path": "contact.phone",
+          "value": "19900000000",
+          "notes": [
+            "tel",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "居住城市",
+          "path": "contact.city",
+          "value": "杭州",
+          "notes": [
+            "text",
+            "已有内容 · 已有内容，默认不覆盖"
+          ],
+          "checked": false
+        },
+        {
+          "label": "Portfolio URL",
+          "path": "contact.website",
+          "value": "https://example.invalid/qa-only",
+          "notes": [
+            "url",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "性别",
+          "path": "contact.gender",
+          "value": "女",
+          "notes": [
+            "radio-group",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "政治面貌",
+          "path": "contact.politicalStatus",
+          "value": "群众",
+          "notes": [
+            "select-one",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.0.school",
+          "value": "虚构东岚大学",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.0.major",
+          "value": "信息管理与信息系统",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "教育经历 1 · select-one",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.0.startDate",
+          "value": "2017-09-01",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.0.endDate",
+          "value": "2021-06-30",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.1.school",
+          "value": "虚构北辰学院",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.1.major",
+          "value": "软件工程",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.1.degree",
+          "value": "硕士",
+          "notes": [
+            "教育经历 2 · select-one",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.1.startDate",
+          "value": "2021-09",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.1.endDate",
+          "value": "2024-06-28",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.0.organization",
+          "value": "虚构青屿实验室",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.0.title",
+          "value": "数据实习生",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.0.startDate",
+          "value": "2020-07-01",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.0.endDate",
+          "value": "2020-09-30",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.0.description",
+          "value": "虚构验收：整理测试数据，完成甲模块。",
+          "notes": [
+            "实习经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.1.organization",
+          "value": "虚构星帆研究所",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.1.title",
+          "value": "开发实习生",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.1.startDate",
+          "value": "2023-07-01",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.1.endDate",
+          "value": "2023-10-20",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.1.description",
+          "value": "虚构验收：开发乙模块，记录自动化结果。",
+          "notes": [
+            "实习经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "公司名称",
+          "path": "work.0.organization",
+          "value": "虚构山海科技",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "work.0.title",
+          "value": "质量工程师",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "work.0.startDate",
+          "value": "2024-07-01",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "work.0.endDate",
+          "value": "2026-09-30",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "work.0.description",
+          "value": "虚构验收：维护独立测试平台。",
+          "notes": [
+            "工作经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.0.name",
+          "value": "虚构项目甲",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.0.role",
+          "value": "测试负责人",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.0.startDate",
+          "value": "2022-01-15",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.0.endDate",
+          "value": "2022-06-30",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.0.description",
+          "value": "虚构验收：创建离线测评工具。",
+          "notes": [
+            "项目经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.1.name",
+          "value": "虚构项目乙",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.1.role",
+          "value": "开发成员",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.1.startDate",
+          "value": "2023-01-01",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.1.endDate",
+          "value": "2023-12-15",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.1.description",
+          "value": "虚构验收：构建网页信息提取样例。",
+          "notes": [
+            "项目经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.0.name",
+          "value": "虚构数据分析证书",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.0.issuer",
+          "value": "虚构认证中心甲",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.0.date",
+          "value": "2023-05-18",
+          "notes": [
+            "证书 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.1.name",
+          "value": "虚构软件测试证书",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.1.issuer",
+          "value": "虚构认证中心乙",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.1.date",
+          "value": "2024-03-16",
+          "notes": [
+            "证书 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "技能",
+          "path": "skills.all",
+          "value": "JavaScript、SQL",
+          "notes": [
+            "技能 · checkbox-group",
+            "可填写 · 技能多选分组"
+          ],
+          "checked": true
+        },
+        {
+          "label": "验证码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "身份证号码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "同意隐私政策",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "checkbox",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "T02-enterprise-repeat-preview.png",
+        "T02-enterprise-repeat-result.png",
+        "T02-enterprise-repeat-page.png",
+        "T02-enterprise-repeat-dom.json"
+      ],
+      "verdict": "PASS",
+      "kind": "timing",
+      "note": "Repeated timing of the full A form. Not a human measurement; missing fields remain visible in the recorded verdict."
+    },
+    {
+      "id": "T03-enterprise-repeat",
+      "status": "MEASURED",
+      "fields": [
+        {
+          "key": "contact.name",
+          "type": "text",
+          "expected": "验收林澄",
+          "policy": "fill",
+          "actual": "验收林澄",
+          "correct": true
+        },
+        {
+          "key": "contact.email",
+          "type": "email",
+          "expected": "qa.lin.cheng@example.invalid",
+          "policy": "fill",
+          "actual": "qa.lin.cheng@example.invalid",
+          "correct": true
+        },
+        {
+          "key": "contact.phone",
+          "type": "tel",
+          "expected": "19900000000",
+          "policy": "fill",
+          "actual": "19900000000",
+          "correct": true
+        },
+        {
+          "key": "contact.city",
+          "type": "text",
+          "expected": "上海（人工保留）",
+          "policy": "preserve",
+          "actual": "上海（人工保留）",
+          "correct": true
+        },
+        {
+          "key": "contact.website",
+          "type": "url",
+          "expected": "https://example.invalid/qa-only",
+          "policy": "fill",
+          "actual": "https://example.invalid/qa-only",
+          "correct": true
+        },
+        {
+          "key": "additional.gender",
+          "type": "radio",
+          "expected": "F",
+          "policy": "fill",
+          "actual": "F",
+          "correct": true
+        },
+        {
+          "key": "additional.politicalStatus",
+          "type": "select",
+          "expected": "none",
+          "policy": "fill",
+          "actual": "none",
+          "correct": true
+        },
+        {
+          "key": "education.0.school",
+          "type": "text",
+          "expected": "虚构东岚大学",
+          "policy": "fill",
+          "actual": "虚构东岚大学",
+          "correct": true
+        },
+        {
+          "key": "education.0.major",
+          "type": "text",
+          "expected": "信息管理与信息系统",
+          "policy": "fill",
+          "actual": "信息管理与信息系统",
+          "correct": true
+        },
+        {
+          "key": "education.0.degree",
+          "type": "select",
+          "expected": "bs",
+          "policy": "fill",
+          "actual": "bs",
+          "correct": true
+        },
+        {
+          "key": "education.0.startDate",
+          "type": "month",
+          "expected": "2017-09",
+          "policy": "fill",
+          "actual": "2017-09",
+          "correct": true
+        },
+        {
+          "key": "education.0.endDate",
+          "type": "month",
+          "expected": "2021-06",
+          "policy": "fill",
+          "actual": "2021-06",
+          "correct": true
+        },
+        {
+          "key": "education.1.school",
+          "type": "text",
+          "expected": "虚构北辰学院",
+          "policy": "fill",
+          "actual": "虚构北辰学院",
+          "correct": true
+        },
+        {
+          "key": "education.1.major",
+          "type": "text",
+          "expected": "软件工程",
+          "policy": "fill",
+          "actual": "软件工程",
+          "correct": true
+        },
+        {
+          "key": "education.1.degree",
+          "type": "select",
+          "expected": "ms",
+          "policy": "fill",
+          "actual": "ms",
+          "correct": true
+        },
+        {
+          "key": "education.1.startDate",
+          "type": "month",
+          "expected": "2021-09",
+          "policy": "fill",
+          "actual": "2021-09",
+          "correct": true
+        },
+        {
+          "key": "education.1.endDate",
+          "type": "month",
+          "expected": "2024-06",
+          "policy": "fill",
+          "actual": "2024-06",
+          "correct": true
+        },
+        {
+          "key": "internships.0.organization",
+          "type": "text",
+          "expected": "虚构青屿实验室",
+          "policy": "fill",
+          "actual": "虚构青屿实验室",
+          "correct": true
+        },
+        {
+          "key": "internships.0.title",
+          "type": "text",
+          "expected": "数据实习生",
+          "policy": "fill",
+          "actual": "数据实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.0.startDate",
+          "type": "date",
+          "expected": "2020-07-01",
+          "policy": "fill",
+          "actual": "2020-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.0.endDate",
+          "type": "date",
+          "expected": "2020-09-30",
+          "policy": "fill",
+          "actual": "2020-09-30",
+          "correct": true
+        },
+        {
+          "key": "internships.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：整理测试数据，完成甲模块。",
+          "policy": "fill",
+          "actual": "虚构验收：整理测试数据，完成甲模块。",
+          "correct": true
+        },
+        {
+          "key": "internships.1.organization",
+          "type": "text",
+          "expected": "虚构星帆研究所",
+          "policy": "fill",
+          "actual": "虚构星帆研究所",
+          "correct": true
+        },
+        {
+          "key": "internships.1.title",
+          "type": "text",
+          "expected": "开发实习生",
+          "policy": "fill",
+          "actual": "开发实习生",
+          "correct": true
+        },
+        {
+          "key": "internships.1.startDate",
+          "type": "date",
+          "expected": "2023-07-01",
+          "policy": "fill",
+          "actual": "2023-07-01",
+          "correct": true
+        },
+        {
+          "key": "internships.1.endDate",
+          "type": "date",
+          "expected": "2023-10-20",
+          "policy": "fill",
+          "actual": "2023-10-20",
+          "correct": true
+        },
+        {
+          "key": "internships.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：开发乙模块，记录自动化结果。",
+          "policy": "fill",
+          "actual": "虚构验收：开发乙模块，记录自动化结果。",
+          "correct": true
+        },
+        {
+          "key": "work.0.organization",
+          "type": "text",
+          "expected": "虚构山海科技",
+          "policy": "fill",
+          "actual": "虚构山海科技",
+          "correct": true
+        },
+        {
+          "key": "work.0.title",
+          "type": "text",
+          "expected": "质量工程师",
+          "policy": "fill",
+          "actual": "质量工程师",
+          "correct": true
+        },
+        {
+          "key": "work.0.startDate",
+          "type": "date",
+          "expected": "2024-07-01",
+          "policy": "fill",
+          "actual": "2024-07-01",
+          "correct": true
+        },
+        {
+          "key": "work.0.endDate",
+          "type": "date",
+          "expected": "2026-09-30",
+          "policy": "fill",
+          "actual": "2026-09-30",
+          "correct": true
+        },
+        {
+          "key": "work.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：维护独立测试平台。",
+          "policy": "fill",
+          "actual": "虚构验收：维护独立测试平台。",
+          "correct": true
+        },
+        {
+          "key": "projects.0.name",
+          "type": "text",
+          "expected": "虚构项目甲",
+          "policy": "fill",
+          "actual": "虚构项目甲",
+          "correct": true
+        },
+        {
+          "key": "projects.0.role",
+          "type": "text",
+          "expected": "测试负责人",
+          "policy": "fill",
+          "actual": "测试负责人",
+          "correct": true
+        },
+        {
+          "key": "projects.0.startDate",
+          "type": "date",
+          "expected": "2022-01-15",
+          "policy": "fill",
+          "actual": "2022-01-15",
+          "correct": true
+        },
+        {
+          "key": "projects.0.endDate",
+          "type": "date",
+          "expected": "2022-06-30",
+          "policy": "fill",
+          "actual": "2022-06-30",
+          "correct": true
+        },
+        {
+          "key": "projects.0.description",
+          "type": "textarea",
+          "expected": "虚构验收：创建离线测评工具。",
+          "policy": "fill",
+          "actual": "虚构验收：创建离线测评工具。",
+          "correct": true
+        },
+        {
+          "key": "projects.1.name",
+          "type": "text",
+          "expected": "虚构项目乙",
+          "policy": "fill",
+          "actual": "虚构项目乙",
+          "correct": true
+        },
+        {
+          "key": "projects.1.role",
+          "type": "text",
+          "expected": "开发成员",
+          "policy": "fill",
+          "actual": "开发成员",
+          "correct": true
+        },
+        {
+          "key": "projects.1.startDate",
+          "type": "date",
+          "expected": "2023-01-01",
+          "policy": "fill",
+          "actual": "2023-01-01",
+          "correct": true
+        },
+        {
+          "key": "projects.1.endDate",
+          "type": "date",
+          "expected": "2023-12-15",
+          "policy": "fill",
+          "actual": "2023-12-15",
+          "correct": true
+        },
+        {
+          "key": "projects.1.description",
+          "type": "textarea",
+          "expected": "虚构验收：构建网页信息提取样例。",
+          "policy": "fill",
+          "actual": "虚构验收：构建网页信息提取样例。",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.name",
+          "type": "text",
+          "expected": "虚构数据分析证书",
+          "policy": "fill",
+          "actual": "虚构数据分析证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.issuer",
+          "type": "text",
+          "expected": "虚构认证中心甲",
+          "policy": "fill",
+          "actual": "虚构认证中心甲",
+          "correct": true
+        },
+        {
+          "key": "certificates.0.date",
+          "type": "date",
+          "expected": "2023-05-18",
+          "policy": "fill",
+          "actual": "2023-05-18",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.name",
+          "type": "text",
+          "expected": "虚构软件测试证书",
+          "policy": "fill",
+          "actual": "虚构软件测试证书",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.issuer",
+          "type": "text",
+          "expected": "虚构认证中心乙",
+          "policy": "fill",
+          "actual": "虚构认证中心乙",
+          "correct": true
+        },
+        {
+          "key": "certificates.1.date",
+          "type": "date",
+          "expected": "2024-03-16",
+          "policy": "fill",
+          "actual": "2024-03-16",
+          "correct": true
+        },
+        {
+          "key": "skills.all",
+          "type": "checkbox",
+          "expected": [
+            "js",
+            "sql"
+          ],
+          "policy": "fill",
+          "actual": [
+            "js",
+            "sql"
+          ],
+          "correct": true
+        },
+        {
+          "key": "protected.captcha",
+          "type": "text",
+          "expected": "",
+          "policy": "abstain",
+          "actual": "",
+          "correct": true
+        },
+        {
+          "key": "protected.id",
+          "type": "text",
+          "expected": "测试占位-不可覆盖",
+          "policy": "abstain",
+          "actual": "测试占位-不可覆盖",
+          "correct": true
+        },
+        {
+          "key": "protected.consent",
+          "type": "checkbox",
+          "expected": false,
+          "policy": "abstain",
+          "actual": false,
+          "correct": true
+        }
+      ],
+      "submits": 0,
+      "elapsedMs": 3189,
+      "chosen": 48,
+      "url": "http://127.0.0.1:47941/ordinary.html",
+      "previewRows": [
+        {
+          "label": "姓名",
+          "path": "contact.name",
+          "value": "验收林澄",
+          "notes": [
+            "text",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "Email address",
+          "path": "contact.email",
+          "value": "qa.lin.cheng@example.invalid",
+          "notes": [
+            "email",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "联系电话",
+          "path": "contact.phone",
+          "value": "19900000000",
+          "notes": [
+            "tel",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "居住城市",
+          "path": "contact.city",
+          "value": "杭州",
+          "notes": [
+            "text",
+            "已有内容 · 已有内容，默认不覆盖"
+          ],
+          "checked": false
+        },
+        {
+          "label": "Portfolio URL",
+          "path": "contact.website",
+          "value": "https://example.invalid/qa-only",
+          "notes": [
+            "url",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "性别",
+          "path": "contact.gender",
+          "value": "女",
+          "notes": [
+            "radio-group",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "政治面貌",
+          "path": "contact.politicalStatus",
+          "value": "群众",
+          "notes": [
+            "select-one",
+            "可填写 · 明确联系人字段名称"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.0.school",
+          "value": "虚构东岚大学",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.0.major",
+          "value": "信息管理与信息系统",
+          "notes": [
+            "教育经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.0.degree",
+          "value": "本科",
+          "notes": [
+            "教育经历 1 · select-one",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.0.startDate",
+          "value": "2017-09-01",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.0.endDate",
+          "value": "2021-06-30",
+          "notes": [
+            "教育经历 1 · month",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "院校名称",
+          "path": "education.1.school",
+          "value": "虚构北辰学院",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "专业",
+          "path": "education.1.major",
+          "value": "软件工程",
+          "notes": [
+            "教育经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "学历",
+          "path": "education.1.degree",
+          "value": "硕士",
+          "notes": [
+            "教育经历 2 · select-one",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "入学时间",
+          "path": "education.1.startDate",
+          "value": "2021-09",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "毕业时间",
+          "path": "education.1.endDate",
+          "value": "2024-06-28",
+          "notes": [
+            "教育经历 2 · month",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.0.organization",
+          "value": "虚构青屿实验室",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.0.title",
+          "value": "数据实习生",
+          "notes": [
+            "实习经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.0.startDate",
+          "value": "2020-07-01",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.0.endDate",
+          "value": "2020-09-30",
+          "notes": [
+            "实习经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.0.description",
+          "value": "虚构验收：整理测试数据，完成甲模块。",
+          "notes": [
+            "实习经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "实习单位",
+          "path": "internships.1.organization",
+          "value": "虚构星帆研究所",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "internships.1.title",
+          "value": "开发实习生",
+          "notes": [
+            "实习经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "internships.1.startDate",
+          "value": "2023-07-01",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "internships.1.endDate",
+          "value": "2023-10-20",
+          "notes": [
+            "实习经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "internships.1.description",
+          "value": "虚构验收：开发乙模块，记录自动化结果。",
+          "notes": [
+            "实习经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "公司名称",
+          "path": "work.0.organization",
+          "value": "虚构山海科技",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "职位名称",
+          "path": "work.0.title",
+          "value": "质量工程师",
+          "notes": [
+            "工作经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "work.0.startDate",
+          "value": "2024-07-01",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "work.0.endDate",
+          "value": "2026-09-30",
+          "notes": [
+            "工作经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "经历描述",
+          "path": "work.0.description",
+          "value": "虚构验收：维护独立测试平台。",
+          "notes": [
+            "工作经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.0.name",
+          "value": "虚构项目甲",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.0.role",
+          "value": "测试负责人",
+          "notes": [
+            "项目经历 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.0.startDate",
+          "value": "2022-01-15",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.0.endDate",
+          "value": "2022-06-30",
+          "notes": [
+            "项目经历 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.0.description",
+          "value": "虚构验收：创建离线测评工具。",
+          "notes": [
+            "项目经历 1 · textarea",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目名称",
+          "path": "projects.1.name",
+          "value": "虚构项目乙",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "担任角色",
+          "path": "projects.1.role",
+          "value": "开发成员",
+          "notes": [
+            "项目经历 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "开始日期",
+          "path": "projects.1.startDate",
+          "value": "2023-01-01",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "结束日期",
+          "path": "projects.1.endDate",
+          "value": "2023-12-15",
+          "notes": [
+            "项目经历 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "项目描述",
+          "path": "projects.1.description",
+          "value": "虚构验收：构建网页信息提取样例。",
+          "notes": [
+            "项目经历 2 · textarea",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.0.name",
+          "value": "虚构数据分析证书",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.0.issuer",
+          "value": "虚构认证中心甲",
+          "notes": [
+            "证书 1 · text",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.0.date",
+          "value": "2023-05-18",
+          "notes": [
+            "证书 1 · date",
+            "可填写 · 明确经历分组及第 1 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "证书名称",
+          "path": "certificates.1.name",
+          "value": "虚构软件测试证书",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "颁发机构",
+          "path": "certificates.1.issuer",
+          "value": "虚构认证中心乙",
+          "notes": [
+            "证书 2 · text",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "获得时间",
+          "path": "certificates.1.date",
+          "value": "2024-03-16",
+          "notes": [
+            "证书 2 · date",
+            "可填写 · 明确经历分组及第 2 条标签"
+          ],
+          "checked": true
+        },
+        {
+          "label": "技能",
+          "path": "skills.all",
+          "value": "JavaScript、SQL",
+          "notes": [
+            "技能 · checkbox-group",
+            "可填写 · 技能多选分组"
+          ],
+          "checked": true
+        },
+        {
+          "label": "验证码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "身份证号码",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "text",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        },
+        {
+          "label": "同意隐私政策",
+          "path": "",
+          "value": "—",
+          "notes": [
+            "checkbox",
+            "人工处理 · 受保护或非申请人字段，必须人工处理"
+          ],
+          "checked": false
+        }
+      ],
+      "evidence": [
+        "T03-enterprise-repeat-preview.png",
+        "T03-enterprise-repeat-result.png",
+        "T03-enterprise-repeat-page.png",
+        "T03-enterprise-repeat-dom.json"
+      ],
+      "verdict": "PASS",
+      "kind": "timing",
+      "note": "Repeated timing of the full A form. Not a human measurement; missing fields remain visible in the recorded verdict."
+    },
+    {
+      "id": "H01-human-timing",
+      "status": "SKIP",
+      "reason": "Awaiting the human participant. Automated UI time is not human verification time."
+    },
+    {
+      "id": "R01-real-recruitment-sites",
+      "status": "SKIP",
+      "reason": "No real applicant, real application, CAPTCHA, or restricted-site testing is authorized."
+    }
+  ]
+}

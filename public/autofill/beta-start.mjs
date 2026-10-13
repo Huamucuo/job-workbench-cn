@@ -1,0 +1,3 @@
+const status=document.querySelector('#copy-status'),input=document.querySelector('#extension-dir');
+try{const response=await fetch('/__installation',{cache:'no-store'});if(!response.ok)throw new Error('服务未返回安装目录');const data=await response.json();input.value=data.extensionDir;document.querySelector('#extension-version').textContent=data.version;}catch{input.value='发行文件夹中的 extension 子目录';status.textContent='请先双击“开始使用.exe”，再从首页打开本指引。';}
+document.querySelector('#copy-extension-dir').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(input.value);status.textContent='安装目录已复制；在浏览器“加载解压缩的扩展”的目录选择窗口粘贴它。';}catch{input.focus();input.select();status.textContent='浏览器未允许自动复制；目录已选中，请按 Ctrl+C。';}});

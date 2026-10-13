@@ -1,0 +1,11 @@
+import {cp,mkdir,readFile,writeFile} from 'node:fs/promises';
+const root=new URL('../',import.meta.url);
+const guide=await readFile(new URL('docs/beta/首次使用.html',root),'utf8');
+await mkdir(new URL('public/help/beta',root),{recursive:true});
+await writeFile(new URL('public/help/beta.html',root),guide.replace('href="guide.css"','href="beta-guide.css"').replaceAll('src="screenshots/','src="beta/').replace('href="验收报告.html"','href="beta-report.html"').replace('href="维护交接.md"','href="beta-handoff.txt"'));
+const report=await readFile(new URL('docs/beta/验收报告.html',root),'utf8');
+await writeFile(new URL('public/help/beta-report.html',root),report.replace('href="guide.css"','href="beta-guide.css"').replaceAll('src="screenshots/','src="beta/').replaceAll('href="首次使用.html"','href="beta.html"').replaceAll('href="维护交接.md"','href="beta-handoff.txt"'));
+await cp(new URL('docs/beta/guide.css',root),new URL('public/help/beta-guide.css',root));
+await cp(new URL('docs/beta/screenshots',root),new URL('public/help/beta',root),{recursive:true});
+await cp(new URL('docs/beta/维护交接.md',root),new URL('public/help/beta-handoff.txt',root));
+console.log('Synced canonical Beta guide, report and actual screenshots.');

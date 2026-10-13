@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-13T03:10:27.7229215+08:00",
+  "bundle": "C:\\Users\\ASUS\\.codex\\.chatgpt-projects\\g-p-6ac9ec510b5881919595552d528cc3bd\\job-beta\\release\\求职工作台-Beta-0.4.1-rc.1",
+  "checks": [
+    {
+      "name": "compiled executable exits successfully",
+      "passed": true,
+      "details": 0
+    },
+    {
+      "name": "actual loopback service has expected Beta version",
+      "passed": true,
+      "details": {
+        "app": "job-workbench-cn",
+        "version": "0.4.1-beta.1",
+        "pid": 57756
+      }
+    },
+    {
+      "name": "service uses the runtime bundled in this directory",
+      "passed": true,
+      "details": "C:\\Users\\ASUS\\.codex\\.chatgpt-projects\\g-p-6ac9ec510b5881919595552d528cc3bd\\job-beta\\release\\求职工作台-Beta-0.4.1-rc.1\\runtime\\node.exe"
+    },
+    {
+      "name": "service only listens on IPv4 loopback",
+      "passed": true,
+      "details": [
+        "TCP    127.0.0.1:47841        0.0.0.0:0              LISTENING       57756"
+      ]
+    },
+    {
+      "name": "installation guide returns exact live extension directory",
+      "passed": true,
+      "details": {
+        "extensionDir": "C:\\Users\\ASUS\\.codex\\.chatgpt-projects\\g-p-6ac9ec510b5881919595552d528cc3bd\\job-beta\\release\\求职工作台-Beta-0.4.1-rc.1\\extension",
+        "version": "0.4.1-beta.1",
+        "workbenchUrl": "http://127.0.0.1:47841"
+      }
+    },
+    {
+      "name": "real homepage has import profile autofill and search entries",
+      "passed": true,
+      "details": 200
+    },
+    {
+      "name": "stop executable exits successfully",
+      "passed": true,
+      "details": 0
+    },
+    {
+      "name": "only the owned local service stopped",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "startupMs": 1499.4,
+  "browserOpeningRequested": false,
+  "startupWasMeasuredHuman": false,
+  "runtimeSHA256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+  "launcherSHA256": "c8d4a1cf44d8ff26240f7b26e7c748dbe57cb7446c6c969768af6c3c11e95532",
+  "passed": true
+}

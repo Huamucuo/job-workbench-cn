@@ -1,0 +1,613 @@
+{
+  "version": "0.4.1-beta.1",
+  "date": "2026-10-13",
+  "browser": "Isolated Microsoft Edge MV3 actual toolbar sidePanel",
+  "mainRun": "headful-1791831373027",
+  "mainAssertions": {
+    "pass": 41,
+    "fail": 0,
+    "skip": 1
+  },
+  "mainFinalHarnessError": "Initial idle UI expectation included redacted query. Original failure preserved. Idle separately rerun with exact Chrome target/tab proof.",
+  "cases": [
+    {
+      "id": "CP00-real-toolbar-feature-red",
+      "status": "PASS"
+    },
+    {
+      "id": "CP01-preview-uncommitted",
+      "status": "PASS"
+    },
+    {
+      "id": "CP01-independent-docx-literals",
+      "status": "PASS"
+    },
+    {
+      "id": "CP02-actual-sidepanel-once",
+      "status": "PASS"
+    },
+    {
+      "id": "CP03-contact-protected-prefill",
+      "status": "PASS"
+    },
+    {
+      "id": "CP03b-own-fill-no-repeat",
+      "status": "PASS"
+    },
+    {
+      "id": "CP04-manual-correction",
+      "status": "PASS"
+    },
+    {
+      "id": "CP05-explicit-async-prepare",
+      "status": "PASS"
+    },
+    {
+      "id": "CP06-education-two-records",
+      "status": "PASS"
+    },
+    {
+      "id": "CP07-duplicate-record-protection",
+      "status": "PASS"
+    },
+    {
+      "id": "CP08-same-url-refresh",
+      "status": "PASS"
+    },
+    {
+      "id": "CP09-back-keeps-manual-correction",
+      "status": "PASS"
+    },
+    {
+      "id": "CP10a-worker-restart-requested",
+      "status": "PASS"
+    },
+    {
+      "id": "CP10-work-internships-projects-two-each",
+      "status": "PASS"
+    },
+    {
+      "id": "CP11-conditional-user-choice",
+      "status": "PASS"
+    },
+    {
+      "id": "CP11-async-city-options",
+      "status": "PASS"
+    },
+    {
+      "id": "CP12-no-url-preview-invalidation",
+      "status": "PASS"
+    },
+    {
+      "id": "CP13-skills-certificates",
+      "status": "PASS"
+    },
+    {
+      "id": "CP14-uploads-declarations-unknown",
+      "status": "PASS"
+    },
+    {
+      "id": "CP15-six-url-final-submit-zero",
+      "status": "PASS"
+    },
+    {
+      "id": "CP17-other-tab-refusal",
+      "status": "PASS"
+    },
+    {
+      "id": "CP16-application-key-change",
+      "status": "PASS"
+    },
+    {
+      "id": "CP18-cross-origin-refusal",
+      "status": "PASS"
+    },
+    {
+      "id": "CP19-lock-clears-preview",
+      "status": "PASS"
+    },
+    {
+      "id": "CP20-end-clears-scope",
+      "status": "PASS"
+    },
+    {
+      "id": "CP21-unchanged-ciphertext-single-unlock-zero-scan",
+      "status": "PASS"
+    },
+    {
+      "id": "CP22-at-rest-no-plaintext",
+      "status": "PASS"
+    },
+    {
+      "id": "CP23-no-outbound-no-post",
+      "status": "PASS"
+    },
+    {
+      "id": "CX01-canonical-change-locks-clears-profile",
+      "status": "PASS"
+    },
+    {
+      "id": "CX02a-real-sidepanel-api-close",
+      "status": "SKIP"
+    },
+    {
+      "id": "CX02c-global-window-api-lifecycle",
+      "status": "PASS"
+    },
+    {
+      "id": "CX02d-onClosed-observation",
+      "status": "MEASURED"
+    },
+    {
+      "id": "CX02e-global-api-reopen-gate",
+      "status": "PASS"
+    },
+    {
+      "id": "CX02-destroy-document-reopen-stays-locked",
+      "status": "PASS"
+    },
+    {
+      "id": "CX03-permission-lost-no-regrant-on-return",
+      "status": "PASS"
+    },
+    {
+      "id": "CX04-navigation-refresh-overlaps-scan",
+      "status": "PASS"
+    },
+    {
+      "id": "CX05-real-lock-cancels-pending-city",
+      "status": "PASS"
+    },
+    {
+      "id": "CX06-in-flight-manual-correction-preserved",
+      "status": "PASS"
+    },
+    {
+      "id": "CX07-same-request-lock-B-refused",
+      "status": "PASS"
+    },
+    {
+      "id": "CX08-same-request-lock-A-restored",
+      "status": "PASS"
+    },
+    {
+      "id": "CX09-end-new-request-B-allowed",
+      "status": "PASS"
+    },
+    {
+      "id": "CX10-edit-save-reflects-new-page",
+      "status": "PASS"
+    },
+    {
+      "id": "CP26-frozen-production-assets",
+      "status": "PASS"
+    }
+  ],
+  "idleRun": "idle-verified-1791831741596",
+  "idleAssertions": {
+    "pass": 4,
+    "fail": 0,
+    "skip": 0
+  },
+  "idleCases": [
+    {
+      "id": "CI01-valid-live-idle-initial-target",
+      "metadata": {
+        "requestId": "639859a5-3746-4697-821f-6e208f4e6b8d",
+        "tabId": 412055288,
+        "windowId": 412055269,
+        "actualUrl": "http://127.0.0.1:47961/autofill/lab/flow/contact.html?qa_idle=1791831742704",
+        "tabActive": true,
+        "activeTabId": 412055288
+      },
+      "ui": {
+        "gateHidden": true,
+        "panelVisible": true,
+        "scanReady": "true",
+        "previewRows": 10,
+        "rowIds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html",
+        "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+        "visibility": "visible"
+      },
+      "uniqueActualUrl": "http://127.0.0.1:47961/autofill/lab/flow/contact.html?qa_idle=1791831742704",
+      "displayUrlRedactsQuery": true,
+      "profileActiveUIProof": true,
+      "status": "PASS"
+    },
+    {
+      "id": "CI02-real-TTL-rescan-and-five-minute-lock",
+      "counts": {
+        "separateFromPrimaryJourney": true,
+        "unlocks": 1,
+        "manualScans": 0,
+        "writes": 0,
+        "archiveSaves": 0
+      },
+      "initial": {
+        "metadata": {
+          "requestId": "639859a5-3746-4697-821f-6e208f4e6b8d",
+          "tabId": 412055288,
+          "windowId": 412055269,
+          "actualUrl": "http://127.0.0.1:47961/autofill/lab/flow/contact.html?qa_idle=1791831742704",
+          "tabActive": true,
+          "activeTabId": 412055288
+        },
+        "ui": {
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html",
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "visibility": "visible"
+        },
+        "url": "http://127.0.0.1:47961/autofill/lab/flow/contact.html?qa_idle=1791831742704",
+        "displayUrl": "http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+      },
+      "startedAt": "2026-10-12T19:02:23.965Z",
+      "observations": [
+        {
+          "at": "2026-10-12T19:02:53.980Z",
+          "elapsedMs": 30015,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:03:23.987Z",
+          "elapsedMs": 60022,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:03:53.997Z",
+          "elapsedMs": 90032,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:04:24.005Z",
+          "elapsedMs": 120040,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:04:54.019Z",
+          "elapsedMs": 150054,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:05:24.033Z",
+          "elapsedMs": 180068,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:05:54.041Z",
+          "elapsedMs": 210076,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:06:24.053Z",
+          "elapsedMs": 240088,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:06:54.060Z",
+          "elapsedMs": 270095,
+          "status": "已自动检测当前页。核对预览后点击“核对并填写本页”。",
+          "gateHidden": true,
+          "panelVisible": true,
+          "scanReady": "true",
+          "previewRows": 10,
+          "rowIds": [
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30
+          ],
+          "target": "目标：http://127.0.0.1:47961/autofill/lab/flow/contact.html"
+        },
+        {
+          "at": "2026-10-12T19:07:24.068Z",
+          "elapsedMs": 300103,
+          "status": "5分钟没有操作助手，资料已锁定。请重新解锁。",
+          "gateHidden": false,
+          "panelVisible": false,
+          "scanReady": "false",
+          "previewRows": 0,
+          "rowIds": [],
+          "target": ""
+        }
+      ],
+      "faultInjection": false,
+      "weakNodeIdsOnly": true,
+      "sourceSnapshot": {
+        "manifest.json": "ed12038cf1cf79fb5cc3230dade3561b53dada65c670ba7871c4887e614d14d9",
+        "popup.html": "9a940aedfc84e3e36fcffcd1aac7fc2051cd7fc0ef9c4fd0ed25df59d4ae7359",
+        "popup.mjs": "9acae8af6c9f55fdecb9c402c200e5ffee2491f7de95b4689db94492e292d838",
+        "sidepanel.html": "f904703ff20039dfaaf4673896d195e266856e61b25e8b23a425283e07f18266",
+        "sidepanel.mjs": "90b8860a7af897cabb502c5f1e9733b5f8a7a5e6ddc327b245064474b0bd7167",
+        "sidepanel.css": "150655960cb715b889cb2947a6abfa7d7ffceb7cb117bbff68f52f0871b2de64",
+        "session-controller.mjs": "d9ff5cf79c872cc71577779eb258c050df2d656a5c02efc8d6b90f2a10cf8451",
+        "session-policy.mjs": "4a189c1fbb4cca879855afd611aef49de199ef5f31de1ce9c2973e0e6f2619ac",
+        "autofill/page-watch.js": "e8b9040ca0174fdaa943d8b88c350a903f249dc0967bddbafadfef2e52fbafce"
+      },
+      "finishedAt": "2026-10-12T19:07:24.069Z",
+      "actualElapsedMs": 300104,
+      "twoMinuteFreshPreview": true,
+      "fourMinuteFreshPreview": true,
+      "status": "PASS"
+    },
+    {
+      "id": "CI03-reused-archive-no-write-no-save",
+      "counts": {
+        "separateFromPrimaryJourney": true,
+        "unlocks": 1,
+        "manualScans": 0,
+        "writes": 0,
+        "archiveSaves": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "CI04-frozen-production-assets",
+      "integrationInitial": {
+        "manifest.json": "ed12038cf1cf79fb5cc3230dade3561b53dada65c670ba7871c4887e614d14d9",
+        "popup.html": "9a940aedfc84e3e36fcffcd1aac7fc2051cd7fc0ef9c4fd0ed25df59d4ae7359",
+        "popup.mjs": "9acae8af6c9f55fdecb9c402c200e5ffee2491f7de95b4689db94492e292d838",
+        "sidepanel.html": "f904703ff20039dfaaf4673896d195e266856e61b25e8b23a425283e07f18266",
+        "sidepanel.mjs": "90b8860a7af897cabb502c5f1e9733b5f8a7a5e6ddc327b245064474b0bd7167",
+        "sidepanel.css": "150655960cb715b889cb2947a6abfa7d7ffceb7cb117bbff68f52f0871b2de64",
+        "session-controller.mjs": "d9ff5cf79c872cc71577779eb258c050df2d656a5c02efc8d6b90f2a10cf8451",
+        "session-policy.mjs": "4a189c1fbb4cca879855afd611aef49de199ef5f31de1ce9c2973e0e6f2619ac",
+        "autofill/page-watch.js": "e8b9040ca0174fdaa943d8b88c350a903f249dc0967bddbafadfef2e52fbafce"
+      },
+      "integrationFinal": {
+        "manifest.json": "ed12038cf1cf79fb5cc3230dade3561b53dada65c670ba7871c4887e614d14d9",
+        "popup.html": "9a940aedfc84e3e36fcffcd1aac7fc2051cd7fc0ef9c4fd0ed25df59d4ae7359",
+        "popup.mjs": "9acae8af6c9f55fdecb9c402c200e5ffee2491f7de95b4689db94492e292d838",
+        "sidepanel.html": "f904703ff20039dfaaf4673896d195e266856e61b25e8b23a425283e07f18266",
+        "sidepanel.mjs": "90b8860a7af897cabb502c5f1e9733b5f8a7a5e6ddc327b245064474b0bd7167",
+        "sidepanel.css": "150655960cb715b889cb2947a6abfa7d7ffceb7cb117bbff68f52f0871b2de64",
+        "session-controller.mjs": "d9ff5cf79c872cc71577779eb258c050df2d656a5c02efc8d6b90f2a10cf8451",
+        "session-policy.mjs": "4a189c1fbb4cca879855afd611aef49de199ef5f31de1ce9c2973e0e6f2619ac",
+        "autofill/page-watch.js": "e8b9040ca0174fdaa943d8b88c350a903f249dc0967bddbafadfef2e52fbafce"
+      },
+      "status": "PASS"
+    }
+  ],
+  "sourceHashProof": {
+    "initial": {
+      "manifest.json": "ed12038cf1cf79fb5cc3230dade3561b53dada65c670ba7871c4887e614d14d9",
+      "popup.html": "9a940aedfc84e3e36fcffcd1aac7fc2051cd7fc0ef9c4fd0ed25df59d4ae7359",
+      "popup.mjs": "9acae8af6c9f55fdecb9c402c200e5ffee2491f7de95b4689db94492e292d838",
+      "sidepanel.html": "f904703ff20039dfaaf4673896d195e266856e61b25e8b23a425283e07f18266",
+      "sidepanel.mjs": "90b8860a7af897cabb502c5f1e9733b5f8a7a5e6ddc327b245064474b0bd7167",
+      "sidepanel.css": "150655960cb715b889cb2947a6abfa7d7ffceb7cb117bbff68f52f0871b2de64",
+      "session-controller.mjs": "d9ff5cf79c872cc71577779eb258c050df2d656a5c02efc8d6b90f2a10cf8451",
+      "session-policy.mjs": "4a189c1fbb4cca879855afd611aef49de199ef5f31de1ce9c2973e0e6f2619ac",
+      "autofill/page-watch.js": "e8b9040ca0174fdaa943d8b88c350a903f249dc0967bddbafadfef2e52fbafce"
+    },
+    "final": {
+      "manifest.json": "ed12038cf1cf79fb5cc3230dade3561b53dada65c670ba7871c4887e614d14d9",
+      "popup.html": "9a940aedfc84e3e36fcffcd1aac7fc2051cd7fc0ef9c4fd0ed25df59d4ae7359",
+      "popup.mjs": "9acae8af6c9f55fdecb9c402c200e5ffee2491f7de95b4689db94492e292d838",
+      "sidepanel.html": "f904703ff20039dfaaf4673896d195e266856e61b25e8b23a425283e07f18266",
+      "sidepanel.mjs": "90b8860a7af897cabb502c5f1e9733b5f8a7a5e6ddc327b245064474b0bd7167",
+      "sidepanel.css": "150655960cb715b889cb2947a6abfa7d7ffceb7cb117bbff68f52f0871b2de64",
+      "session-controller.mjs": "d9ff5cf79c872cc71577779eb258c050df2d656a5c02efc8d6b90f2a10cf8451",
+      "session-policy.mjs": "4a189c1fbb4cca879855afd611aef49de199ef5f31de1ce9c2973e0e6f2619ac",
+      "autofill/page-watch.js": "e8b9040ca0174fdaa943d8b88c350a903f249dc0967bddbafadfef2e52fbafce"
+    },
+    "unchanged": true
+  },
+  "sharedHashProof": {
+    "initial": {
+      "rules.js": "434c3408f388d2f6cfdca1940fc124b3b0f80da40dce44c426aa6b9512ddffde",
+      "engine.js": "b775072cb2a79679432b4450aceec0793cffec3f92dd2a510d56d8495c56d9e8",
+      "panel.mjs": "a7c2bdfa2d535487d5bcb719aeb510b3dced7aa75659b58153935319c2213748",
+      "profile.mjs": "a4b77767b193fb372881274ee9568befdeff2506c33d4221b2e0f74384d5e6fb",
+      "profile-ui.mjs": "53962a6d71b751583bab3e027675c7eb71bfcd40b7a9800c6fa412d65d84e35d",
+      "vault.mjs": "c67cec90c56c828b76e2463b481890be3384cb2edab288775f167d7ce5144b88",
+      "import-ui.mjs": "b1814eaea361ed17ddf513039c4867c09a9ceab74002506293c724336ef12ca9",
+      "workbench-connection.mjs": "d96cba0cca34e005d8624ca94522bc50400a8e2fae540fff66d271a1e656dcb3",
+      "bridge-client.mjs": "5ad1f09e2cd249dd98a8cc1b3073fa57c0b6c68eb7ae5fddc4a98ca11f7c2197",
+      "background.mjs": "c71b4de894c1e78f39b43400f49ffa79193178d3fdd5ca2681fcc28fb0cb7b7d",
+      "bridge-policy.mjs": "7016ce63dbfb1eb12286e6cdc4f276c105c5c4b432991a9356526557aab4acba",
+      "bridge.js": "4a01d141d55c9299330a3466cef1af454296a6e67afa66a383c07b106045c251",
+      "public/app.mjs": "57aefe0a105b7ddf2fb2e4652fa3c87994eea78729a1bcafd7ff8cc34ae8015d"
+    },
+    "final": {
+      "rules.js": "434c3408f388d2f6cfdca1940fc124b3b0f80da40dce44c426aa6b9512ddffde",
+      "engine.js": "b775072cb2a79679432b4450aceec0793cffec3f92dd2a510d56d8495c56d9e8",
+      "panel.mjs": "a7c2bdfa2d535487d5bcb719aeb510b3dced7aa75659b58153935319c2213748",
+      "profile.mjs": "a4b77767b193fb372881274ee9568befdeff2506c33d4221b2e0f74384d5e6fb",
+      "profile-ui.mjs": "53962a6d71b751583bab3e027675c7eb71bfcd40b7a9800c6fa412d65d84e35d",
+      "vault.mjs": "c67cec90c56c828b76e2463b481890be3384cb2edab288775f167d7ce5144b88",
+      "import-ui.mjs": "b1814eaea361ed17ddf513039c4867c09a9ceab74002506293c724336ef12ca9",
+      "workbench-connection.mjs": "d96cba0cca34e005d8624ca94522bc50400a8e2fae540fff66d271a1e656dcb3",
+      "bridge-client.mjs": "5ad1f09e2cd249dd98a8cc1b3073fa57c0b6c68eb7ae5fddc4a98ca11f7c2197",
+      "background.mjs": "c71b4de894c1e78f39b43400f49ffa79193178d3fdd5ca2681fcc28fb0cb7b7d",
+      "bridge-policy.mjs": "7016ce63dbfb1eb12286e6cdc4f276c105c5c4b432991a9356526557aab4acba",
+      "bridge.js": "4a01d141d55c9299330a3466cef1af454296a6e67afa66a383c07b106045c251",
+      "public/app.mjs": "57aefe0a105b7ddf2fb2e4652fa3c87994eea78729a1bcafd7ff8cc34ae8015d"
+    },
+    "unchanged": true
+  },
+  "operationCounts": {
+    "unlocks": 1,
+    "manualScans": 0,
+    "writes": 5,
+    "prepares": 2,
+    "siteSaves": 4,
+    "siteNext": 6,
+    "siteSameUrlNext": 1,
+    "manualCorrections": 1,
+    "manualConditionalChoices": 1
+  },
+  "formalSubmissionCount": 0,
+  "humanTimeSavingResult": "User waived; no human claim",
+  "dailyEdgeInstall": "manual installation required",
+  "networkScope": "No raw resume/HAR/profile/credentials included in this summary"
+}

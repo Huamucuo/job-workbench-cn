@@ -22,5 +22,5 @@ report.snapshot={generatedAt:data.generatedAt,records:data.jobs.length,sourceRun
 report.passed=report.steps.length===5&&report.steps.every(s=>s.passed);
 await mkdir(resolve(root,'.local'),{recursive:true});
 await writeFile(resolve(root,'.local/check-report.json'),JSON.stringify(report,null,2)+'\n');
-console.log(report.passed?'基础检查全部通过。仍请按 从这里开始-v0.3.0.html 完成浏览器和来源检查。':'存在失败项，请保留 .local/check-report.json 供排查。');
+console.log(report.passed?'基础检查全部通过。完整闭环仍须执行实际扩展验收；请查看 docs/beta/验收报告.html。':'存在失败项，请保留 .local/check-report.json 供排查。');
 process.exitCode=report.passed?0:1;

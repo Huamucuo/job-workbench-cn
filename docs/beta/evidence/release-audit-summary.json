@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-12T15:46:03.418Z",
+  "passed": true,
+  "workingFiles": 625,
+  "historyBlobs": 298,
+  "vendorAssets": 193,
+  "lineEndingOnly": 20,
+  "findings": [],
+  "assetMismatches": [],
+  "publicReleaseApproved": false,
+  "stage": "Before final source commit; final post-commit history scan is in Beta交付清单.json",
+  "scope": "High-confidence token/key/invite patterns and distribution allowlists, not an arbitrary-PII detector or safety certification"
+}

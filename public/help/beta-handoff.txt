@@ -1,0 +1,48 @@
+# 求职工作台 Beta 0.4.0 RC1 维护交接
+
+继续现有项目，不重做、不删原功能、不自动公开发布。用户总目标是一次导入与确认后复用档案；招聘搜索优先级低，来源与状态仍必须真实。本轮没有push、PR、线上部署或改变仓库可见性。
+
+## 版本与入口
+
+- 实施分支：beta/0.4.0-rc.1；起点071edf7bbeac65a31ee1b6d0e0637e0c2ec68cef；基线tag baseline-v0.3.0-20261012；扩展manifest0.4.0，package0.4.0-beta.1。
+- Windows发行目录在原“求职工作台/release/求职工作台-Beta-0.4.0-rc.1”，双击开始使用.exe。端口47841，只监听127.0.0.1。
+- 原版本仍在原根目录，端口47831。旧0.2.1 ZIP SHA256 6dff9030c33f87584f57bfcbfe724ebabb041bf3bbee085c2ad24fc43973d08b；旧0.3 ZIP 2fe3879aca6f50d39ba19dbd623eb47212f97d46b3d21b4a7b981e3d046e4b8f。
+- 完整源码ZIP和含全部本地历史/tag的Git bundle随交付。保留备份后，维护者用bundle恢复分支；普通用户回退只需停止Beta、启动旧目录，勿让旧扩展同时混用。
+
+## 主要文件与接口
+
+public/autofill是唯一共享模块源；extension/autofill由scripts/build-extension.mjs白名单生成，不能单独改扩展镜像。规则/engine/panel分别负责字段含义、页面执行和用户预览。引擎接口scan/apply/prepareGroups保持原契约，最高学历每次明确选择教育记录，关键敏感问题不会被记忆或人工映射绕过。
+
+profile.mjs和resume-profile.schema.json使用schemaVersion2。新增可选academicDegree（原degree仍是学历）、languages、about、attachments、variants、activeVariantId。materializeProfile只覆盖用户写入的description/about表述，不变姓名、机构、日期或学历。旧v2可不带新字段。importData保存文件SHA、原文、行/页、字段来源和待确认，记录引用用稳定ID。
+
+vault.mjs通过storage.get/set/commitVault/addRecovery路由。扩展主档案由background+CanonicalStore串行队列控制。有效保存CAS核验expectedCiphertext，更新上一版并只清理匹配的恢复草稿；恢复追加也是一整个事务，禁止整列覆盖。离线模式仍用本origin WebLock。任何共享连接失败不得静默使用另一份离线库。
+
+bridge-client→隔离content bridge→background，job-beta-v1，WORKBENCH_ORIGIN精确127.0.0.1:47841。manifest端口不能表达，所以两层运行时代码检查origin、允许路径、顶层sender、tab、nonce。probe/link只能识别存在与申请，弹窗control:grant由本人批准；30分钟/新文档不继承。白名单storage键只包含加密档案/上一版/草稿/字段结构记忆，无HTTP档案接口。
+
+Windows/Launcher.cs用Framework编译，runtime/node.exe和确切许可证随Windows包。stop只认自己的PID+实际二进制路径+启动时间。serve.mjs仅GET/HEAD和严格本机Host/Origin，元数据JSON标UTF-8。私有.local/jobs.json只服务数据读取，不进Git或ZIP，不刷新时间。
+
+## 复现与证据
+
+详细维护命令在docs/TESTING.md，普通用户不用命令。先prepare:local、单元、build:extension、package:extension、build。--staging只用于迭代生成下载ZIP；正式package:extension冻结candidate-v0.4.0-rc.1，不得覆盖不同字节。Windows打包需JOB_BUNDLED_NODE和JOB_NODE_LICENSE，拒绝未核验版本/许可证。
+
+实际QA脚本：beta-browser-{profile,bridge,original,workbench}.mjs和beta-engine.browser.mjs。BETA_PLAYWRIGHT指定本机依赖，BETA_ORIGINAL_QA_ROOT默认tests/fixtures/v021，BETA_HISTORICAL_JOBS显式指向私有历史511记录。原20文件由.gitattributes保持字节，不改既有真值。离线浏览器全用新profile，QA端口47842/47943，禁止用日常浏览器数据。
+
+已实际结果：单元81/81；原独立37/37；新MV3闭环32/32+桥11/11=80；引擎浏览器20/20包含原18回归；增强文件2/2各72字段与来源；Windows8/8。截图是实际程序，不是合成。Windows最终文件复核与当前Git head见发行清单，不以报告标题推断版本。
+
+两项独立审查问题保留原反例：提交控制祖先默认激活P1、跨origin恢复草稿丢失P2。修复独立重测通过：祖先3/3提交0、40并发追加+40消费交错。刷新授权继承问题也修复。原始失败、HAR、断言在.local，不随公开包上传。公开摘要不等于全量私有日志。
+
+## 未达项与后续原则
+
+H01真人计时由用户2026-10-12明确免除，不再问每个小步骤；历史SKIP不改。H02自动化1660ms/4785ms并不支持真人30%节时目标，不能换成营销结论。R01真实站点完整兼容仍待验证。先由本人安装并用虚构表单核对，若需要真实账号/敏感页面写入或外部AI/公开发布，才征求具体授权。
+
+当前真实站点：北森只读结构参考（不保存私人邀请URL或字段值），有限同类控件在本机通过；Greenhouse/Ashby真实完整投递未认证；商业平台无专用适配或批采。iframe、Shadow DOM、任意自定义/虚拟选项、OCR、富文本、文件自动上传和验证码人工处理。框架fixture是受控行为模拟，不是整个真实React/Vue项目已测试。
+
+公开部署五项门禁仍false；来源五项redistributionAllowed/automatedAllowed均false，permissionEvidence为空。源码MIT不重新授权招聘内容、字体或个人资料。Node/PDF.js/fflate/CMaps/字体许可与Liberation完整对应源码保留。Git历史秘密模式检查有界，不能取代每次公开前人工范围审查。
+
+可复制给其他Work：在现有求职工作台Beta源码分支，先读取README、docs/beta/验收报告.html和维护交接，验证发行清单/冻结哈希，保留原37项真值和备份。优先按普通用户真实Edge安装与已授权表单验证复用效率；不要重做项目、扩大未经许可的数据、使用真实资料或公开推送。发现Bug先保留失败证据，修复并复测受影响项，不把模拟或脚本耗时冒充真人结果。
+
+## 本轮简化的最终语义
+
+新用户从首页直接打开固定扩展options。open-profile仅UI能力，不读档案、不批准会话、不设置共享标记；storage:*仍需精确页授权。旧本机档案必须明确选择迁移或离线。link仅申请并提示真实toolbar手势，不自动打开缺少activeTab的弹窗。导入主操作审核后apply+save，secondary草稿路径位于#resume-advanced；失败保留dialog/候选，CAS不覆写新master。空gate#start-resume-import直接打开真实picker，备份入口仍#import（恢复加密备份）。
+
+追加复现：tests/import-confirm.browser.mjs（自有47950）、tests/beta-enhanced-files.browser.mjs（47950）、tests/beta-browser-simple-ux.mjs（47841）、tests/beta-workbench-empty.browser.mjs（47951）、scripts/test-windows-launcher-conflict.ps1。不要并行抢同端口；QA输出label尽量短，过长Windows profile路径实际触发过LevelDB 260字符写入限制。原失败记录和字段真值保留。Windows停止操作只由该版本自己的启动器执行。

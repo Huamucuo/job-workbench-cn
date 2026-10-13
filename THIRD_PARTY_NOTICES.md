@@ -9,6 +9,7 @@ Project code and documents use MIT (root LICENSE). This license does not relicen
 | Adobe PDF CMaps | Bundled unchanged in pdfjs-dist | Adobe BSD-style terms; cmaps/LICENSE |
 | Foxit standard fonts | Bundled unchanged in pdfjs-dist | Foxit BSD-style terms; standard_fonts/LICENSE_FOXIT |
 | Liberation Sans | Unmodified 1.07.4, bundled in pdfjs-dist | GPLv2 with font exception; standard_fonts/LICENSE_LIBERATION; full corresponding source included |
+| Node.js Windows runtime | Unmodified 24.19.0; https://nodejs.org/ | MIT and bundled third-party notices; docs/licenses/NODE-24.19.0-LICENSE.txt in source, runtime/NODE-LICENSE.txt in Windows distribution |
 
 Relative component notices are in public/autofill/vendor in the repository and autofill/vendor in the extension. JOB-WORKBENCH-LICENSE.txt accompanies standalone distributions. Individual original copyright notices are retained.
 
@@ -19,3 +20,5 @@ Primary source: https://releases.pagure.org/liberation-fonts/liberation-fonts-1.
 Sample resumes are fictional project-authored test documents. Embedded third-party fonts retain their separate document-embedding terms; no Microsoft font file is distributed as a standalone font. Fixture provenance and the distinction from runtime Liberation fonts are documented in docs/FIXTURE_PROVENANCE.md.
 
 Recruitment APIs and company sites retain their own rights and terms. Access to an endpoint is not permission to redistribute its snapshots. No real snapshot or full announcement is included.
+
+The Windows launcher is project-authored C# source in windows/Launcher.cs and is built with the Windows .NET Framework compiler. The Windows package carries Node's exact-version LICENSE unchanged; no runtime executable or personal browser profile is checked into Git.

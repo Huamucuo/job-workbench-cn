@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-13",
+  "purpose": "Browser permission research only; no production implementation",
+  "method": {
+    "date": "2026-10-13",
+    "browser": "155.0.4283.45",
+    "method": "Actual isolated Edge MV3 permission mechanism. Virtual HTTPS fixture origins are locally fulfilled in Playwright; no external connection, no user data, no profile unlock, no field writes, no application submissions. This is not real ATS compatibility testing.",
+    "fulfilled": [
+      "https://ats.test.invalid/contact",
+      "https://ats.test.invalid/experience",
+      "https://ats.test.invalid/experience",
+      "https://ats.test.invalid/questions",
+      "https://ats.test.invalid/spare",
+      "https://other.test.invalid/login",
+      "https://ats.test.invalid/questions"
+    ],
+    "productCodeChanged": false
+  },
+  "counts": {
+    "pass": 7,
+    "fail": 0
+  },
+  "cases": [
+    {
+      "id": "NAV01-toolbar-grants-read-access",
+      "first": {
+        "ok": true,
+        "data": {
+          "documentId": "1659AD3F9BC0098719BC93864F7792FD",
+          "frameId": 0,
+          "result": {
+            "origin": "https://ats.test.invalid",
+            "path": "/contact",
+            "visible": [
+              "name"
+            ]
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "NAV02-same-origin-new-page-keeps-permission",
+      "before": {
+        "ok": true,
+        "data": {
+          "documentId": "1659AD3F9BC0098719BC93864F7792FD",
+          "frameId": 0,
+          "result": {
+            "origin": "https://ats.test.invalid",
+            "path": "/contact",
+            "visible": [
+              "name"
+            ]
+          }
+        }
+      },
+      "after": {
+        "ok": true,
+        "data": {
+          "documentId": "DB8C0B3B214DC5B27E2195279A81261F",
+          "frameId": 0,
+          "result": {
+            "origin": "https://ats.test.invalid",
+            "path": "/experience",
+            "visible": [
+              "name"
+            ]
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "NAV03-same-URL-reload-has-new-document",
+      "before": {
+        "ok": true,
+        "data": {
+          "documentId": "DB8C0B3B214DC5B27E2195279A81261F",
+          "frameId": 0,
+          "result": {
+            "origin": "https://ats.test.invalid",
+            "path": "/experience",
+            "visible": [
+              "name"
+            ]
+          }
+        }
+      },
+      "after": {
+        "ok": true,
+        "data": {
+          "documentId": "87FF8A8BF2D3D58B171DBF11E8499FD2",
+          "frameId": 0,
+          "result": {
+            "origin": "https://ats.test.invalid",
+            "path": "/experience",
+            "visible": [
+              "name"
+            ]
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "NAV04-same-URL-same-document-step-needs-DOM-detection",
+      "before": {
+        "ok": true,
+        "data": {
+          "documentId": "2C5170B69B93B8269920407AE796B43A",
+          "frameId": 0,
+          "result": {
+            "origin": "https://ats.test.invalid",
+            "path": "/questions",
+            "visible": [
+              "name"
+            ]
+          }
+        }
+      },
+      "after": {
+        "ok": true,
+        "data": {
+          "documentId": "2C5170B69B93B8269920407AE796B43A",
+          "frameId": 0,
+          "result": {
+            "origin": "https://ats.test.invalid",
+            "path": "/questions",
+            "visible": [
+              "school"
+            ]
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "NAV05-new-tab-does-not-inherit-access",
+      "newTab": {
+        "ok": false,
+        "error": "Cannot access contents of the page. Extension manifest must request permission to access the respective host.",
+        "permissionDenied": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "NAV06-cross-origin-revokes-permission",
+      "other": {
+        "ok": false,
+        "error": "Cannot access contents of the page. Extension manifest must request permission to access the respective host.",
+        "permissionDenied": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "NAV07-returning-after-cross-origin-does-not-regrant",
+      "back": {
+        "ok": false,
+        "error": "Cannot access contents of the page. Extension manifest must request permission to access the respective host.",
+        "permissionDenied": true
+      },
+      "status": "PASS"
+    }
+  ],
+  "runtimeAssetsUnchanged": true,
+  "invalidFirstProbeExcluded": true,
+  "scope": "No real applicant account, data or application write. Source content unchanged."
+}

@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-10-12T19:10:53.429Z",
+  "headAtInspection": "8386f32bfc915c8e869fbdc736e7a8f9ec58ad8a",
+  "passed": true,
+  "workingFiles": 675,
+  "historyBlobs": 445,
+  "vendorAssets": 193,
+  "permissions": {
+    "actual": [
+      "activeTab",
+      "scripting",
+      "storage",
+      "sidePanel"
+    ],
+    "hostPermissions": [],
+    "externallyConnectable": null,
+    "contentScripts": [
+      {
+        "matches": [
+          "http://127.0.0.1/*"
+        ],
+        "js": [
+          "bridge.js"
+        ],
+        "run_at": "document_start",
+        "all_frames": false
+      }
+    ]
+  },
+  "publicReleaseGate": false,
+  "findings": [],
+  "assetMismatches": [],
+  "limits": "High-confidence credential and invitation-link patterns plus tracked-path exclusion checks. This is not a semantic detector for arbitrary personal data; independent source review and fictional-fixture provenance remain required."
+}

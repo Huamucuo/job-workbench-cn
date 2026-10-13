@@ -1,0 +1,112 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>求职工作台 · 独立验收台 · 独立QA</title><link rel="stylesheet" href="style.css"><script src="common.js" defer></script></head><body><header><h1>求职工作台 · 独立验收台</h1><div>独立验收模拟系统 · 仅虚构资料 · 绝非真实招聘</div></header><main><nav><a href="index.html">测试入口</a><a href="ordinary.html">企业表单</a><a href="soe.html">国企网申</a><a href="abnormal.html">异常表单</a></nav><section class="card"><h2>三个独立系统</h2><p>本验收台不加载产品的内置演示表单和填写引擎；填写必须通过已安装的真实扩展触发。</p><p><a class="button" href="ordinary.html">A 普通企业</a><a class="button" href="soe.html">B 国企三步网申</a><a class="button" href="abnormal.html">C 异常场景</a></p><details><summary>虚构求职档案（人工填写参考）</summary><pre>{
+  &quot;schemaVersion&quot;: 2,
+  &quot;profileId&quot;: &quot;independent-qa-20261010&quot;,
+  &quot;updatedAt&quot;: &quot;2026-10-10T12:00:00.000Z&quot;,
+  &quot;isFictional&quot;: true,
+  &quot;contact&quot;: {
+    &quot;name&quot;: &quot;验收林澄&quot;,
+    &quot;givenName&quot;: &quot;Cheng&quot;,
+    &quot;familyName&quot;: &quot;Lin&quot;,
+    &quot;email&quot;: &quot;qa.lin.cheng@example.invalid&quot;,
+    &quot;phone&quot;: &quot;19900000000&quot;,
+    &quot;city&quot;: &quot;杭州&quot;,
+    &quot;website&quot;: &quot;https://example.invalid/qa-only&quot;
+  },
+  &quot;education&quot;: [
+    {
+      &quot;id&quot;: &quot;edu-a&quot;,
+      &quot;school&quot;: &quot;虚构东岚大学&quot;,
+      &quot;degree&quot;: &quot;本科&quot;,
+      &quot;major&quot;: &quot;信息管理与信息系统&quot;,
+      &quot;startDate&quot;: &quot;2017-09-01&quot;,
+      &quot;endDate&quot;: &quot;2021-06-30&quot;
+    },
+    {
+      &quot;id&quot;: &quot;edu-b&quot;,
+      &quot;school&quot;: &quot;虚构北辰学院&quot;,
+      &quot;degree&quot;: &quot;硕士&quot;,
+      &quot;major&quot;: &quot;软件工程&quot;,
+      &quot;startDate&quot;: &quot;2021-09&quot;,
+      &quot;endDate&quot;: &quot;2024-06-28&quot;
+    }
+  ],
+  &quot;internships&quot;: [
+    {
+      &quot;id&quot;: &quot;int-a&quot;,
+      &quot;organization&quot;: &quot;虚构青屿实验室&quot;,
+      &quot;title&quot;: &quot;数据实习生&quot;,
+      &quot;startDate&quot;: &quot;2020-07-01&quot;,
+      &quot;endDate&quot;: &quot;2020-09-30&quot;,
+      &quot;description&quot;: &quot;虚构验收：整理测试数据，完成甲模块。&quot;
+    },
+    {
+      &quot;id&quot;: &quot;int-b&quot;,
+      &quot;organization&quot;: &quot;虚构星帆研究所&quot;,
+      &quot;title&quot;: &quot;开发实习生&quot;,
+      &quot;startDate&quot;: &quot;2023-07-01&quot;,
+      &quot;endDate&quot;: &quot;2023-10-20&quot;,
+      &quot;description&quot;: &quot;虚构验收：开发乙模块，记录自动化结果。&quot;
+    }
+  ],
+  &quot;work&quot;: [
+    {
+      &quot;id&quot;: &quot;work-a&quot;,
+      &quot;organization&quot;: &quot;虚构山海科技&quot;,
+      &quot;title&quot;: &quot;质量工程师&quot;,
+      &quot;startDate&quot;: &quot;2024-07-01&quot;,
+      &quot;endDate&quot;: &quot;2026-09-30&quot;,
+      &quot;description&quot;: &quot;虚构验收：维护独立测试平台。&quot;
+    }
+  ],
+  &quot;projects&quot;: [
+    {
+      &quot;id&quot;: &quot;proj-a&quot;,
+      &quot;name&quot;: &quot;虚构项目甲&quot;,
+      &quot;role&quot;: &quot;测试负责人&quot;,
+      &quot;startDate&quot;: &quot;2022-01-15&quot;,
+      &quot;endDate&quot;: &quot;2022-06-30&quot;,
+      &quot;description&quot;: &quot;虚构验收：创建离线测评工具。&quot;
+    },
+    {
+      &quot;id&quot;: &quot;proj-b&quot;,
+      &quot;name&quot;: &quot;虚构项目乙&quot;,
+      &quot;role&quot;: &quot;开发成员&quot;,
+      &quot;startDate&quot;: &quot;2023-01-01&quot;,
+      &quot;endDate&quot;: &quot;2023-12-15&quot;,
+      &quot;description&quot;: &quot;虚构验收：构建网页信息提取样例。&quot;
+    }
+  ],
+  &quot;skills&quot;: [
+    {
+      &quot;id&quot;: &quot;skill-a&quot;,
+      &quot;name&quot;: &quot;JavaScript&quot;,
+      &quot;level&quot;: &quot;熟练&quot;
+    },
+    {
+      &quot;id&quot;: &quot;skill-b&quot;,
+      &quot;name&quot;: &quot;SQL&quot;,
+      &quot;level&quot;: &quot;熟练&quot;
+    }
+  ],
+  &quot;certificates&quot;: [
+    {
+      &quot;id&quot;: &quot;cert-a&quot;,
+      &quot;name&quot;: &quot;虚构数据分析证书&quot;,
+      &quot;issuer&quot;: &quot;虚构认证中心甲&quot;,
+      &quot;date&quot;: &quot;2023-05-18&quot;
+    },
+    {
+      &quot;id&quot;: &quot;cert-b&quot;,
+      &quot;name&quot;: &quot;虚构软件测试证书&quot;,
+      &quot;issuer&quot;: &quot;虚构认证中心乙&quot;,
+      &quot;date&quot;: &quot;2024-03-16&quot;
+    }
+  ],
+  &quot;requiredAdditional&quot;: {
+    &quot;gender&quot;: &quot;女&quot;,
+    &quot;politicalStatus&quot;: &quot;群众&quot;,
+    &quot;province&quot;: &quot;浙江省&quot;,
+    &quot;district&quot;: &quot;西湖区&quot;
+  },
+  &quot;notice&quot;: &quot;所有资料均为独立验收合成，不得用于真实投递；example.invalid 不是真实邮箱。&quot;
+}</pre></details><p>异常场景：<a href="abnormal.html?case=family">family</a> · <a href="abnormal.html?case=ambiguous">ambiguous</a> · <a href="abnormal.html?case=changed">changed</a> · <a href="abnormal.html?case=occupied">occupied</a> · <a href="abnormal.html?case=delay">delay</a> · <a href="abnormal.html?case=dynamic">dynamic</a> · <a href="abnormal.html?case=guarded">guarded</a> · <a href="abnormal.html?case=precision">precision</a> · <a href="abnormal.html?case=custom">custom</a> · <a href="abnormal.html?case=network">network</a></p></section><footer>模拟提交次数：<strong id="submit-count">0</strong> · 本页面不会发送真实申请</footer></main></body></html>

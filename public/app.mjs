@@ -81,7 +81,7 @@ function renderStats(){
  const active=dataset.jobs.filter(j=>['listed','notice_open'].includes(effectiveStatus(j))),salary=dataset.jobs.filter(j=>j.salary.ranges.length),mainland=active.filter(j=>j.regionScopes.includes('中国大陆'));
  const cards=[['核验时在招',active.length,'当前有效快照','↗'],['薪资已披露',salary.length,'保留原币种与周期','¥'],['大陆工作地点',mainland.length,'以来源地点字段为准','⌖'],['已收录来源',dataset.sources.length,'含人工待复核公告','◎']];
  $('#stats').replaceChildren(...cards.map(([label,num,note,icon])=>el('div',{class:'stat'},[el('div',{},[el('div',{class:'stat-label',text:label}),el('div',{class:'stat-number',text:num.toLocaleString('zh-CN')}),el('div',{class:'stat-note',text:note})]),el('span',{class:'stat-icon',text:icon,'aria-hidden':'true'})])));
- $('#updated-at').textContent=`快照生成于 ${formatDate(dataset.generatedAt,true)}（北京时间）`;
+ $('#updated-at').textContent=dataset.generatedAt?`快照生成于 ${formatDate(dataset.generatedAt,true)}（北京时间）`:'尚未导入岗位快照';
 }
 const filterLabels={companyTypes:'企业',regionScopes:'地区',education:'学历',recruitmentTypes:'类型',workSchedules:'制度',workplaceTypes:'办公',location:'城市',major:'专业',graduationYear:'届别',experience:'经验',salaryDisclosure:'薪资',currency:'币种',period:'周期',salaryMin:'最低',salaryMax:'最高',payMonths:'发薪月数',salaryKind:'薪酬',salaryMode:'匹配',publishedAfter:'发布自',publishedBefore:'发布至',deadlineAfter:'截止自',deadlineBefore:'截止至',deadlineDays:'未来天数',tag:'标签',stage:'投递',status:'招聘状态'};
 const displayValue=v=>({disclosed:'数字已披露',undisclosed:'未披露',negotiable:'面议',active:'核验时在招',floor:'薪资下限达标',ote:'OTE',salary:'Salary',...STATUS_LABELS,...PERIOD_LABELS})[v]||v;
@@ -102,9 +102,9 @@ function renderResults(){
  const pages=Math.max(1,Math.ceil(filtered.length/size));page=Math.min(page,pages);
  const heading=view==='saved'?'已收藏':view==='tracked'?'跟进中':'找到';$('#result-count').replaceChildren(`${heading} `,el('em',{text:filtered.length}),' 个机会');
  const unknown=dataset.jobs.filter(j=>j.sourceStatus==='unknown').length;
- $('#coverage-note').textContent=`当前为真实来源的本机研究快照。${unknown} 条公告待复核，可选「含待核验公告」查看；学历、专业、经验等大量未披露，筛选这些条件可能无结果。`;
+ $('#coverage-note').textContent=dataset.jobs.length?`当前为真实来源的本机研究快照。${unknown} 条公告待复核，可选「含待核验公告」查看；学历、专业、经验等大量未披露，筛选这些条件可能无结果。`:'本发行包不包含未经许可的岗位快照。档案与自动填写可独立使用，原本机收藏和投递记录仍保留。';
  const container=$('#job-list');container.replaceChildren(...filtered.slice((page-1)*size,page*size).map(jobCard));
- if(!filtered.length)container.append(el('div',{class:'empty-state'},[el('span',{text:'⌕',class:'stat-icon'}),el('strong',{text:'暂时没有符合条件的机会'}),el('p',{text:'试着减少条件，或查看全部状态。未披露的信息不会被当作符合要求。'}),el('button',{class:'secondary',text:'重置筛选',onClick:resetFilters})]));
+ if(!filtered.length)container.append(el('div',{class:'empty-state'},[el('span',{text:'⌕',class:'stat-icon'}),el('strong',{text:dataset.jobs.length?'暂时没有符合条件的机会':'暂未导入岗位数据'}),el('p',{text:dataset.jobs.length?'试着减少条件，或查看全部状态。未披露的信息不会被当作符合要求。':'可以先使用上方的导入简历与自动填写入口。岗位搜索需有来源和许可的数据，软件不会生成虚构职位。'}),...(dataset.jobs.length?[el('button',{class:'secondary',text:'重置筛选',onClick:resetFilters})]:[])]));
  $('#pagination').replaceChildren(el('button',{text:'← 上一页',disabled:page<=1,onClick:()=>{page--;renderResults();$('#results').scrollIntoView({block:'start'});}}),el('span',{text:`${page} / ${pages} 页 · 每页 ${size} 条`}),el('button',{text:'下一页 →',disabled:page>=pages,onClick:()=>{page++;renderResults();$('#results').scrollIntoView({block:'start'});}}));
  const missing=Object.entries(privateData.records).filter(([id,r])=>!dataset.jobs.some(j=>j.id===id)&&(view==='saved'?r.saved:view==='tracked'&&r.stage!=='未投递'));
  if(missing.length){const old=el('div',{class:'orphan-list'},[el('h3',{text:'旧快照中的本机记录（当前数据未包含）'})]);for(const [id,r] of missing)old.append(el('div',{},[el('strong',{text:r.title||id}),el('p',{text:`${r.company||''} · ${r.stage} · ${(r.tags||[]).join(' / ')}`}),el('p',{text:r.note}),link('查看保留的来源',r.sourceUrl)]));container.append(old);}
@@ -195,7 +195,7 @@ async function init(){
  document.querySelectorAll('[data-quick]').forEach(button=>button.addEventListener('click',()=>{const k=button.dataset.quick;if(k==='mainland')filters.regionScopes=filters.regionScopes?.includes('中国大陆')?[]:['中国大陆'];if(k==='salary')filters.salaryDisclosure=filters.salaryDisclosure==='disclosed'?'':'disclosed';if(k==='deadline')filters.deadlineDays=filters.deadlineDays==='7'?'':'7';if(k==='unknown')filters.status=filters.status?'':'active';page=1;fillFilters();renderResults();}));
  try {
   const response=await fetch('./data/jobs.json',{cache:'no-cache'});if(!response.ok)throw new Error(`读取职位文件失败（${response.status}）`);const data=await response.json();
-  if(data.schemaVersion!==1||!Array.isArray(data.jobs)||!data.jobs.length||!Array.isArray(data.sources))throw new Error('岗位文件为空或版本不支持');
+  if(data.schemaVersion!==1||!Array.isArray(data.jobs)||!Array.isArray(data.sources))throw new Error('岗位文件格式或版本不支持');
   dataset=data;
   const currencySelect=$('select[name="currency"]'),known=new Set([...currencySelect.options].map(o=>o.value));
   for(const currency of [...new Set(dataset.jobs.flatMap(j=>j.salary.ranges.map(r=>r.currency)))].sort())if(!known.has(currency))currencySelect.append(el('option',{text:currency,value:currency}));

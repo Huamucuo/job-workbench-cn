@@ -1,0 +1,12 @@
+# Historical independent fixtures are byte-audited, including their line endings.
+tests/fixtures/v021/** -text
+*.pdf -text
+*.docx -text
+*.png -text
+*.jpg -text
+*.bcmap -text
+*.ttf -text
+*.pfb -text
+*.tar.gz -text
+# Windows PowerShell 5 needs the retained UTF-8 BOM for scripts with Chinese text.
+*.ps1 text eol=crlf
