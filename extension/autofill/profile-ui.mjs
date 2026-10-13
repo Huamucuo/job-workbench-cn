@@ -105,7 +105,7 @@ async function lock(auto=false){
   catch(e){setBusy(false);say('暂不能安全锁定，输入仍保留。请修正或导出备份：'+e.message,true);touch();return;}
   finally{setBusy(false);}
  }
- if(recovery&&!durable){
+ if(recovery&&!durable&&(!auto||local)){
   dirty=true;say('恢复草稿未能存入本机（可能已有5份草稿或空间不足），输入仍保留在编辑器，未关闭档案。请先导出备份，或确认保存当前资料后再关闭；不要刷新或退出。',true);touch();return;
  }
  importer.reset();draft=null;pass=null;dirty=recovery&&!durable;clearTimeout(idle);$('#profile-fields').replaceChildren();$('#vault-password').value='';render();
