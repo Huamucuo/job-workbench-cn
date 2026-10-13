@@ -523,7 +523,7 @@
     },
     "fresh_zip_edge": {
       "counts": {
-        "pass": 4,
+        "pass": 5,
         "fail": 0,
         "skip": 0
       },
@@ -542,13 +542,17 @@
         },
         {
           "id": "installation-page-fits-desktop-and-narrow-widths",
+          "status": "PASS"
+        },
+        {
+          "id": "all-import-entrypoints-reuse-the-one-extension-archive",
           "status": "PASS"
         }
       ]
     },
     "fresh_zip_chrome": {
       "counts": {
-        "pass": 4,
+        "pass": 5,
         "fail": 0,
         "skip": 0
       },
@@ -567,6 +571,10 @@
         },
         {
           "id": "installation-page-fits-desktop-and-narrow-widths",
+          "status": "PASS"
+        },
+        {
+          "id": "all-import-entrypoints-reuse-the-one-extension-archive",
           "status": "PASS"
         }
       ]
@@ -615,10 +623,67 @@
           "status": "PASS"
         }
       ]
+    },
+    "capacity_protected_auto_controlled_clock": {
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "protected-idle-lock-retains-only-encrypted-memory-and-reopens-with-original-password",
+          "status": "PASS"
+        },
+        {
+          "id": "explicit-save-after-recovery-capacity-error-commits-the-current-edit",
+          "status": "PASS"
+        }
+      ]
+    },
+    "capacity_default_manual": {
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "failed-sixth-recovery-keeps-editable-inputs-and-old-archive",
+          "status": "PASS"
+        },
+        {
+          "id": "explicit-save-after-recovery-capacity-error-commits-the-current-edit",
+          "status": "PASS"
+        }
+      ]
+    },
+    "capacity_protected_manual": {
+      "counts": {
+        "pass": 2,
+        "fail": 0,
+        "skip": 0
+      },
+      "cases": [
+        {
+          "id": "failed-sixth-recovery-keeps-editable-inputs-and-old-archive",
+          "status": "PASS"
+        },
+        {
+          "id": "explicit-save-after-recovery-capacity-error-commits-the-current-edit",
+          "status": "PASS"
+        }
+      ]
     }
   },
   "review": {
-    "status": "PENDING"
+    "status": "PASS",
+    "reviewedHead": "01c92e422a14b9d6f254ef774c8a48c68017a607",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "readOnly": true,
+    "scope": "Independent source review and follow-up fix verification; excludes final GitHub download, day-to-day installation, full live-site compatibility and PDF visual reinspection."
   },
   "knownLimits": [
     "Real websites not comprehensively verified",
@@ -648,6 +713,11 @@
       "kind": "historical-fixture",
       "issue": "Old jobs were correctly stale and hidden under active-only default",
       "resolution": "Read archived all-status view explicitly; original bytes and timestamps unchanged; no fixture redistributed"
+    },
+    {
+      "kind": "independent-review",
+      "issue": "Secondary import link used a separate offline archive; full recovery storage could hide an unsaved edit; an initial fix delayed protected idle locking",
+      "resolution": "Unified all import links and accurate offline notices; manual recovery failure retains editor; protected idle expiry retains only encrypted memory with visible warning; explicit Edge/Chrome route and three capacity modes verified"
     }
   ],
   "windowsLauncher": {
@@ -688,6 +758,17 @@
         "name": "only the owned local service stopped",
         "passed": true
       }
+    ]
+  },
+  "nativeBrowserPlan": {
+    "pass": 4,
+    "fail": 0,
+    "dailyBrowserOpened": false,
+    "checks": [
+      "Edge retained",
+      "Chrome retained",
+      "arbitrary URL ignored",
+      "command path ignored"
     ]
   }
 }

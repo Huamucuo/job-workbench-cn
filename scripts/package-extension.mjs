@@ -33,7 +33,7 @@ if(!staging){
   try{if(hash(await readFile(dest))!==checks[n])throw new Error('冻结版本不同，不能覆盖：'+dest);}
   catch(e){if(e.code!=='ENOENT')throw e;await mkdir(dirname(dest),{recursive:true});await writeFile(dest,b);}
  }
- const metadata={version:manifest.version,label,status:'local-beta-release-candidate',frozenAt:new Date().toISOString(),extensionFiles:checks,zipSHA256:hash(zip),zipBytes:zip.length,dailyEdgeInstalled:'requires-user-manual-install',actualAcceptanceReport:'说明与验收/跨页验收报告.html',humanTimeSaving:'user-waived-no-human-result'};
+ const metadata={version:manifest.version,label,status:'local-beta-release-candidate',frozenAt:new Date().toISOString(),extensionFiles:checks,zipSHA256:hash(zip),zipBytes:zip.length,dailyEdgeInstalled:'requires-user-manual-install',actualAcceptanceReport:'https://github.com/Huamucuo/job-workbench-cn/blob/main/docs/beta/公开下载验收-0.4.2.html',humanTimeSaving:'user-waived-no-human-result'};
  try{const prior=JSON.parse(await readFile(resolve(frozen,'candidate.json'),'utf8'));if(prior.zipSHA256!==metadata.zipSHA256)throw new Error('冻结ZIP不同，不能覆盖');}
  catch(e){if(e.code!=='ENOENT')throw e;await writeFile(resolve(frozen,'candidate.json'),JSON.stringify(metadata,null,2)+'\n');}
 }
