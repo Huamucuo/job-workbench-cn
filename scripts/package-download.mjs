@@ -20,7 +20,7 @@ await copyFile(resolve(root,'scripts/serve.mjs'),resolve(bundle,'scripts/serve.m
 await writeFile(resolve(bundle,'package.json'),JSON.stringify({name:pkg.name,version,license:'MIT',type:'module'})+'\n');
 const compiler='C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe';
 for(const [source,dest,extra]of [['windows/Launcher.cs','开始使用.exe',[]],['windows/ExtensionInstaller.cs','安装扩展.exe',['/reference:System.Drawing.dll']]]){
- const r=spawnSync(compiler,['/nologo','/codepage:65001','/utf8output','/target:winexe','/reference:System.Windows.Forms.dll','/reference:System.Web.Extensions.dll',...extra,'/out:'+resolve(bundle,dest),resolve(root,source)],{encoding:'utf8',windowsHide:true});if(r.status!==0)throw new Error('Windows 程序编译失败：'+r.stdout+r.stderr);
+ const r=spawnSync(compiler,['/nologo','/codepage:65001','/utf8output','/target:winexe','/reference:System.Windows.Forms.dll','/reference:System.Web.Extensions.dll',...extra,'/out:'+resolve(bundle,dest),resolve(root,source),resolve(root,'windows/WindowsBrowser.cs')],{encoding:'utf8',windowsHide:true});if(r.status!==0)throw new Error('Windows 程序编译失败：'+r.stdout+r.stderr);
 }
 await copyFile(resolve(bundle,'开始使用.exe'),resolve(bundle,'停止工作台.exe'));
 const guide=await readFile(resolve(root,'public/help/onboarding.html'),'utf8');

@@ -9,7 +9,7 @@ import {readRecoveries,addRecovery,removeRecovered} from './recoveries.mjs';
 const $=s=>document.querySelector(s),status=$('#profile-status');
 let requireExplicitSave=false;
 let recovered=null;let draft=null,pass=null,envelope=null,pending=null,idle=null,dirty=false,busy=false,leaving=false,gateReady=false;
-const importer=mountResumeImport({getDraft:()=>busy||leaving?null:draft,applyDraft:next=>{draft=next;requireExplicitSave=true;markDirty();render();},saveDraft:async()=>{if(!await save())throw new Error(status.textContent.replace(/^未保存：/,''));return true;},savedMessage:()=>pass===null?'导入并保存成功。无需口令，扩展可直接使用这份已确认档案。':'导入并加密保存成功。扩展现在可以使用这份已确认的档案。',onActivity:touch,say:(text,bad)=>say(text,bad)});
+const importer=mountResumeImport({getDraft:()=>busy||leaving?null:draft,applyDraft:next=>{draft=next;requireExplicitSave=true;markDirty();render();},saveDraft:async()=>{if(!await save())throw new Error(status.textContent.replace(/^未保存：/,''));return true;},savedMessage:()=>!isExtension()&&!sharedMode()?'导入并保存成功。当前是旧离线档案，扩展尚未获得这些资料；请导出备份，在扩展“我的档案”中恢复并确认。':pass===null?'导入并保存成功。无需口令，扩展可直接使用这份已确认档案。':'导入并加密保存成功。扩展现在可以使用这份已确认的档案。',onActivity:touch,say:(text,bad)=>say(text,bad)});
 function setBusy(value){busy=value;$('#editor').inert=value;$('#profile-controls').inert=value;$('#vault-gate').inert=value;}
 async function ask(text){return new Promise(resolve=>{const dialog=el('dialog',{class:'af-dialog'});const close=value=>{dialog.close();dialog.remove();resolve(value);};dialog.append(el('h2',{text:'确认修改'}),el('p',{text}),el('div',{class:'af-actions'},[el('button',{type:'button',class:'af-button',text:'确认继续',onClick:()=>close(true)}),el('button',{type:'button',class:'af-button secondary',text:'取消',onClick:()=>close(false)})]));dialog.addEventListener('cancel',e=>{e.preventDefault();close(false);});document.body.append(dialog);dialog.showModal();});}
 async function loadRecoveries(selectLatest=false){const list=readRecoveries(await storage.get(DRAFT_KEY)),select=$('#recovery-list');select.replaceChildren(el('option',{value:'',text:'选择一份加密恢复草稿'}),...list.map((r,i)=>el('option',{value:r.id,text:'草稿 '+(i+1)+' · '+(r.createdAt?new Date(r.createdAt).toLocaleString():'历史草稿')})));select.hidden=!list.length;if(selectLatest&&list.length){recovered=list[0];pending=recovered.envelope;select.value=recovered.id;}updateGateActions();return list;}
@@ -104,6 +104,9 @@ async function lock(auto=false){
   try{pending=await encryptDraft(draft,pass);recovery=true;try{const record={id:crypto.randomUUID(),createdAt:new Date().toISOString(),envelope:pending};await storage.addRecovery({record,recovered});recovered=record;await loadRecoveries();$('#recovery-list').value=record.id;}catch{durable=false;}}
   catch(e){setBusy(false);say('暂不能安全锁定，输入仍保留。请修正或导出备份：'+e.message,true);touch();return;}
   finally{setBusy(false);}
+ }
+ if(recovery&&!durable){
+  dirty=true;say('恢复草稿未能存入本机（可能已有5份草稿或空间不足），输入仍保留在编辑器，未关闭档案。请先导出备份，或确认保存当前资料后再关闭；不要刷新或退出。',true);touch();return;
  }
  importer.reset();draft=null;pass=null;dirty=recovery&&!durable;clearTimeout(idle);$('#profile-fields').replaceChildren();$('#vault-password').value='';render();
  $('#vault-exists').textContent=local?'档案已关闭；有效资料保留在本机。':'档案已锁定。口令不会保留在页面或存储中。';

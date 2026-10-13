@@ -1,4 +1,5 @@
-import {probeBridge,bridgeRequest} from './bridge-client.mjs';
+import {probeBridge,bridgeRequest,sharedMode} from './bridge-client.mjs';
+import {VAULT_KEY} from './vault.mjs';
 import {installationState} from './install-state.mjs';
 const status=document.querySelector('#copy-status'),input=document.querySelector('#extension-dir'),install=document.querySelector('#install-state'),note=document.querySelector('#install-note'),ready=document.querySelector('#continue-import'),expected=document.documentElement.dataset.extensionVersion;
 let actualDirectory=null;
@@ -10,5 +11,11 @@ async function check(){const s=installationState(await probeBridge(),expected);r
 // A newly loaded extension's content script starts in a fresh document.
 // One explicit check therefore refreshes this page and runs the startup probe.
 document.querySelector('#check-installed').addEventListener('click',()=>{location.reload();});
-ready.addEventListener('click',async event=>{event.preventDefault();try{if((await check()).kind!=='ready')return;await bridgeRequest('open-profile');status.textContent='已打开扩展档案。导入、核对并保存一次即可复用。';}catch(e){status.textContent=e.message;}});
+for(const link of document.querySelectorAll('a[href^="./profile.html"]'))link.addEventListener('click',async event=>{
+ event.preventDefault();try{
+  if((await check()).kind!=='ready'){document.querySelector('#install').scrollIntoView({block:'start'});return;}
+  if(localStorage.getItem(VAULT_KEY)&&!sharedMode()){location.assign('./index.html#extension-connection');return;}
+  await bridgeRequest('open-profile');status.textContent='已打开扩展档案。导入、核对并保存一次即可复用。';
+ }catch(e){status.textContent=e.message;}
+});
 await check();window.addEventListener('focus',()=>check());
