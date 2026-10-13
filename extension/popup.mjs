@@ -1,8 +1,9 @@
-import {storage,VAULT_KEY,decryptProfile} from './autofill/vault.mjs';
+import {storage,VAULT_KEY,decryptProfile,usesLocalAccess} from './autofill/vault.mjs';
 import {mountPanel} from './autofill/panel.mjs';
 import {materializeProfile} from './autofill/profile.mjs';
 const $=s=>document.querySelector(s);
-let profile=null,panel=null,idle=null,target=null;
+let profile=null,panel=null,idle=null,target=null,localAccess=false;
+async function refreshAccess(){try{localAccess=usesLocalAccess(await storage.get(VAULT_KEY));$('#password').closest('label').hidden=localAccess;$('#unlock').textContent=localAccess?'使用我的档案':'解锁档案';$('#unlock-status').textContent=localAccess?'使用已确认的本机档案，无需口令；随后核对预览并填写。':'首次使用请进入我的档案。已开启保护的档案需要原口令。';}catch(e){$('#unlock-status').textContent=e.message;}}
 $('#manage').addEventListener('click',()=>chrome.runtime.openOptionsPage());
 let sessionTab=null;
 $('#open-session').addEventListener('click',async()=>{
@@ -35,7 +36,7 @@ async function invoke(method,args=[]){
  return main.data;
 }
 function touch(){clearTimeout(idle);if(profile)idle=setTimeout(lock,300000);}
-function lock(){profile=null;panel?.destroy();panel=null;$('#panel').hidden=true;$('#unlock-box').hidden=false;$('#password').value='';$('#unlock-status').textContent='已锁定，请重新输入口令。';clearTimeout(idle);}
+function lock(){profile=null;panel?.destroy();panel=null;$('#panel').hidden=true;$('#unlock-box').hidden=false;$('#password').value='';$('#unlock-status').textContent=localAccess?'本页预览已结束。需要时点击“使用我的档案”重新开始。':'已锁定，请重新输入口令。';clearTimeout(idle);}
 $('#unlock').addEventListener('click',async()=>{
  const button=$('#unlock');button.disabled=true;
  try{
@@ -55,4 +56,5 @@ async function control(type,params={}){const r=await chrome.runtime.sendMessage(
 $('#connection-consent').addEventListener('change',e=>{$('#approve-workbench').disabled=!e.target.checked;});
 $('#approve-workbench').addEventListener('click',async()=>{if(!pendingWorkbench||!$('#connection-consent').checked)return;const b=$('#approve-workbench');b.disabled=true;try{await control('control:grant',{tabId:pendingWorkbench.tabId,nonce:pendingWorkbench.nonce});$('#connection-result').textContent='连接已批准。回到工作台选择共用档案，然后导入简历。';}catch(e){$('#connection-result').textContent=e.message;}finally{b.disabled=!$('#connection-consent').checked;}});
 $('#revoke-workbench').addEventListener('click',async()=>{try{await control('control:revoke');$('#connection-result').textContent='工作台连接已断开，扩展中的加密档案保留。';}catch(e){$('#connection-result').textContent=e.message;}});
-try{const r=await control('control:status');pendingWorkbench=r.pending;if(r.pending||r.connectedTabs?.length){$('#workbench-approval').hidden=false;$('#connection-details').textContent=r.pending?'目标：'+r.pending.origin+'。请核对是你启动的求职工作台。':'已有工作台连接，你可以随时断开。';}}catch(e){$('#unlock-status').textContent=e.message;}
+try{const r=await control('control:status');pendingWorkbench=r.pending;if(r.pending||r.connectedTabs?.length){$('#workbench-approval').hidden=false;$('#workbench-approval').open=Boolean(r.pending);$('#connection-details').textContent=r.pending?'目标：'+r.pending.origin+'。请核对是你启动的求职工作台。':'已有工作台连接，你可以随时断开。';}}catch(e){$('#unlock-status').textContent=e.message;}
+await refreshAccess();
